@@ -1,16 +1,17 @@
 import QtQuick 2.0
+import "content"
 
 Rectangle {
-    width: 360
-    height: 360
+    width: 400
+    height: 450
     Text {
         text: qsTr("Hello World")
         anchors.centerIn: parent
     }
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
-    }
+    /*ListView{*/
+    /*    id: listview*/
+    /*    anchors.fill:parent*/
+    /*    delegate:RecipeDelegate{}*/
+    /*    model:recipeModel*/
+    /*}*/
 }
