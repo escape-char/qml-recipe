@@ -11,8 +11,14 @@ QML_IMPORT_PATH =
 # CONFIG += mobility
 # MOBILITY +=
 
+#header files for project
+HEADERS += \
+    Headers/database.hpp \
+    Headers/sqlquerymodel.hpp
+
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    sqlquerymodel.cpp
 
 # Installation path
 # target.path =
@@ -20,3 +26,7 @@ SOURCES += main.cpp
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
+
+QT += sql widgets declarative
+
+OTHER_FILES +=
