@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     Q_ASSERT_X(success, "open database connection", "unable to open database");
     success = databaseHandler::create_indices();
     Q_ASSERT_X(success, "create indices for tables", "unable to create table indices");
+    success = databaseHandler::populate();
 
 
     //adding models to qml requires two steps

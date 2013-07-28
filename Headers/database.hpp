@@ -147,28 +147,65 @@ namespace databaseHandler {
         }
         QSqlQuery query;
 
-        bool ok = query.prepare("INSERT INTO recipes(id, name, description, difficulty, timestamp) "
-                                               "VALUES (:id, :name, :description, :difficulty, :timestamp)");
-        //prepare query failed
-        if(!ok){
-            qDebug() << Q_FUNC_INFO << ": preparing query: " << query.lastError().text();
-            return false;
-        }
+        //populate recipe table
+        bool ok = query.exec(
+            "INSERT INTO recipes(title, description, difficulty, rating, duration, image) "
+            "VALUES(\"Blueberry Muffin\", \"A delicious muffin only your grandma would like\","
+                    "\"hard\", 4, 10, \"random-muffin.jpg\"),"
+                "(\"Banana pot pie\", \"Youve had it before. Well here it is again\","
+                    "\"impossible\",1, 1, \"pot.jpg\"),"
+                "(\"vanilla ice yogurt\", \"perfect for a cool day\", \"doable\","
+                    "5, 20, \"yogurt.jpg\"),"
+                "(\"tofu ninja sandwich\", \"sometimes getting punched in the face is a good thing\","
+                    "\"infinity\", 100, 2, \"invisibleninja.jpg\");"
+        );
+        if(!ok){qDebug() << " Failed populating recipes: " << query.lastError().text(); return false;}
 
-        //bind data to record
-        query.bindValue(":name", "testing");
-        query.bindValue(":description", "testing description");
-        query.bindValue(":difficulty", "easy");
-        query.bindValue(":timestamp", "now");
-        query.bindValue(":id", query.lastInsertId());
+        //populate ingredients table
+        ok = query.exec(
+            "INSERT INTO ingredients(ingredient, recipe_id) "
+               "VALUES (\"blueberries\", 1), "
+               "(\"flour\", 1), "
+                "(\"banana\", 2), "
+                " (\"pot\", 2),"
+                " (\"pie\", 2),"
+                " (\"vanilla extract\", 3),"
+                " (\"homemade icecream\", 3),"
+                " (\"magic\", 4);"
+       );
+      if(!ok){qDebug() << " Failed populating ingredients: " << query.lastError().text(); return false;}
+      ok = query.exec(
+         "INSERT INTO directions(step, recipe_id) "
+              "VALUES(\"put the muffin in the microwave and wait patiently\", 1),"
+              "(\"when its ready, eat it\", 1),"
+              "(\"put the blueberries in the pot\", 2),"
+              "(\"put the pot in the pie\", 2),"
+              "(\"this is step 1\", 3),"
+              "(\"this is step 2\", 3),"
+              "(\"this is step 3\", 3),"
+              "(\"this is step 1\", 4),"
+              "(\"this is step 2\", 4),"
+              "(\"this is step 3\", 4);"
+      );
+      if(!ok){qDebug() << " Failed populating directions: " << query.lastError().text(); return false;}
 
-        //execution of query failed
-        if(!query.exec()){
-            qDebug() << Q_FUNC_INFO << "executing query: " << query.lastError().text();
-            return false;
-        }
-        query.exec("SELECT * FROM recipes");
-        return true;
+      //populate categories
+      ok = query.exec(
+         "INSERT INTO categories(name) "
+            "VALUES('fruit'),"
+              "('lunch'),"
+              "('dessert');"
+      );
+      if(!ok){qDebug() << " Failed populating categories: " << query.lastError().text(); return false;}
+
+      //populate many-to-many categories_recipes table
+      ok = query.exec(
+          "INSERT INTO categories_recipes(recipe_id, category_id) "
+              "VALUES(1,1),(2,1),(2,2),(4,2),(3,3);"
+        );
+      if(!ok){qDebug() << " Failed populating categories_recipes: " << query.lastError().text(); return false;}
+
+      return true;
     }
     static void close(){
         QSqlDatabase db = QSqlDatabase::database(CONNECTION_NAME, false);
