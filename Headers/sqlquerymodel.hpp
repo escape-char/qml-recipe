@@ -3,6 +3,25 @@
 
 #include <QSqlQueryModel>
 
+namespace modelquery{
+    const QString RECIPE_QUERY(
+            "SELECT recipes.id AS recipes_id, recipes.title AS title, "
+                "recipes.description, recipes.rating, recipes.difficulty, "
+                "recipes.image, recipes.created, recipes.updated, recipes.duration, "
+                "cr.category_id, "
+                "c.name,"
+                "i.id as ingredient_id, "
+                "GROUP_CONCAT(i.ingredient), "
+                "d.id AS directions_id, "
+                 "GROUP_CONCAT(d.step) "
+            "FROM recipes "
+                "INNER JOIN categories_recipes as cr ON recipes_id=cr.recipe_id "
+                "INNER JOIN categories as c ON cr.category_id = c.id "
+                "INNER JOIN ingredients as i ON recipes.id = i.recipe_id "
+                "INNER JOIN directions as d ON recipes.id = d.recipe_id "
+                 "GROUP BY recipes.id;"
+    );
+}
 //class for querying directions model
 //right now it is read-only
 //TODO: make it write too

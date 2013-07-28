@@ -19,6 +19,10 @@ qrc_*.cpp
 Makefile
 *-build-*
 
+#gedit and vim
+*.swp
+*.*~
+
 #for some reason qt project has .desktop files
 *.desktop
 

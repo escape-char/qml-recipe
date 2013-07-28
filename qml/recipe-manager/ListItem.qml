@@ -15,7 +15,7 @@ Rectangle {
     property string white: "#f3f3f3"
 
     anchors.fill: parent
-
+/*
     XmlListModel {
         id: recipeModel
         source: "content/recipe_manager.xml"
@@ -37,6 +37,7 @@ Rectangle {
              anchors.fill: parent
         }
     }
+    */
 
     /*Rectangle {
         id: listItemCheckboxContainer

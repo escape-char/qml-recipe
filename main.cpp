@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
     //create instance and set query for recipe model
     SqlQueryModel* recipeSqlModel = new SqlQueryModel(qApp);
-    recipeSqlModel->setQuery("SELECT * FROM recipes");
+    recipeSqlModel->setQuery(modelquery::RECIPE_QUERY);
 
     //set context property to use our model for qml
     //first parameter is what to reference model in qml, second is instance of model
