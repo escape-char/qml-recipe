@@ -4,20 +4,14 @@ import QtQuick.XmlListModel 2.0
 import "content"
 
 
-//Item Container
+//ListContainer
 Rectangle {
-    id: listItem
+    id: recipeListContainer
+    height: parent.height
+    width: parent.width * 0.35
 
-    property int topMargin: 20
-    property int leftMargin: 20
-    property int imageSize: 100
-    property int checkBoxContainerWidth: 20
-    property string white: "#f3f3f3"
-
-    anchors.fill: parent
-
-    /*XmlListModel {
-        id: recipeModel
+    XmlListModel {
+        id: recipeModel2
         source: "content/recipe_manager.xml"
         query: "/recipe_manager/recipe"
 
@@ -26,7 +20,7 @@ Rectangle {
         XmlRole { name: "difficulty"; query: "difficulty/string()" }
         XmlRole { name: "duration"; query: "duration/string()" }
         XmlRole { name: "image"; query: "image/string()" }
-    }*/
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -34,68 +28,13 @@ Rectangle {
 
         ListView {
              id: recipeList
-             model: recipeModel
+             model: recipeModel2
              delegate: RecipeDelegate {}
+
+             highlight: Rectangle { color: "#DCE0B8" }
 
              anchors.fill: parent
         }
     }
-
-    /*Rectangle {
-        id: listItemCheckboxContainer
-        color: "#EAEAEA"
-        height: parent.height - topMargin
-        width: 20
-
-        CheckBox{
-            id: listItemCheckBox
-
-            anchors.left: parent.left
-            anchors.leftMargin: 1
-
-            anchors.top: parent.top
-            anchors.topMargin: topMargin
-
-        }
-    }
-
-    Rectangle {
-        id: listItemImagecontainer
-        height: parent.height - topMargin
-        width: 100
-        color: white
-
-        anchors.left: listItemCheckboxContainer.right
-        anchors.leftMargin: 10
-
-        anchors.top: parent.top
-        anchors.topMargin: topMargin
-
-        Image {
-            id: listitemimage
-            source: "100x100.gif"
-            height: 100
-            width: parent.width
-            asynchronous: true
-        }
-    }
-
-    Rectangle {
-        height: parent.height - topMargin
-        width: parent.width - imageSize - checkBoxContainerWidth
-        color: white
-        anchors.left: listItemImagecontainer.right
-        anchors.leftMargin: 10
-
-        Text {
-            id:listitemtitle
-            font.bold: true
-            font.pixelSize: 18
-            text: "Hello world"
-            wrapMode: "WordWrap"
-            anchors.top: parent.top
-            anchors.topMargin: topMargin
-        }
-    } */
 }
 
