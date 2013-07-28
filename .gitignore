@@ -21,3 +21,6 @@ Makefile
 
 #for some reason qt project has .desktop files
 *.desktop
+
+#mac specific
+.DS_Store

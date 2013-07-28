@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<recipe_manager>
+	<recipe>
+		<title>Oatmeal Cookies</title>
+		<description>Yummy Oatmeal Cookies</description>
+		<difficulty>easy</difficulty>
+		<duration>30</duration>
+		<image>100x100.gif</image>
+	</recipe>
+
+	<recipe>
+		<title>Black Bean Soup</title>
+		<description>A health and delciious soup for vegetarians</description>
+		<difficulty>easy</difficulty>
+		<duration>20</duration>
+		<image>100x100.gif</image>
+	</recipe>
+
+	<recipe>
+		<title>Tofu Squares</title>
+		<description>A treat for lovers of tofu</description>
+		<difficulty>easy</difficulty>
+		<duration>10</duration>
+		<image>100x100.gif</image>
+	</recipe>
+</recipe_manager>

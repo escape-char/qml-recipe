@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "content"
 
 Rectangle {
     width: 400
@@ -7,10 +8,10 @@ Rectangle {
         text: qsTr("Hello World")
         anchors.centerIn: parent
     }
-    ListView{
-        id: listview
-        anchors.fill:parent
-        delegate:RecipeDelegate{}
-        model:recipeModel
-    }
+    /*ListView{*/
+    /*    id: listview*/
+    /*    anchors.fill:parent*/
+    /*    delegate:RecipeDelegate{}*/
+    /*    model:recipeModel*/
+    /*}*/
 }
