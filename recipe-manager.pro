@@ -27,6 +27,6 @@ SOURCES += main.cpp \
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
-QT += sql widgets declarative
+QT += sql widgets
 
 OTHER_FILES +=
