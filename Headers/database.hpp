@@ -18,11 +18,7 @@ namespace databaseHandler {
     //default connection name. If you use this default, Qt will automatically use this connection
     //if you change it, you must provide the connection name for each database transaction
     #define CONNECTION_NAME "qt_sql_default_connection"
-
-    //put queries to create tables here
-    #define  RECIPES_QUERY "CREATE TABLE IF NOT EXISTS recipes(id INTEGER PRIMARY KEY autoincrement, name VARCHAR(100) NOT NULL, description text, difficulty VARCHAR(20), timestamp VARCHAR(10))"
-    #define  INGREDIENTS_QUERY "CREATE TABLE  IF NOT EXISTS ingredients(id INTEGER PRIMARY KEY autoincrement, requirement TEXT NOT NULL, recipe INT, FOREIGN KEY(recipe) REFERENCES recipes(id))"
-    #define  DIRECTIONS_QUERY "CREATE TABLE IF NOT EXISTS directions(id INTEGER PRIMARY KEY autoincrement, step TEXT NOT NULL, recipe INT, FOREIGN KEY(recipe), REFERENCES recipes(id))"
+    
 
     static bool createConnection(){
         //add sqlite database to qt
@@ -46,11 +42,112 @@ namespace databaseHandler {
             return false;
         }
 
+        QSqlQuery query; //performs query
+        bool success = query.exec("DROP TABLE IF EXISTS ingredients");
+        success = query.exec(
+            "CREATE TABLE ingredients( \
+                id INTEGER PRIMARY KEY AUTOINCREMENT,\ 
+                ingredient VARCHAR(60) NOT NULL, \
+                recipe_id INT, \
+                FOREIGN KEY(recipe_id) REFERENCES recipes(id) \
+            );") && success;
+        if(!success){qDebug() << Q_FUNC_INFO << ": failed to create ingredients table"; return false;}
+
+        success = query.exec("DROP TABLE if EXISTS categories;");
+        success = query.exec(
+            "CREATE TABLE categories( "
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "name VARCHAR(100) UNIQUE "
+            ");"
+        ) && success;
+        if(!success){qDebug() << Q_FUNC_INFO << ": failed to create categories table" << query.lastError().text(); return false;}
+        success = query.exec("DROP TABLE IF EXISTS directions;");
+        success = query.exec(
+            "CREATE TABLE directions( "
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "step TEXT DEFAULT \", \", "
+                "recipe_id INT, "
+                "FOREIGN KEY(recipe_id) REFERENCES recipes(id) "
+            ");"
+        ) && success;
+        if(!success){qDebug() << Q_FUNC_INFO << ": failed to create directions table"; query.lastError().text();return false;}
+
+        success = query.exec("DROP TABLE IF EXISTS categories_recipes;");
+        success = query.exec (
+            "CREATE TABLE categories_recipes("
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "category_id INTEGER, "
+                "recipe_id INTEGER, "
+                "FOREIGN KEY(category_id) REFERENCES recipes(id), "
+               " FOREIGN KEY(recipe_id) REFERENCES categories(id) "
+            ");"
+        ) && success;
+        if(!success){qDebug() << Q_FUNC_INFO << ": failed to create categories_recipes table"; return false;}
+
+        success = query.exec("DROP TABLE IF EXISTS recipes;");
+        success = query.exec(
+            "CREATE TABLE recipes( "
+                "id INTEGER PRIMARY KEY AUTOINCREMENT,  "
+                "title VARCHAR(155) NOT NULL DEFAULT \"\",  "
+                "description text DEFAULT \"\",  "
+                "difficulty VARCHAR(30) DEFAULT \"\",  "
+                "rating SMALLINT, "
+                "created DATE DEFAULT CURRENT_DATE,  "
+                "updated DATE DEFAULT CURRENT_DATE,  "
+                "duration SMALLINT,  "
+                "image VARCHAR(155) "
+            ");"
+        ) && success;
+        if(!success){qDebug() << Q_FUNC_INFO << ": failed to create recipes table"; return false;}
+
+        return true;
+    }
+    /*
+    static bool create_indices(){
+        QSqlDatabase db = QSqlDatabase::database(CONNECTION_NAME); //get database
+
+        //not a valid driver for db
+        if(!db.isValid()){
+            std::cerr << Q_FUNC_INFO << "Invalid connection name / driver for database" << std::endl;
+            return false;
+        }
+        const QString RECIPES_INDEX( 
+            "Begin; \
+            DROP INDEX IF EXISTS recipes_index; \
+            CREATE INDEX recipes_index ON recipes(title); \
+            COMMIT;"
+        );
+        const QString INGREDIENTS_INDEX ( 
+            "BEGIN; \
+            DROP INDEX IF EXISTS ingredients_index; \ 
+            CREATE INDEX ingredients_index ON ingredients(recipe_id, ingredient); \
+            COMMIT;"
+        );
+        const QString CATEGORIES_INDEX ( 
+            "BEGIN;\
+            DROP INDEX IF EXISTS categories_index; \
+            CREATE INDEX categories_index ON categories(name); \
+            COMMIT;"
+        );
+        const QString DIRECTIONS_INDEX ( 
+            "BEGIN;\
+            DROP INDEX IF EXISTS directions_index; \
+            CREATE INDEX directions_index ON directions(recipe_id, step); \
+            COMMIT;"
+        );
+        const QString CAT_RECIP_INDEX(
+            "BEGIN;\
+            DROP INDEX IF EXISTS cat_recip_index; \ 
+            CREATE INDEX cat_recip_index ON categories_recipes(recipe_id, category_id); \
+            COMMIT;"
+        );
         //start queries to create tables
         QSqlQuery query; //performs query
-        bool success = query.exec(DIRECTIONS_QUERY);
-        success = query.exec(INGREDIENTS_QUERY) && success;
-        success = query.exec(RECIPES_QUERY) && success;
+        bool success = query.exec(DIRECTIONS_INDEX);
+        success = query.exec(CATEGORIES_INDEX) && success;
+        success = query.exec(INGREDIENTS_INDEX) && success;
+        success = query.exec(CAT_RECIP_INDEX) && success;
+        success = query.exec(RECIPES_INDEX) && success;
 
         //one of the queries failed
         if(!success){
@@ -61,8 +158,9 @@ namespace databaseHandler {
 
         return true;
     }
+*/
     //populate database with dummy data
-    static bool dummyData(){
+    static bool populate(){
         QSqlDatabase db = QSqlDatabase::database(CONNECTION_NAME); //get database
 
         //not a valid driver for db

@@ -21,11 +21,6 @@ int main(int argc, char *argv[])
     //this may fail because database tables could already be created
     success = databaseHandler::createTables();
 
-    //populate database with dummy data
-    if(!databaseHandler::dummyData()){
-        qDebug() << "failed to populated database with dummy data";
-    }
-
     //adding models to qml requires two steps
     //1) create instance of new model and set its sql query for the data you want
     //2) set the viewer to use model in its context property.
