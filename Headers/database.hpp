@@ -102,7 +102,6 @@ namespace databaseHandler {
 
         return true;
     }
-    /*
     static bool create_indices(){
         QSqlDatabase db = QSqlDatabase::database(CONNECTION_NAME); //get database
 
@@ -111,54 +110,32 @@ namespace databaseHandler {
             std::cerr << Q_FUNC_INFO << "Invalid connection name / driver for database" << std::endl;
             return false;
         }
-        const QString RECIPES_INDEX( 
-            "Begin; \
-            DROP INDEX IF EXISTS recipes_index; \
-            CREATE INDEX recipes_index ON recipes(title); \
-            COMMIT;"
-        );
-        const QString INGREDIENTS_INDEX ( 
-            "BEGIN; \
-            DROP INDEX IF EXISTS ingredients_index; \ 
-            CREATE INDEX ingredients_index ON ingredients(recipe_id, ingredient); \
-            COMMIT;"
-        );
-        const QString CATEGORIES_INDEX ( 
-            "BEGIN;\
-            DROP INDEX IF EXISTS categories_index; \
-            CREATE INDEX categories_index ON categories(name); \
-            COMMIT;"
-        );
-        const QString DIRECTIONS_INDEX ( 
-            "BEGIN;\
-            DROP INDEX IF EXISTS directions_index; \
-            CREATE INDEX directions_index ON directions(recipe_id, step); \
-            COMMIT;"
-        );
-        const QString CAT_RECIP_INDEX(
-            "BEGIN;\
-            DROP INDEX IF EXISTS cat_recip_index; \ 
-            CREATE INDEX cat_recip_index ON categories_recipes(recipe_id, category_id); \
-            COMMIT;"
-        );
-        //start queries to create tables
         QSqlQuery query; //performs query
-        bool success = query.exec(DIRECTIONS_INDEX);
-        success = query.exec(CATEGORIES_INDEX) && success;
-        success = query.exec(INGREDIENTS_INDEX) && success;
-        success = query.exec(CAT_RECIP_INDEX) && success;
-        success = query.exec(RECIPES_INDEX) && success;
 
-        //one of the queries failed
-        if(!success){
-            QSqlError error = query.lastError();
-            qDebug()<< Q_FUNC_INFO <<  " Queries to create table failed: " << error.text();
-            return false;
-        }
+        bool ok = query.exec("DROP INDEX IF EXISTS recipes_index;");
+        ok = query.exec("CREATE INDEX recipes_index ON recipes(title);") && ok;
+        if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create recipes table index"; return false;}
+
+        ok = query.exec("DROP INDEX IF EXISTS ingredients_index;");
+        ok = query.exec("CREATE INDEX ingredients_index"
+                          " ON ingredients(recipe_id, ingredient);") && ok;
+        if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create ingredients table index"; return false;}
+
+        ok = query.exec("DROP INDEX IF EXISTS categories_index;");
+        ok = query.exec("CREATE INDEX categories_index ON categories(name);") && ok;
+        if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create categories table index"; return false;}
+
+        ok = query.exec("DROP INDEX IF EXISTS directions_index;");
+        ok = query.exec("CREATE INDEX directions_index ON directions(recipe_id, step);") && ok;
+        if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create direction table index"; return false;}
+
+        ok = query.exec("DROP INDEX IF EXISTS cat_recip_index;");
+        ok = query.exec("CREATE INDEX cat_recip_index ON "
+                        "categories_recipes(recipe_id, category_id);") && ok;
+        if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create cat_recip table index"; return false;}
 
         return true;
     }
-*/
     //populate database with dummy data
     static bool populate(){
         QSqlDatabase db = QSqlDatabase::database(CONNECTION_NAME); //get database
