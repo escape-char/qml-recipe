@@ -27,12 +27,12 @@ SOURCES += main.cpp \
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
-QT += sql widgets
 
 OTHER_FILES += \
     100x100.gif \
     recipe_manager.xml \
     README.md
+
 QT += sql widgets
 
 OTHER_FILES +=
