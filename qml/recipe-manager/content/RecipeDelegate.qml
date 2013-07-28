@@ -34,7 +34,7 @@ import QtQuick 2.0
          //Title
          Text {
              id: titleText
-             text: name; width: parent.width; wrapMode: Text.WordWrap
+             text: title; width: parent.width; wrapMode: Text.WordWrap
              font { bold: true; family: "Helvetica"; pointSize: 16 }
              anchors.left: img.right
              anchors.top: parent.top

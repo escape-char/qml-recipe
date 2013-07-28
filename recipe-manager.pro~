@@ -27,11 +27,19 @@ SOURCES += main.cpp \
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
+<<<<<<< Updated upstream
+QT += sql widgets
+
+=======
+>>>>>>> Stashed changes
 OTHER_FILES += \
     100x100.gif \
     recipe_manager.xml \
     README.md
+<<<<<<< Updated upstream
+=======
 
+>>>>>>> Stashed changes
 QT += sql widgets
 
 OTHER_FILES +=

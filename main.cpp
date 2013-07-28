@@ -16,15 +16,14 @@ int main(int argc, char *argv[])
 
     //start database connection and create table
     bool success = databaseHandler::createConnection();
-    Q_ASSERT_X(success, "open database connection", "unable to open database");
-
     //this may fail because database tables could already be created
     success = databaseHandler::createTables();
+    Q_ASSERT_X(success, "created databased tables", "failure creating database tables");
+    Q_ASSERT_X(success, "open database connection", "unable to open database");
+    success = databaseHandler::create_indices();
+    Q_ASSERT_X(success, "create indices for tables", "unable to create table indices");
+    success = databaseHandler::populate();
 
-    //populate database with dummy data
-    if(!databaseHandler::dummyData()){
-        qDebug() << "failed to populated database with dummy data";
-    }
 
     //adding models to qml requires two steps
     //1) create instance of new model and set its sql query for the data you want
@@ -32,7 +31,7 @@ int main(int argc, char *argv[])
 
     //create instance and set query for recipe model
     SqlQueryModel* recipeSqlModel = new SqlQueryModel(qApp);
-    recipeSqlModel->setQuery("SELECT * FROM recipes");
+    recipeSqlModel->setQuery(modelquery::RECIPE_QUERY);
 
     //set context property to use our model for qml
     //first parameter is what to reference model in qml, second is instance of model
