@@ -14,15 +14,12 @@ int main(int argc, char *argv[])
 
     QtQuick2ApplicationViewer viewer; //view for handling widgets
 
-    //start database connection and create table
+    //initialize database
     bool success = databaseHandler::createConnection();
-    //this may fail because database tables could already be created
-    success = databaseHandler::createTables();
-    Q_ASSERT_X(success, "created databased tables", "failure creating database tables");
     Q_ASSERT_X(success, "open database connection", "unable to open database");
+    success = databaseHandler::createTables();
     success = databaseHandler::create_indices();
-    Q_ASSERT_X(success, "create indices for tables", "unable to create table indices");
-    success = databaseHandler::populate();
+    success = databaseHandler::populate(); //populate with data
 
 
     //adding models to qml requires two steps
