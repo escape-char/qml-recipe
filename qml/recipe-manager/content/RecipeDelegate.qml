@@ -19,7 +19,7 @@ import QtQuick.Controls 1.0
 
     Rectangle {
         height: parent.height; width: parent.width
-        color: delegate.ListView.isCurrentItem ? "#DCE0B8" : "white"
+        color: delegate.ListView.isCurrentItem ? "#DCE0B8" : "#EBEBEB"
 
         MouseArea {
             anchors.fill: parent
@@ -71,7 +71,7 @@ import QtQuick.Controls 1.0
                 height: 20
                 text: title
                 wrapMode: Text.WordWrap
-                font { bold: true; family: "Helvetica"; pointSize: 16 }
+                font { bold: true; family: "Helvetica"; pointSize: 12 }
             }
 
             //Rating
@@ -99,7 +99,8 @@ import QtQuick.Controls 1.0
                      id: difficultyText
                      width: 50
                      text: difficulty
-                     wrapMode: Text.WordWrap; font.family: "Helvetica"
+                     color: "#787878"
+                     wrapMode: Text.WordWrap; font.family: "Helvetica"; font.pointSize: 10
                 }
 
                  //Duration
@@ -108,7 +109,8 @@ import QtQuick.Controls 1.0
                      width:  50
                      height: 40
                      text: duration
-                     wrapMode: Text.WordWrap; font.family: "Helvetica"
+                     color: "#787878"
+                     wrapMode: Text.WordWrap; font.family: "Helvetica"; font.pointSize: 10
                      anchors.left: difficultyText.right
                  }
             }
