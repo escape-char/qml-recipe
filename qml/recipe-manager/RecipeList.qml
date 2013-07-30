@@ -35,6 +35,23 @@ Rectangle {
         }
     }
 
+
+    //top border of page bar
+    Rectangle {
+        id: pageBarBorder
+        height: 1; width: parent.width
+        color: "#8A8A8A"
+        anchors.bottom: recipeListContainer.bottom
+    }
+
+    Rectangle {
+        id: pageBar
+        height: 40; width: parent.width
+        color: "#A9A9A9"
+
+        anchors.bottom: pageBarBorder.bottom
+    }
+
     //Right border
     Rectangle {
         height: parent.height

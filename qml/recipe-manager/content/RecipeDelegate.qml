@@ -19,7 +19,7 @@ import QtQuick.Controls 1.0
 
     Rectangle {
         height: parent.height; width: parent.width
-        //color: delegate.ListView.isCurrentItem ? "#DCE0B8" : "white"
+        color: delegate.ListView.isCurrentItem ? "#DCE0B8" : "white"
 
         MouseArea {
             anchors.fill: parent
