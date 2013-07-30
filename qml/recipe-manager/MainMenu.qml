@@ -12,7 +12,7 @@ Rectangle{
             height: parent.height * 0.70
             color: "black"
             anchors.centerIn: parent
-            signal onRecipeBtnClick
+            signal recipeBtnClick
 
 
             //groceries button
