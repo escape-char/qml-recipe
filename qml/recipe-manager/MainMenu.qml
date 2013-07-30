@@ -4,6 +4,7 @@ Rectangle{
    width: 80
    color:"black"
    height: parent.height
+   signal recipeBtnClick()
 
       //filler container for middle buttons
        Rectangle{
@@ -33,6 +34,7 @@ Rectangle{
                 border.width: 0
                 anchors.bottom: groceriesButton.top
             }
+            //Search button
            Button{
                 width: parent.width
                 label:"Search"
@@ -51,6 +53,7 @@ Rectangle{
         height: 70
         anchors.bottom: centerButtons.top
         anchors.bottomMargin: 5
+        onButtonClick: recipeBtnClick()
     }
     //settings
     Button{
