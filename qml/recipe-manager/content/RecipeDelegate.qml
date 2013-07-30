@@ -4,6 +4,7 @@ import QtQuick.Controls 1.0
  Item {
     id: delegate
 
+
     //property to access recipe data from other compontents
     property variant recipeData: model
 
@@ -11,32 +12,39 @@ import QtQuick.Controls 1.0
     property int imageSize: 75
     property int checkBoxWidth: 25
     property int imageHorizMargin: 10
-    property string borderColor: "#cccccc"
+    property string borderColor: "#B8B8B8"
 
     height: itemHeight
     width: delegate.ListView.view.width
+
+
+
+
     Rectangle {
-        anchors.fill: parent
-        color: "white"
+        height: parent.height; width: parent.width
+        //color: delegate.ListView.isCurrentItem ? "#DCE0B8" : "white"
 
         MouseArea {
-            anchors.fill: delegate
+            anchors.fill: parent
             onClicked: {
                 delegate.ListView.view.currentIndex = index
+                for (var prop in delegate.ListViw.view.currentItem) {
+                    console.log(prop)
+                }
             }
         }
-
 
         Rectangle {
             id: checkBoxContainer
             height: parent.height
             width: checkBoxWidth
+            color: "transparent"
 
             anchors.left: parent.left
 
             CheckBox {
                 anchors.top: parent.top
-                anchors.topMargin: 35
+                anchors.topMargin: 40
                 anchors.left: parent.left
                 anchors.leftMargin: 3
             }
@@ -57,7 +65,7 @@ import QtQuick.Controls 1.0
             width: parent.width -imageSize - (imageHorizMargin*2) - checkBoxWidth
 
             anchors.top: parent.top
-            anchors.topMargin: 8
+            anchors.topMargin: 10
             anchors.left: img.right
             anchors.leftMargin: imageHorizMargin
 
@@ -65,10 +73,10 @@ import QtQuick.Controls 1.0
             Text {
                 id: titleText
                 width: parent.width
-                height: 18
+                height: 20
                 text: title
                 wrapMode: Text.WordWrap
-                font { bold: true; family: "Helvetica"; pointSize: 14 }
+                font { bold: true; family: "Helvetica"; pointSize: 16 }
             }
 
             //Rating
@@ -110,11 +118,11 @@ import QtQuick.Controls 1.0
                  }
             }
         }
+    }
 
-        //Bottom Border
-        Rectangle {
-         width: parent.width; height: 1; color: borderColor
-         anchors.bottom: parent.bottom
-        }
+    //Bottom Border
+    Rectangle {
+     width: parent.width; height: 1; color: borderColor
+     anchors.bottom: parent.bottom
     }
  }

@@ -9,6 +9,7 @@ Rectangle {
     id: recipeListComponent
     height: parent.height
     width: parent.width * 0.35
+    color: "white"
 
     XmlListModel {
         id: recipeModel2
@@ -32,7 +33,7 @@ Rectangle {
              model: recipeModel2
              delegate: RecipeDelegate {}
 
-             highlight: Rectangle { color: "#DCE0B8" }
+             highlight: Rectangle { color: "#DCE0B8"; }
 
              anchors.fill: parent
         }
