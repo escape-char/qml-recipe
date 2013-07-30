@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.XmlListModel 2.0
 import "content"
+import "fontawesome.js" as FontAwesome
+
 
 
 //ListContainer
@@ -40,7 +42,21 @@ Rectangle {
     //Pagination bar
     ActionBar {
         anchors.top: recipeListContainer.bottom
-        ActionBarButton {}
+        //Previous Page Button
+        ActionBarButton {
+           icon: FontAwesome.Icon.ArrowLeft
+           anchors.left: parent.left
+           anchors.leftMargin: 10
+
+        }
+
+        //Next Page Button
+        ActionBarButton {
+           icon: FontAwesome.Icon.ArrowRight
+           anchors.right: parent.right
+           anchors.rightMargin: 10
+        }
+
 
 
     }
