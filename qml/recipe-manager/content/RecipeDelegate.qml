@@ -68,7 +68,6 @@ import QtQuick.Controls 1.0
             Text {
                 id: titleText
                 width: parent.width
-                height: 20
                 text: title
                 wrapMode: Text.WordWrap
                 font { bold: true; family: "Helvetica"; pointSize: 12 }
@@ -107,7 +106,6 @@ import QtQuick.Controls 1.0
                  Text {
                      id: durationText
                      width:  50
-                     height: 40
                      text: duration
                      color: "#787878"
                      wrapMode: Text.WordWrap; font.family: "Helvetica"; font.pointSize: 10
