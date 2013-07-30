@@ -6,18 +6,20 @@ import "content"
 
 //ListContainer
 Rectangle {
-    id: recipeListComponent
+    id: recipeList
     height: parent.height
     width: parent.width
     color: "white"
 
     Rectangle {
         id: recipeListContainer
-        anchors.fill: parent
         color: "#D6D6D6"
 
+        height: parent.height - 45
+        width: parent.width
+
         ListView {
-             id: recipeList
+             id: recipeListContent
              model: recipeModel
              delegate: RecipeDelegate {}
 
@@ -30,26 +32,31 @@ Rectangle {
             height: 1
             width: parent.width
             color: "#BDBDBD"
-            anchors.top: recipeList.bottom
+            anchors.top: recipeListContent.bottom
 
         }
     }
 
+    //Pagination bar
+    ActionBar {
+        anchors.top: recipeListContainer.bottom
 
-    //top border of page bar
-    Rectangle {
-        id: pageBarBorder
-        height: 1; width: parent.width
-        color: "#8A8A8A"
-        anchors.bottom: recipeListContainer.bottom
-    }
+        CustomButton {
+            id: prevPage
+            color: parent.color
+            label: "Previous"
+            anchors.left: parent.left
+        }
 
-    Rectangle {
-        id: pageBar
-        height: 40; width: parent.width
-        color: "#A9A9A9"
+        Text {
+            height: 10
+            width:  30
+            text: "1 of 1"
+            anchors.horizontalCenter: parent.horizontalCenter
 
-        anchors.bottom: pageBarBorder.bottom
+        }
+
+
     }
 
     //Right border
