@@ -40,21 +40,7 @@ Rectangle {
     //Pagination bar
     ActionBar {
         anchors.top: recipeListContainer.bottom
-
-        CustomButton {
-            id: prevPage
-            color: parent.color
-            label: "Previous"
-            anchors.left: parent.left
-        }
-
-        Text {
-            height: 10
-            width:  30
-            text: "1 of 1"
-            anchors.horizontalCenter: parent.horizontalCenter
-
-        }
+        ActionBarButton {}
 
 
     }
