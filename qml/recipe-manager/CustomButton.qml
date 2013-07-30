@@ -6,20 +6,24 @@ Rectangle {
     width: 100
     height: 62
 
-    property string label: "Button"
-    property color defaultColor: "gray"
-    property color defaultBorderColor: "darkgray"
-    property color hoverBorderColor: "white"
-    property color textColor: "white"
+    property string label:                  "Button"
+    property string fontFamily:             "Helvetica"
+    property int    fontSize:               12
+    property color  defaultColor:           "gray"
+    property color  defaultBorderColor:     "darkgray"
+    property color  hoverBorderColor:       "white"
+    property color  textColor:              "white"
 
     signal buttonClick();
 
-    border.color: "darkgray"
+    border.color: defaultBorderColor
 
     //label
     Text{
         id:buttonLabel
         anchors.centerIn: parent
+        font.pointSize: fontSize
+        font.family: fontFamily
         text: label
         color: textColor
     }
