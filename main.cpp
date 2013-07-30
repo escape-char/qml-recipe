@@ -3,6 +3,8 @@
 #include <QtGlobal> //for asserts
 #include <QQmlContext> //for setting context for c++ classes and qml
 #include <QSqlRecord>
+#include <QQmlApplicationEngine>
+
 #include "qtquick2applicationviewer.h"
 #include "Headers/database.hpp"
 #include "Headers/sqlquerymodel.hpp"
@@ -11,6 +13,9 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv); //main application
+
+    //this engines allows us to run QtQuickControls
+    QQmlApplicationEngine engine;
 
     QtQuick2ApplicationViewer viewer; //view for handling widgets
 
@@ -32,10 +37,9 @@ int main(int argc, char *argv[])
 
     //set context property to use our model for qml
     //first parameter is what to reference model in qml, second is instance of model
-    viewer.rootContext()->setContextProperty("recipeModel", recipeSqlModel);
+    engine.rootContext()->setContextProperty("recipeModel", recipeSqlModel);
 
-    viewer.setMainQmlFile(QStringLiteral("qml/recipe-manager/main.qml"));
-    viewer.showExpanded();
+    engine.load(QUrl::fromLocalFile("qml/recipe-manager/main.qml"));
 
     return app.exec();
 }
