@@ -1,21 +1,11 @@
 import QtQuick 2.0
 
 Rectangle { 
-    property Rectangle content: {}
-
     id: actionBar
     height: 41
     width: parent.width
+    color: "#A9A9A9"
 
-
-    //action bar content
-    Row {
-        id: actionBarContent
-        height: 40; width: parent.width
-        Rectangle {
-            color: "#A9A9A9"
-        }
-    }
 
     //Top border
     Rectangle {
