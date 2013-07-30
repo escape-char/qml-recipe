@@ -8,6 +8,8 @@ import "fontawesome.js" as FontAwesome
 
 //ListContainer
 Rectangle {
+    property int currentPage: 1
+    property int lastPage: 2
     id: recipeList
     height: parent.height
     width: parent.width
@@ -42,6 +44,23 @@ Rectangle {
     //Pagination bar
     ActionBar {
         anchors.top: recipeListContainer.bottom
+
+        Rectangle {
+            color: "transparent"
+            height: 17; width: 40
+
+            Text {
+                color: "#6B6B6B"
+                width: parent.width; height: parent.height
+                text: "1 of 1"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
         //Previous Page Button
         ActionBarButton {
            icon: FontAwesome.Icon.ArrowLeft
@@ -56,6 +75,8 @@ Rectangle {
            anchors.right: parent.right
            anchors.rightMargin: 10
         }
+
+
 
 
 
