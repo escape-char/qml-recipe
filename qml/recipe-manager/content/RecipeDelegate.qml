@@ -22,15 +22,12 @@ import QtQuick.Controls 1.0
 
     Rectangle {
         height: parent.height; width: parent.width
-        //color: delegate.ListView.isCurrentItem ? "#DCE0B8" : "white"
+        color: delegate.ListView.isCurrentItem ? "#DCE0B8" : "white"
 
         MouseArea {
             anchors.fill: parent
             onClicked: {
                 delegate.ListView.view.currentIndex = index
-                for (var prop in delegate.ListViw.view.currentItem) {
-                    console.log(prop)
-                }
             }
         }
 
