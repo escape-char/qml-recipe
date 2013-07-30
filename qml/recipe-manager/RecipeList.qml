@@ -8,20 +8,8 @@ import "content"
 Rectangle {
     id: recipeListComponent
     height: parent.height
-    width: parent.width * 0.35
+    width: parent.width
     color: "white"
-
-    XmlListModel {
-        id: recipeModel2
-        source: "content/recipe_manager.xml"
-        query: "/recipe_manager/recipe"
-
-        XmlRole { name: "title"; query: "title/string()" }
-        XmlRole { name: "description"; query: "description/string()" }
-        XmlRole { name: "difficulty"; query: "difficulty/string()" }
-        XmlRole { name: "duration"; query: "duration/string()" }
-        XmlRole { name: "image"; query: "image/string()" }
-    }
 
     Rectangle {
         id: recipeListContainer
@@ -30,7 +18,7 @@ Rectangle {
 
         ListView {
              id: recipeList
-             model: recipeModel2
+             model: recipeModel
              delegate: RecipeDelegate {}
 
              highlight: Rectangle { color: "#DCE0B8"; }

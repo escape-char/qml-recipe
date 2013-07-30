@@ -10,15 +10,12 @@ import QtQuick.Controls 1.0
 
     property int itemHeight: 110
     property int imageSize: 75
-    property int checkBoxWidth: 25
+    property int checkBoxWidth: 10
     property int imageHorizMargin: 10
     property string borderColor: "#B8B8B8"
 
     height: itemHeight
     width: delegate.ListView.view.width
-
-
-
 
     Rectangle {
         height: parent.height; width: parent.width
@@ -31,6 +28,7 @@ import QtQuick.Controls 1.0
             }
         }
 
+        //checkbox
         Rectangle {
             id: checkBoxContainer
             height: parent.height
