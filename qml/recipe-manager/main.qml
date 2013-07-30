@@ -55,14 +55,15 @@ ApplicationWindow{
         resizing: true
         orientation: Qt.Horizontal
 
-        //left panel
+        //categories panel
         Rectangle{
             height: parent.height
-            Layout.minimumWidth: 120
-            Layout.maximumWidth: 140
+            width: 150
+            //Layout.minimumWidth: 150
+            //Layout.maximumWidth: 200
             CategoryPanel{}
         }
-        //middle panel
+        //Recipes List panel
         Rectangle{
             height:parent.height
             width: 250
@@ -70,7 +71,7 @@ ApplicationWindow{
             Layout.maximumWidth:620
             RecipeList{}
         }
-        //right panel
+        //Recipe View panel
         Rectangle{
             color: "lightgray"
             height:parent.height;
