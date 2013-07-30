@@ -1,62 +1,59 @@
 import QtQuick 2.0
 Rectangle{
    id: mainMenu
-   width: 80
-   color:"black"
+   width: 70
+   color:"#444"
    height: parent.height
+
+   signal recipeBtnClick()
 
       //filler container for middle buttons
        Rectangle{
             id: centerButtons
             width:parent.width
             height: parent.height * 0.70
-            color: "black"
             anchors.centerIn: parent
+            color: parent.color
 
 
             //groceries button
-            Button{
+            CustomButton{
                 width: parent.width
                 label: "Groceries"
                 id: groceriesButton
-                color: "black"
                 border.width: 0
                 anchors.top: browseButton.bottom
                 anchors.centerIn: parent
             }
-        //browse button
-            Button{
+            //browse button
+            CustomButton{
                 width: parent.width
                 label:"Browse"
                 id: browseButton
-                color: "black"
                 border.width: 0
                 anchors.bottom: groceriesButton.top
             }
-           Button{
+           CustomButton{
                 width: parent.width
                 label:"Search"
                 id: searchButton
-                color: "black"
                 border.width: 0
                 anchors.top: groceriesButton.bottom
             }
      }
    //add recipe
-    Button{
+    CustomButton{
         id:addRecipeBtn
         label: "Add"
-        defaultColor: "black"
         width: parent.width
         height: 70
         anchors.bottom: centerButtons.top
         anchors.bottomMargin: 5
     }
     //settings
-    Button{
+    CustomButton{
         id:settingsBtn
         label: "Setting"
-        defaultColor: "black"
         width: parent.width
         height: 70
         anchors.top: centerButtons.bottom
