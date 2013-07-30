@@ -4,9 +4,10 @@ import QtQuick.Layouts 1.0
 
 ApplicationWindow{
     id: appWindow
-    width:1000
+    width:950
     height:680
     visible: true
+
     Dialog{
         id: dialog
         contentHeight: 600
@@ -41,7 +42,7 @@ ApplicationWindow{
 
     MainMenu{
         id: mainMenu
-        onRecipeBtnClick:dialog.show()
+        onRecipeBtnClick: dialog.show()
 
     }
 
@@ -64,8 +65,8 @@ ApplicationWindow{
         //middle panel
         Rectangle{
             height:parent.height
-            width:300
-            Layout.minimumWidth:300
+            width: 250
+            Layout.minimumWidth:200
             Layout.maximumWidth:620
             RecipeList{}
         }
