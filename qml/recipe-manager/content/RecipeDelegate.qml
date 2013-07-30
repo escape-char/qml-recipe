@@ -15,103 +15,106 @@ import QtQuick.Controls 1.0
 
     height: itemHeight
     width: delegate.ListView.view.width
-
-
-    MouseArea {
-        anchors.fill: delegate
-        onClicked: {
-            delegate.ListView.view.currentIndex = index
-        }
-    }
-
     Rectangle {
-        id: checkBoxContainer
-        height: parent.height
-        width: checkBoxWidth
-        color: "transparent"
+        anchors.fill: parent
+        color: "white"
 
-        anchors.left: parent.left
+        MouseArea {
+            anchors.fill: delegate
+            onClicked: {
+                delegate.ListView.view.currentIndex = index
+            }
+        }
 
-        CheckBox {
-            anchors.top: parent.top
-            anchors.topMargin: 40
+
+        Rectangle {
+            id: checkBoxContainer
+            height: parent.height
+            width: checkBoxWidth
+
             anchors.left: parent.left
-            anchors.leftMargin: 3
-        }
-    }
 
-    Image {
-        id: img
-        width: imageSize; height: imageSize
-        source: image
-
-        anchors.left: checkBoxContainer.right
-        anchors.leftMargin: imageHorizMargin
-        anchors.top: parent.top
-        anchors.topMargin: 10
-    }
-
-    Rectangle {
-        width: parent.width -imageSize - (imageHorizMargin*2) - checkBoxWidth
-
-        anchors.top: parent.top
-        anchors.topMargin: 10
-        anchors.left: img.right
-        anchors.leftMargin: imageHorizMargin
-
-        //Title
-        Text {
-            id: titleText
-            width: parent.width
-            height: 20
-            text: title
-            wrapMode: Text.WordWrap
-            font { bold: true; family: "Helvetica"; pointSize: 16 }
+            CheckBox {
+                anchors.top: parent.top
+                anchors.topMargin: 35
+                anchors.left: parent.left
+                anchors.leftMargin: 3
+            }
         }
 
-        //Rating
-        Rectangle {
-            id: ratingWidget
-            height: 25
-            width: parent.width - 10
-            color: "lightgrey"
+        Image {
+            id: img
+            width: imageSize; height: imageSize
+            source: image
 
-            anchors.top: titleText.bottom
-            anchors.topMargin: 7
+            anchors.left: checkBoxContainer.right
+            anchors.leftMargin: imageHorizMargin
+            anchors.top: parent.top
+            anchors.topMargin: 10
         }
 
         Rectangle {
-            width: parent.width
-            height: 30
+            width: parent.width -imageSize - (imageHorizMargin*2) - checkBoxWidth
 
-            color: "transparent"
+            anchors.top: parent.top
+            anchors.topMargin: 8
+            anchors.left: img.right
+            anchors.leftMargin: imageHorizMargin
 
-            anchors.top: ratingWidget.bottom
-            anchors.topMargin: 4
-
-            //Difficulty
+            //Title
             Text {
-                 id: difficultyText
-                 width: 50
-                 text: difficulty
-                 wrapMode: Text.WordWrap; font.family: "Helvetica"
+                id: titleText
+                width: parent.width
+                height: 18
+                text: title
+                wrapMode: Text.WordWrap
+                font { bold: true; family: "Helvetica"; pointSize: 14 }
             }
 
-             //Duration
-             Text {
-                 id: durationText
-                 width:  50
-                 height: 40
-                 text: duration
-                 wrapMode: Text.WordWrap; font.family: "Helvetica"
-                 anchors.left: difficultyText.right
-             }
-        }
-    }
+            //Rating
+            Rectangle {
+                id: ratingWidget
+                height: 25
+                width: parent.width - 10
+                color: "lightgrey"
 
-    //Bottom Border
-    Rectangle {
-     width: parent.width; height: 1; color: borderColor
-     anchors.bottom: parent.bottom
+                anchors.top: titleText.bottom
+                anchors.topMargin: 7
+            }
+
+            Rectangle {
+                width: parent.width
+                height: 30
+
+                color: "transparent"
+
+                anchors.top: ratingWidget.bottom
+                anchors.topMargin: 4
+
+                //Difficulty
+                Text {
+                     id: difficultyText
+                     width: 50
+                     text: difficulty
+                     wrapMode: Text.WordWrap; font.family: "Helvetica"
+                }
+
+                 //Duration
+                 Text {
+                     id: durationText
+                     width:  50
+                     height: 40
+                     text: duration
+                     wrapMode: Text.WordWrap; font.family: "Helvetica"
+                     anchors.left: difficultyText.right
+                 }
+            }
+        }
+
+        //Bottom Border
+        Rectangle {
+         width: parent.width; height: 1; color: borderColor
+         anchors.bottom: parent.bottom
+        }
     }
  }

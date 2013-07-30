@@ -6,7 +6,7 @@ import "content"
 
 //ListContainer
 Rectangle {
-    id: recipeListContainer
+    id: recipeListComponent
     height: parent.height
     width: parent.width * 0.35
 
@@ -23,8 +23,9 @@ Rectangle {
     }
 
     Rectangle {
+        id: recipeListContainer
         anchors.fill: parent
-        color: "white"
+        color: "#D6D6D6"
 
         ListView {
              id: recipeList
@@ -35,6 +36,23 @@ Rectangle {
 
              anchors.fill: parent
         }
+
+        Rectangle {
+            height: 1
+            width: parent.width
+            color: "#BDBDBD"
+            anchors.top: recipeList.bottom
+
+        }
+    }
+
+    //Right border
+    Rectangle {
+        height: parent.height
+        width: 1
+        color: "#A2A2A2"
+
+        anchors.left: recipeListContainer.right
     }
 }
 
