@@ -12,6 +12,6 @@ Rectangle {
         id: actionBarBorder
         height: 1; width: parent.width
         color: "#8A8A8A"
-        anchors.bottom: actionBarContent.top
+        anchors.bottom: parent.top
     }
 }
