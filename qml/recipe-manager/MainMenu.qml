@@ -12,7 +12,6 @@ Rectangle{
 
   //filler container for middle buttons
    Rectangle{
-        id: centerButtons
         width:parent.width
         height: parent.height * 0.70
         anchors.verticalCenter: parent.verticalCenter
@@ -26,10 +25,19 @@ Rectangle{
             anchors.top: parent.top
         }
 
+        //Browse Menu Item
         MainMenuItem {
             icon: FontAwesome.Icon.Book
             label: "Browse"
+            isActive: true
             anchors.top: border1.bottom
         }
   }
+
+   //Right Border
+   Rectangle {
+       height: parent.height; width: 1
+       anchors.left: parent.right
+       color: "#CFCFCF"
+   }
 }
