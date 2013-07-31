@@ -10,6 +10,8 @@ Rectangle {
     property string label: "None"
     property bool isActive: false
 
+    signal mainMenuItemClick()
+
     id: mainMenuItem
     width: parent.width
     height: 60
@@ -23,7 +25,7 @@ Rectangle {
         id: buttonMouseArea
         anchors.fill:parent
         hoverEnabled: true
-        //onClicked: buttonClick()
+        onClicked: mainMenuItemClick()
         onEntered: { hovering() }
 
         onExited: { stoppedHovering() }
@@ -42,22 +44,10 @@ Rectangle {
             id: buttonIcon
             color: textColor
             font {pointSize: 32; family: "FontAwesome"}
-            text: FontAwesome.Icon.Book
+            text: icon
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
-
-        /*//Label
-        Text {
-            id: buttonLabel
-            color: textColor
-            font {pointSize: 9; family: "Helvetica"}
-            text: label
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-
-            anchors.top: buttonIcon.bottom
-        }*/
 
         anchors.horizontalCenter: parent.horizontalCenter
     }

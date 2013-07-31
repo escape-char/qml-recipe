@@ -6,16 +6,26 @@ Rectangle{
    width: 70
    color:"#333333"
    height: parent.height
-   signal recipeBtnClick()
+   signal addRecipeButtonClick()
 
    property string dividerColor: "#2B2B2B"
 
+   //add recipes button
+    MainMenuItem{
+        id: addRecipeButton
+        icon: FontAwesome.Icon.PlusSign
+        label: "Add Recipe"
+        isActive: false
+        anchors.bottom: middleButtonsContainer.top
+        onMainMenuItemClick: addRecipeButtonClick()
+    }
+
   //filler container for middle buttons
    Rectangle{
+       id: middleButtonsContainer
         width:parent.width
         height: parent.height * 0.70
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.centerIn:parent
         color: parent.color
 
         Rectangle {

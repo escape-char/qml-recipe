@@ -6,9 +6,9 @@ Item {
     property alias contentWidth: content.width
     property alias contentHeight: content.height
     default property alias children: content.children
+    property color borderColor: "darkgray"
 
     anchors.fill: parent
-
     function close() {
         dialog.closed();
         dialog.opacity = 0;
@@ -42,7 +42,7 @@ Item {
         z: dialog.z + 1
 
         border.width: 5
-        border.color: "#313a5d"
+        border.color:borderColor
         radius: 15
     }
 }

@@ -8,44 +8,13 @@ ApplicationWindow{
     height:680
     visible: true
 
-    Dialog{
-        id: dialog
-        contentHeight: 600
-        contentWidth: 400
-
-        Column{
-            anchors.fill: parent
-            spacing: 15
-            anchors.margins:30
-            Text{
-                id: recipeDialogTitle
-                font { bold: true; family: "Helvetica"; pointSize: 18 }
-                text: "Add Recipe"
-            }
-            //title
-            Text{
-                text: "Title"
-                width:50
-            }
-            TextInput{
-               width: 50
-               text: "enter a title"
-               color: "gray"
-            }
-            //description
-            Text{
-
-            }
-        }
-
-    }
+    Dialog{id: addRecipeDialog}
 
     MainMenu{
         id: mainMenu
-        onRecipeBtnClick: dialog.show()
+        onAddRecipeButtonClick: addRecipeDialog.show()
 
     }
-
     SplitView{
         id: mainSplitView
         height:parent.height
@@ -82,6 +51,4 @@ ApplicationWindow{
         }
 
     }
-
-
 }
