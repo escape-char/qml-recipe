@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.0
 
 ApplicationWindow{
     id: appWindow
-    width:950
+    width:1024
     height:680
     visible: true
 
@@ -58,7 +58,7 @@ ApplicationWindow{
         //categories panel
         Rectangle{
             height: parent.height
-            width: 150
+            width: 145
             //Layout.minimumWidth: 150
             //Layout.maximumWidth: 200
             CategoryPanel{}
@@ -66,7 +66,7 @@ ApplicationWindow{
         //Recipes List panel
         Rectangle{
             height:parent.height
-            width: 250
+            width: 320
             Layout.minimumWidth:200
             Layout.maximumWidth:620
             RecipeList{}
@@ -77,6 +77,7 @@ ApplicationWindow{
             height:parent.height;
             Layout.minimumWidth: 300
             Layout.fillWidth: true
+            RecipeItem {}
 
         }
 
