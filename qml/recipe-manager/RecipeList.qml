@@ -2,22 +2,28 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.XmlListModel 2.0
 import "content"
+import "fontawesome.js" as FontAwesome
+
 
 
 //ListContainer
 Rectangle {
-    id: recipeListComponent
+    property int currentPage: 1
+    property int lastPage: 2
+    id: recipeList
     height: parent.height
     width: parent.width
     color: "white"
 
     Rectangle {
         id: recipeListContainer
-        anchors.fill: parent
         color: "#D6D6D6"
 
+        height: parent.height - 41
+        width: parent.width
+
         ListView {
-             id: recipeList
+             id: recipeListContent
              model: recipeModel
              delegate: RecipeDelegate {}
 
@@ -30,26 +36,50 @@ Rectangle {
             height: 1
             width: parent.width
             color: "#BDBDBD"
-            anchors.top: recipeList.bottom
+            anchors.top: recipeListContent.bottom
 
         }
     }
 
+    //Pagination bar
+    ActionBar {
+        anchors.top: recipeListContainer.bottom
 
-    //top border of page bar
-    Rectangle {
-        id: pageBarBorder
-        height: 1; width: parent.width
-        color: "#8A8A8A"
-        anchors.bottom: recipeListContainer.bottom
-    }
+        Rectangle {
+            color: "transparent"
+            height: 17; width: 40
 
-    Rectangle {
-        id: pageBar
-        height: 40; width: parent.width
-        color: "#A9A9A9"
+            Text {
+                color: "#6B6B6B"
+                width: parent.width; height: parent.height
+                text: "1 of 1"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
 
-        anchors.bottom: pageBarBorder.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+        //Previous Page Button
+        ActionBarButton {
+           icon: FontAwesome.Icon.ArrowLeft
+           anchors.left: parent.left
+           anchors.leftMargin: 10
+
+        }
+
+        //Next Page Button
+        ActionBarButton {
+           icon: FontAwesome.Icon.ArrowRight
+           anchors.right: parent.right
+           anchors.rightMargin: 10
+        }
+
+
+
+
+
     }
 
     //Right border
