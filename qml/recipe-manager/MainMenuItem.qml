@@ -3,15 +3,17 @@ import "fontawesome.js" as FontAwesome
 
 Rectangle {
     property string backgroundColor: "#333333"
-    property string hoverBackgroundColor: "#474747"
+    property string hoverBackgroundColor: "#383838"
+    property string activeBackgroundColor: "#1F1F1F"
     property string textColor: "#EBEBEB"
     property string icon: FontAwesome.Icon.Ok
     property string label: "None"
+    property bool isActive: false
 
     id: mainMenuItem
     width: parent.width
     height: 60
-    color: backgroundColor
+    color: isActive ? activeBackgroundColor : backgroundColor
 
     FontLoader {
         source: "fonts/fontawesome-webfont.ttf"
@@ -31,7 +33,7 @@ Rectangle {
         id: mainMenuItemContent
         width: 45
         height: parent.height - 11
-        color: backgroundColor
+        color: isActive ? activeBackgroundColor : backgroundColor
 
         anchors.verticalCenter: parent.verticalCenter
 
@@ -69,13 +71,12 @@ Rectangle {
     }
 
     function hovering() {
-        console.log("Hovering...")
-        mainMenuItem.color = hoverBackgroundColor
-        mainMenuItemContent.color = hoverBackgroundColor
+        mainMenuItem.color = isActive ? activeBackgroundColor : hoverBackgroundColor
+        mainMenuItemContent.color = isActive ? activeBackgroundColor : hoverBackgroundColor
     }
 
     function stoppedHovering() {
-        mainMenuItem.color = backgroundColor
-        mainMenuItemContent.color = backgroundColor
+        mainMenuItem.color = isActive ? activeBackgroundColor : backgroundColor
+        mainMenuItemContent.color = isActive ? activeBackgroundColor : backgroundColor
     }
 }
