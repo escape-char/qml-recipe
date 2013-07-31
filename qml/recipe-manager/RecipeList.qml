@@ -19,7 +19,7 @@ Rectangle {
         id: recipeListContainer
         color: "#D6D6D6"
 
-        height: parent.height - 45
+        height: parent.height - 41
         width: parent.width
 
         ListView {
