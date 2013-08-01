@@ -22,7 +22,7 @@ namespace modelquery{
                 "INNER JOIN directions as d ON recipes.id = d.recipe_id "
                  "GROUP BY recipes.id;"
     );
-    const QString CATEGORY_QUERY("SELECT name FROM categories");
+    const QString CATEGORY_QUERY("SELECT id, name FROM categories");
 }
 //class for querying directions model
 //right now it is read-only

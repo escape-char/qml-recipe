@@ -35,9 +35,15 @@ int main(int argc, char *argv[])
     SqlQueryModel* recipeSqlModel = new SqlQueryModel(qApp);
     recipeSqlModel->setQuery(modelquery::RECIPE_QUERY);
 
+    SqlQueryModel* categorySqlModel = new SqlQueryModel(qApp);
+    categorySqlModel->setQuery(modelquery::CATEGORY_QUERY);
+
+
     //set context property to use our model for qml
     //first parameter is what to reference model in qml, second is instance of model
     engine.rootContext()->setContextProperty("recipeModel", recipeSqlModel);
+    //add another root context for categories
+    engine.rootContext()->setContextProperty("categoryModel", categorySqlModel);
 
     engine.load(QUrl::fromLocalFile("qml/recipe-manager/main.qml"));
 
