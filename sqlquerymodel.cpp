@@ -59,3 +59,13 @@ void SqlQueryModel::setQuery(const QSqlQuery & query)
     //update role based on query
     generateRoleNames();
 }
+bool SqlQueryModel::updateQuery(QString query){
+    this->setQuery(query);
+
+    //error performing query
+    if(QSqlQueryModel::lastError().isValid()){
+        qDebug() << Q_FUNC_INFO << QSqlQueryModel::lastError();
+        return false;
+    }
+    return true;
+}

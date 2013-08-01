@@ -1,6 +1,7 @@
 #ifndef SQLQUERYMODEL_H
 #define SQLQUERYMODEL_H
 
+#include <string>
 #include <QSqlQueryModel>
 
 namespace modelquery{
@@ -15,7 +16,7 @@ namespace modelquery{
                 "d.id AS directions_id, "
                  "GROUP_CONCAT(d.step) "
             "FROM recipes "
-                "INNER JOIN categories_recipes as cr ON recipes_id=cr.recipe_id "
+                "LEFT JOIN categories_recipes as cr ON recipes_id=cr.recipe_id "
                 "INNER JOIN categories as c ON cr.category_id = c.id "
                 "INNER JOIN ingredients as i ON recipes.id = i.recipe_id "
                 "INNER JOIN directions as d ON recipes.id = d.recipe_id "
@@ -50,6 +51,7 @@ public:
     void setQuery(const QString &query, const QSqlDatabase &db = QSqlDatabase());
     void setQuery(const QSqlQuery &query);
 
+    Q_INVOKABLE bool updateQuery(QString query);
 private:
     //roles for accessing data
     QHash <int, QByteArray> _roles;
