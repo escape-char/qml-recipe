@@ -5,15 +5,21 @@ import "content"
 import "fontawesome.js" as FontAwesome
 
 
-
-//ListContainer
 Rectangle {
     property int currentPage: 1
     property int lastPage: 2
+    property variant currentRecipe
+
+    signal itemClicked()
+    signal loaded()
+
     id: recipeList
     height: parent.height
     width: parent.width
     color: "white"
+
+    onItemClicked: {}
+    onLoaded: {}
 
     Rectangle {
         id: recipeListContainer
@@ -23,20 +29,29 @@ Rectangle {
         width: parent.width
 
         ListView {
-             id: recipeListContent
+             id: recipeListView
              model: recipeModel
-             delegate: RecipeDelegate {}
+             delegate: RecipeDelegate {
+                 onRecipeClicked: {
+                     recipeList.currentRecipe = recipeListView.currentItem.recipeData
+                     itemClicked()
+                 }
+             }
 
              highlight: Rectangle { color: "#DCE0B8"; }
-
              anchors.fill: parent
+
+             Component.onCompleted: {
+                 recipeList.currentRecipe = recipeListView.currentItem.recipeData
+                 loaded()
+             }
         }
 
         Rectangle {
             height: 1
             width: parent.width
             color: "#BDBDBD"
-            anchors.top: recipeListContent.bottom
+            anchors.top: recipeListView.bottom
 
         }
     }

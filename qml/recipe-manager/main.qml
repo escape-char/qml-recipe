@@ -24,7 +24,7 @@ ApplicationWindow{
         resizing: true
         orientation: Qt.Horizontal
 
-        //categories panel
+        //categories pane
         Rectangle{
             height: parent.height
             width: 145
@@ -32,23 +32,49 @@ ApplicationWindow{
             //Layout.maximumWidth: 200
             CategoryPanel{}
         }
-        //Recipes List panel
+        //Recipes List pane
         Rectangle{
+            id: recipeListPane
+
             height:parent.height
             width: 320
             Layout.minimumWidth:200
             Layout.maximumWidth:620
-            RecipeList{}
+            RecipeList {
+                id: recipeList
+                onLoaded: {
+                    recipePane.currentRecipe = recipeList.currentRecipe
+                }
+                onItemClicked: {
+                    recipePane.currentRecipe = recipeList.currentRecipe
+                }
+            }
         }
         //Recipe View panel
         Rectangle{
+            id: recipePane
+
+            property variant currentRecipe
+
+            signal recipeChanged()
+
             color: "lightgray"
             height:parent.height;
             Layout.minimumWidth: 300
             Layout.fillWidth: true
-            RecipeItem {}
 
+
+
+            RecipeItem {
+                id: recipeItem
+                onLoaded: {
+                    recipeItem.recipe = recipePane.currentRecipe
+                }
+            }
+
+            onCurrentRecipeChanged: {
+                recipeItem.recipe = recipePane.currentRecipe
+            }
         }
-
     }
 }
