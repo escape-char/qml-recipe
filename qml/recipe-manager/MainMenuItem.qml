@@ -2,10 +2,10 @@ import QtQuick 2.0
 import "fontawesome.js" as FontAwesome
 
 Rectangle {
-    property string backgroundColor: "#333333"
-    property string hoverBackgroundColor: "#383838"
-    property string activeBackgroundColor: "#1F1F1F"
-    property string textColor: "#EBEBEB"
+    property color backgroundColor: "#333333"
+    property color hoverBackgroundColor: "#383838"
+    property color activeBackgroundColor: "#1F1F1F"
+    property color textColor: "#EBEBEB"
     property string icon: FontAwesome.Icon.Ok
     property string label: "None"
     property bool isActive: false

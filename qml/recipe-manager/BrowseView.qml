@@ -5,11 +5,11 @@ import QtQuick.Layouts 1.0
 SplitView{
     id: mainSplitView
     height:parent.height
-    width: parent.width - mainMenu.width
-    anchors.left: mainMenu.right
+    width: parent.width
     visible:true
     resizing: true
     orientation: Qt.Horizontal
+    state: "HIDE"
 
     //categories pane
     Rectangle{
@@ -61,4 +61,21 @@ SplitView{
             recipeItem.recipe = recipePane.currentRecipe
         }
     }
+    states: [
+        State {
+            name: "SHOW"
+            PropertyChanges {
+                target: mainSplitView
+                visible:true
+            }
+        },
+        State {
+            name: "HIDE"
+            PropertyChanges {
+                target: dialog
+                visible: false
+            }
+        }
+    ]
+
 }

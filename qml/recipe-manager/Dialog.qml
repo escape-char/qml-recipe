@@ -18,7 +18,8 @@ Item {
     }
     signal closed();
 
-    opacity: 0
+    state: "HIDE"
+
     Behavior on opacity {
         NumberAnimation { duration: 500 }
     }
@@ -45,4 +46,20 @@ Item {
         border.color:borderColor
         radius: 15
     }
+    states: [
+        State {
+            name: "SHOW"
+            PropertyChanges {
+                target: dialog
+                opacity: 1
+            }
+        },
+        State {
+            name: "HIDE"
+            PropertyChanges {
+                target: dialog
+                opacity: 0
+            }
+        }
+    ]
 }

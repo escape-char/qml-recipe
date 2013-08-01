@@ -7,6 +7,9 @@ Rectangle{
    color:"#333333"
    height: parent.height
    signal addRecipeButtonClick()
+   signal groceriesButtonClick()
+   signal browseButtonClick()
+   signal settingsButtonClick()
 
    property string dividerColor: "#2B2B2B"
 
@@ -15,34 +18,55 @@ Rectangle{
         id: addRecipeButton
         icon: FontAwesome.Icon.PlusSign
         label: "Add Recipe"
-        isActive: false
-        anchors.bottom: middleButtonsContainer.top
+        anchors.bottom: middleContainer.top
+        backgroundColor: parent.color
         onMainMenuItemClick: addRecipeButtonClick()
     }
 
-  //filler container for middle buttons
+   //middle container holding add recipes, groceries
    Rectangle{
-       id: middleButtonsContainer
+       id: middleContainer
         width:parent.width
         height: parent.height * 0.70
-        anchors.centerIn:parent
+        anchors.centerIn: parent
         color: parent.color
+
+        //Groceries menu item
+        MainMenuItem {
+            id:groceriesButton
+            icon: FontAwesome.Icon.ShoppingCart
+            label: "Groceries"
+            anchors.centerIn:parent
+            onMainMenuItemClick:groceriesButtonClick()
+            backgroundColor: parent.color
+        }
+        //Browse Menu Item
+        MainMenuItem {
+            id:browseButton
+            icon: FontAwesome.Icon.Book
+            label: "Browse"
+            anchors.bottom: groceriesButton.top
+            onMainMenuItemClick: browseButtonClick()
+            backgroundColor: parent.color
+        }
 
         Rectangle {
             id: border1
             height: 1; width: parent.width;
             color: dividerColor
-            anchors.top: parent.top
+            anchors.bottom:browseButton.top;
         }
 
-        //Browse Menu Item
-        MainMenuItem {
-            icon: FontAwesome.Icon.Book
-            label: "Browse"
-            isActive: true
-            anchors.top: border1.bottom
-        }
   }
+   //settings button
+    MainMenuItem {
+        id:settingsButton
+        icon: FontAwesome.Icon.Cogs
+        label: "Settings"
+        anchors.top: middleContainer.bottom
+        onMainMenuItemClick:settingsButtonClick()
+        backgroundColor: parent.color
+    }
    //Right Border
    Rectangle {
        height: parent.height; width: 1
