@@ -1,10 +1,20 @@
 import QtQuick 2.0
 
 Rectangle {
+
+
     id: recipeItem
     height: parent.height
     width: parent.width
     color: "#ffffff"
+
+    property variant recipe
+
+    signal loaded()
+
+    Component.onCompleted: {
+        loaded()
+    }
 
     Rectangle {
         id: recipeItemContent
@@ -13,7 +23,7 @@ Rectangle {
         Text {
             height: 20
             width: parent.width
-            //text: recipeList.currentItem.recipeData.title
+            text: recipe.title
             color: "#444444"
             font {pointSize: 22; bold: true}
         }

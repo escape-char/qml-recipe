@@ -2,8 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 
  Item {
-    id: delegate
-
+    id: recipeDelegate
 
     //property to access recipe data from other compontents
     property variant recipeData: model
@@ -14,19 +13,30 @@ import QtQuick.Controls 1.0
     property int imageHorizMargin: 10
     property string borderColor: "#B8B8B8"
 
+    signal recipeClicked()
+
     height: itemHeight
-    width: delegate.ListView.view.width
+    width: recipeDelegate.ListView.view.width
 
     Rectangle {
+        id: recipeDelegateContainer
         height: parent.height; width: parent.width
-        color: delegate.ListView.isCurrentItem ? "#DCE0B8" : "#EBEBEB"
+        color: recipeDelegate.ListView.isCurrentItem ? "#DCE0B8" : "#EBEBEB"
 
         MouseArea {
+            id: mousearea
             anchors.fill: parent
             onClicked: {
-                delegate.ListView.view.currentIndex = index
+                recipeDelegate.ListView.view.currentIndex = index
+                recipeClicked()
             }
         }
+
+        Component.onCompleted: {
+            mousearea.clicked.connect(recipeClicked)
+        }
+
+
 
         //checkbox
         Rectangle {
