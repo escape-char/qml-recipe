@@ -15,9 +15,9 @@ SplitView{
     Rectangle{
         height: parent.height
         width: 145
-        //Layout.minimumWidth: 150
-        //Layout.maximumWidth: 200
-        CategoryPanel{}
+        Layout.minimumWidth: 150
+        Layout.maximumWidth: 200
+       // CategoryPanel{}
     }
     //Recipes List pane
     Rectangle{

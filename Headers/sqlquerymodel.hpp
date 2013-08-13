@@ -25,8 +25,8 @@ namespace modelquery{
     const QString CATEGORY_QUERY("SELECT id, name FROM categories");
 }
 //class for querying directions model
-//right now it is read-only
-//TODO: make it write too
+//this class only performs read only operations
+//use QSqlTableModel for manipulating tables
 class SqlQueryModel: public QSqlQueryModel {
     Q_OBJECT
 
@@ -43,7 +43,7 @@ public:
     virtual QHash<int, QByteArray> roleNames() const;
 
     //generates role names by adding offset to each column + 1 to Qt:UserRole
-    //each column in table will have a UserRole
+    //each column in table will have a UserkaRole
     void generateRoleNames();
 
     //methods to set query for what data will be retrieved

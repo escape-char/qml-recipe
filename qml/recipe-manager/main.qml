@@ -16,7 +16,7 @@ ApplicationWindow{
        Dialog{id:addRecipeDialog}
        MainMenu{
           id: mainMenu
-          onAddRecipeButtonClick: { appWindow.state = "ADD_RECIPE"}
+          onAddRecipeButtonClick: { tableModel.appendRecord(appWindow.customRecord)}//appWindow.state = "ADD_RECIPE"}
           onGroceriesButtonClick: {appWindow.state = "GROCERIES"}
           onBrowseButtonClick: {appWindow.state = "BROWSE"}
           onSettingsButtonClick:{appWindow.state = "SETTINGS"}

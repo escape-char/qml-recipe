@@ -8,7 +8,7 @@
 #include "qtquick2applicationviewer.h"
 #include "Headers/database.hpp"
 #include "Headers/sqlquerymodel.hpp"
-
+#include "sqltablemodel.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -26,24 +26,17 @@ int main(int argc, char *argv[])
     success = databaseHandler::create_indices();
     success = databaseHandler::populate(); //populate with data
 
-
-    //adding models to qml requires two steps
-    //1) create instance of new model and set its sql query for the data you want
-    //2) set the viewer to use model in its context property.
-
-    //create instance and set query for recipe model
+    //models to be used in QML
+    SqlTableModel* tableModel = new SqlTableModel(qApp);
     SqlQueryModel* recipeSqlModel = new SqlQueryModel(qApp);
     recipeSqlModel->setQuery(modelquery::RECIPE_QUERY);
-
     SqlQueryModel* categorySqlModel = new SqlQueryModel(qApp);
     categorySqlModel->setQuery(modelquery::CATEGORY_QUERY);
 
-
-    //set context property to use our model for qml
-    //first parameter is what to reference model in qml, second is instance of model
+    //set models to be usuable in QML
     engine.rootContext()->setContextProperty("recipeModel", recipeSqlModel);
-    //add another root context for categories
     engine.rootContext()->setContextProperty("categoryModel", categorySqlModel);
+    engine.rootContext()->setContextProperty("tableModel", tableModel);
 
     engine.load(QUrl::fromLocalFile("qml/recipe-manager/main.qml"));
 

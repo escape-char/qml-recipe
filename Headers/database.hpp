@@ -13,8 +13,7 @@ namespace databaseHandler {
     #define DATABASE_NAME  "recipemanager"
 
    //database type
-    #define CONNECTION_TYPE "QSQLITE"
-
+    #define CONNECTION_TYPE "QSQLITE" 
     //default connection name. If you use this default, Qt will automatically use this connection
     //if you change it, you must provide the connection name for each database transaction
     #define CONNECTION_NAME "qt_sql_default_connection"
