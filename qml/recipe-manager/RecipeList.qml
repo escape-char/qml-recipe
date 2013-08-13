@@ -5,6 +5,7 @@ import "content"
 import "fontawesome.js" as FontAwesome
 
 Item {
+    id:container
     property int currentPage: 1
     property int lastPage: 2
     property variant currentRecipe
@@ -28,7 +29,7 @@ Item {
     ListView {
          id: recipeListView
          height:parent.height - pagination.paginationHeight - 26
-         width: background.width - scrollbar.width
+         width: background.width
          model: recipeModel
 
          delegate: RecipeDelegate {

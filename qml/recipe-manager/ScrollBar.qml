@@ -7,7 +7,7 @@ Rectangle {
     property int size:15
     visible: true
     property variant flickable;
-    width: 15
+    width: size
     height: flickable.height
     z: flickable.z + 1
     anchors {
