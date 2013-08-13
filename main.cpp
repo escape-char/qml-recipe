@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     //models to be used in QML
     SqlTableModel* tableModel = new SqlTableModel(qApp);
     SqlQueryModel* recipeSqlModel = new SqlQueryModel(qApp);
-    recipeSqlModel->setQuery(modelquery::RECIPE_QUERY);
+    recipeSqlModel->setQuery("SELECT * FROM recipes");
     SqlQueryModel* categorySqlModel = new SqlQueryModel(qApp);
     categorySqlModel->setQuery(modelquery::CATEGORY_QUERY);
 

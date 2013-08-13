@@ -4,65 +4,67 @@ import QtQuick.XmlListModel 2.0
 import "content"
 import "fontawesome.js" as FontAwesome
 
-
-Rectangle {
+Item {
     property int currentPage: 1
     property int lastPage: 2
     property variant currentRecipe
+    anchors.fill: parent
 
     signal itemClicked()
     signal loaded()
 
-    id: recipeList
-    height: parent.height
-    width: parent.width
-    color: "white"
 
     onItemClicked: {}
     onLoaded: {}
 
+    ScrollBar{
+        id: scrollbar
+        flickable: recipeListView
+    }
+
+    //background
+    Rectangle {id: background;color: "white"; anchors.fill:parent}
+
+    ListView {
+         id: recipeListView
+         height:parent.height - pagination.paginationHeight - 26
+         width: background.width - scrollbar.width
+         model: recipeModel
+
+         delegate: RecipeDelegate {
+             onRecipeClicked: {
+                 container.currentRecipe = recipeListView.currentItem.recipeData
+                 itemClicked()
+             }
+         }
+
+         highlight: Rectangle { color: "#DCE0B8"; }
+
+         Component.onCompleted: {
+             container.currentRecipe = recipeListView.currentItem.recipeData
+             loaded()
+         }
+    }
+
     Rectangle {
-        id: recipeListContainer
-        color: "#D6D6D6"
-
-        height: parent.height - 41
+        height: 1
         width: parent.width
+        color: "#BDBDBD"
+        anchors.top: recipeListView.bottom
 
-        ListView {
-             id: recipeListView
-             model: recipeModel
-             delegate: RecipeDelegate {
-                 onRecipeClicked: {
-                     recipeList.currentRecipe = recipeListView.currentItem.recipeData
-                     itemClicked()
-                 }
-             }
-
-             highlight: Rectangle { color: "#DCE0B8"; }
-             anchors.fill: parent
-
-             Component.onCompleted: {
-                 recipeList.currentRecipe = recipeListView.currentItem.recipeData
-                 loaded()
-             }
-        }
-
-        Rectangle {
-            height: 1
-            width: parent.width
-            color: "#BDBDBD"
-            anchors.top: recipeListView.bottom
-
-        }
     }
 
     //Pagination bar
     ActionBar {
-        anchors.top: recipeListContainer.bottom
+        id: pagination
+        anchors.bottom: background.bottom
+        property int paginationHeight: 17
+        property int paginationWidth: 40
 
         Rectangle {
             color: "transparent"
-            height: 17; width: 40
+            height: pagination.paginationHeight
+            width: pagination.paginationWidth
 
             Text {
                 color: "#6B6B6B"
@@ -90,11 +92,6 @@ Rectangle {
            anchors.right: parent.right
            anchors.rightMargin: 10
         }
-
-
-
-
-
     }
 
     //Right border
@@ -103,7 +100,7 @@ Rectangle {
         width: 1
         color: "#A2A2A2"
 
-        anchors.left: recipeListContainer.right
+        anchors.right: background.right
     }
-}
 
+}

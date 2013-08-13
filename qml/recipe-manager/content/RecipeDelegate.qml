@@ -36,8 +36,6 @@ import QtQuick.Controls 1.0
             mousearea.clicked.connect(recipeClicked)
         }
 
-
-
         //checkbox
         Rectangle {
             id: checkBoxContainer

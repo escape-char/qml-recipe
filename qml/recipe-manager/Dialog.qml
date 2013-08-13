@@ -41,7 +41,6 @@ Item {
         anchors.centerIn: parent
         color: "lightyellow"
         z: dialog.z + 1
-
         border.width: 5
         border.color:borderColor
         radius: 15

@@ -159,6 +159,20 @@ namespace databaseHandler {
                     "\"infinity\", 100, 2, \"invisibleninja.jpg\");"
         );
         if(!ok){qDebug() << " Failed populating recipes: " << query.lastError().text(); return false;}
+        //populate recipe table
+        ok = query.exec(
+            "INSERT INTO recipes(title, description, difficulty, rating, duration, image) "
+            "VALUES(\"Blueberry Muffin\", \"A delicious muffin only your grandma would like\","
+                    "\"hard\", 4, 10, \"random-muffin.jpg\"),"
+                "(\"Banana pot pie\", \"Youve had it before. Well here it is again\","
+                    "\"impossible\",1, 1, \"pot.jpg\"),"
+                "(\"vanilla ice yogurt\", \"perfect for a cool day\", \"doable\","
+                    "5, 20, \"yogurt.jpg\"),"
+                "(\"tofu ninja sandwich\", \"sometimes getting punched in the face is a good thing\","
+                    "\"infinity\", 100, 2, \"invisibleninja.jpg\");"
+        );
+        if(!ok){qDebug() << " Failed populating recipes: " << query.lastError().text(); return false;}
+
 
         //populate ingredients table
         ok = query.exec(

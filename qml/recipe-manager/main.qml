@@ -13,7 +13,7 @@ ApplicationWindow{
         height:parent.height
         anchors.fill:parent
 
-       Dialog{id:addRecipeDialog}
+       AddRecipeDialog{id:addRecipeDialog}
        MainMenu{
           id: mainMenu
           onAddRecipeButtonClick: {appWindow.state = "ADD_RECIPE"}
@@ -34,7 +34,6 @@ ApplicationWindow{
        SettingsView{
            id:settingsView
         }
-
         states: [
             State {
                 name: "ADD_RECIPE"
