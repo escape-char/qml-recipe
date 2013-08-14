@@ -3,8 +3,9 @@ import "content"
 import "fontawesome.js" as FontAwesome
 
 Rectangle {
-    property string backgroundColor: "#C4C4C4"
-    property string labelColor: "#777"
+    id: categoryList
+    property color backgroundColor: "#C4C4C4"
+    property color labelColor: "#777"
     property int textSize: 12
     property int labelSize: 10
     property bool enableEdit: false
@@ -12,17 +13,19 @@ Rectangle {
     property int topMargin: 25
     property int rowHeight: 30
 
-    id: categories
     height: parent.height
     width: parent.width
     color: backgroundColor
 
+    //category event handlers
+    signal categorySelected(variant category)
+    signal favoritesSelected()
+    signal allSelected()
+
     Rectangle {
         id: categoriesContent
         height: parent.height - 41; width: parent.width
-        color: backgroundColor
-
-
+        color: "#c4c4c4"
 
         Rectangle {
             id: listItems
@@ -38,7 +41,7 @@ Rectangle {
             Rectangle {
                 id: mainItems
                 height: 70
-                width: parent.width
+                width: parent.width - 20
                 color: parent.color
 
                 CategoryItem {
@@ -46,6 +49,8 @@ Rectangle {
                     hasIcon: true
                     icon: FontAwesome.Icon.Book
                     label: "All"
+                    onCategoryItemClicked: allSelected()
+
                 }
 
                 CategoryItem {
@@ -55,6 +60,7 @@ Rectangle {
 
                     anchors.top: all.bottom
                     anchors.topMargin: 2
+                    onCategoryItemClicked: favoritesSelected()
                 }
 
                 anchors.left: parent.left
@@ -84,17 +90,17 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.leftMargin: 10
                 }
-
                 ListView {
                     id: categoriesListView
                     height: parent.height - categoriesLabel.height - 15
-                    width: parent.width
+                   width: parent.width
                     model: categoryModel
-                    delegate: CategoryDelegate {}
+                    delegate: CategoryDelegate {id: categoryDelegate}
                     anchors.top: categoriesLabel.bottom
                     anchors.topMargin: 8
-
-
+                    onCurrentItemChanged: {
+                        categorySelected(categoriesListView.currentItem.categoryData)
+                    }
                 }
 
                 anchors.top: separator.bottom
@@ -103,10 +109,6 @@ Rectangle {
                 anchors.leftMargin: leftMargin
             }
         }
-
-
-
-
     }
 
     ActionBar {

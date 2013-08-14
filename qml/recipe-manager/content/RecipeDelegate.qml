@@ -56,7 +56,7 @@ import QtQuick.Controls 1.0
         Image {
             id: img
             width: imageSize; height: imageSize
-            source: image
+            //source: image
 
             anchors.left: checkBoxContainer.right
             anchors.leftMargin: imageHorizMargin

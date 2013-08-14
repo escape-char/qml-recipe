@@ -4,9 +4,9 @@ import "fontawesome.js" as FontAwesome
 Rectangle {
     id: categoryItemContainer
 
-    property string backgroundColor: "#C4C4C4"
-    property string textColor: "#555"
-    property string hoverBackgroundColor: "#B3B3B3"
+    property color backgroundColor: "#C4C4C4"
+    property color textColor: "#555"
+    property color  hoverBackgroundColor: Qt.darker(backgroundColor, 1.4)
     property string label: "Example"
     property string icon: FontAwesome.Icon.Star
     property int textSize: 12
@@ -14,16 +14,20 @@ Rectangle {
     property bool hasIcon: false
 
     color: parent.color
-    width: parent.width - 30
+    smooth:true
+    clip:true
+    width: parent.width
     height: rowHeight
     border.color: "transparent"
     border.width: 1
-    radius: 5
+    radius:5
+
+    signal categoryItemClicked()
 
     Rectangle {
         color: parent.color
-        width: parent.width - 6
-        height: parent.height - 3
+        width: parent.width
+        height: parent.height - 10
 
         anchors.left: parent.left
         anchors.leftMargin: 6
@@ -56,12 +60,12 @@ Rectangle {
             hoverEnabled: true
 
             onEntered: {
-                console.log("hovering");
                 categoryItemContainer.color = hoverBackgroundColor;
             }
             onExited: {
                categoryItemContainer.color = backgroundColor;
             }
+            onClicked: categoryItemClicked()
         }
     }
 
