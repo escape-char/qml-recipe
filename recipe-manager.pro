@@ -35,7 +35,8 @@ qtcAddDeployment()
 OTHER_FILES += \
     100x100.gif \
     recipe_manager.xml \
-    README.md
+    README.md \
+    qml/recipe-manager/AddItemView.qml
 
 QT += sql widgets
 

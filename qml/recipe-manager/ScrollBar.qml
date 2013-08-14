@@ -5,8 +5,8 @@ Rectangle {
     color: "lightgray"
     opacity:0.8
     property int size:15
-    visible: true
     property variant flickable;
+    visible: true
     width: size
     height: flickable.height
     z: flickable.z + 1
@@ -14,6 +14,7 @@ Rectangle {
         top: flickable.top;
         right: flickable.right;
     }
+    clip:true
     //up arrow
     Image{
          id:upArrow
