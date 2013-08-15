@@ -22,7 +22,7 @@ Item {
     }
     ScrollBar{
         id:scrollBar
-        flickable:scrollArea
+        target:scrollArea
     }
 
     //ScrollArea
@@ -32,6 +32,7 @@ Item {
         anchors.fill:parent
         contentWidth: content.childrenRect.width
         contentHeight:content.childrenRect.height
+        boundsBehavior: Flickable.StopAtBounds
 
         //margins
         Item{

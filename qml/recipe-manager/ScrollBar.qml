@@ -1,76 +1,118 @@
 import QtQuick 2.0
 
-Rectangle {
-    id: scrollbar;
-    color: "lightgray"
-    opacity:0.8
-    property int size:15
-    property variant flickable;
-    visible: true
-    width: size
-    height: flickable.height
-    z: flickable.z + 1
-    anchors {
-        top: flickable.top;
-        right: flickable.right;
-    }
-    clip:true
-    //up arrow
-    Image{
-         id:upArrow
-         anchors.top: scrollbar.top
-         source: "../../images/up-arrow.png"
-         MouseArea{
-             anchors.fill:parent
-         }
+BorderImage {
+        property variant target
 
-    }
-    //down arrow
-    Image{
-         id:downArrow
-         anchors.bottom: scrollbar.bottom
-         source: "../../images/dn-arrow.png"
-         MouseArea{
-             anchors.fill:parent
-         }
+        source: "../../images/scrollbar.png"
+        border {left: 0; top: 3; right: 0; bottom: 3}
+        width: 17
 
-    }
-    Rectangle {
-        id: handle;
-        height: (scrollbar.height * flickable.visibleArea.heightRatio);
-        color: "darkgray"
-        border {
-            width: 1;
-            color: "white";
-        }
-        anchors {
-            left: parent.left;
-            right: parent.right;
-        }
+        anchors {top: target.top; bottom: target.bottom; right: target.right }
+       // visible: (track.height == slider.height) ? false : true //TODO: !visible -> width: 0 (but creates a binding loop)
+        z: target.z + 1
+        clip:true
 
-        Binding { // Calculate handle's x/y position based on the content position of the Flickable
-            target: handle;
-            property: "y";
-            value: (flickable.visibleArea.yPosition * scrollbar.height);
-            when: (!dragger.drag.active);
+        //scroll container
+        Item {
+                anchors {fill: parent; margins: 1; rightMargin: 2; bottomMargin: 2}
+
+                Image {
+                        id: upArrow
+                        source: "../../images/up-arrow.png"
+                        anchors.top: parent.top
+                        MouseArea {
+                                anchors.fill: parent
+                                onPressed: {
+                                        console.log("SCROLLBAR: pressed up-arrow")
+                                        timer.scrollAmount = -10
+                                        timer.running = true;
+                                }
+                                onReleased: {
+                                        console.log("SCROLLBAR: released up-arrow")
+                                        timer.running = false;
+                                }
+                        }
+                }
+
+                //timer to keep scrolling when clicking arrows
+                //or pressing tracks
+                Timer {
+                        property int scrollAmount
+
+                        id: timer
+                        repeat: true
+                        interval: 20
+                        onTriggered: {
+                                target.contentY = Math.max(
+                                                0, Math.min(
+                                                target.contentY + scrollAmount,
+                                                target.contentHeight - target.height));
+                        }
+                }
+                //scrollbar track
+                Item {
+                        id: track
+                        anchors {top: upArrow.bottom; topMargin: 1; bottom: dnArrow.top;}
+                        width: parent.width
+                        height: parent.height
+                        MouseArea {
+                                anchors.fill: parent
+
+                                onPressed: {
+                                        timer.scrollAmount = target.height * (mouseY < slider.y ? -1 : 1)       // scroll by a page
+                                        console.log("SCROLLBAR: pressed on scrollbar")
+                                        timer.running = true;
+
+
+                                }
+                                onReleased: {
+                                        timer.running = false;
+                               }
+                        }
+
+                        //slider for scroll bar
+                        BorderImage {
+                                id:slider
+
+                                source: "../../images/slider.png"
+                                border {left: 0; top: 3; right: 0; bottom: 3}
+                                width: parent.width
+
+                                height: Math.min(target.height / target.contentHeight * track.height, track.height)
+                                y: target.visibleArea.yPosition * track.height
+
+                                MouseArea {
+                                        anchors.fill: parent
+                                        drag.target: parent
+                                        drag.axis: Drag.YAxis
+                                        drag.minimumY: 0
+                                        drag.maximumY: track.height - height
+
+                                        onPositionChanged: {
+                                                if (pressedButtons == Qt.LeftButton) {
+                                                        console.log("SCROLLBAR: moved slider to y position " + slider.y.toString())
+                                                        target.contentY = slider.y * target.contentHeight / track.height
+                                                }
+                                        }
+                                }
+                        }
+                }
+                Image {
+                        id: dnArrow
+                        source: "../../images/dn-arrow.png"
+                        anchors.bottom: parent.bottom
+                        MouseArea {
+                                anchors.fill: parent
+                                onPressed: {
+                                        console.log("SCROLLBAR: pressed down arrow")
+                                        timer.scrollAmount = 10
+                                        timer.running = true;
+                                }
+                                onReleased: {
+                                        console.log("released down arrow")
+                                        timer.running = false;
+                                }
+                        }
+                }
         }
-        Binding { // Calculate Flickable content position based on the handle x/y position
-            target: flickable;
-            property: "contentY";
-            value: (handle.y / scrollbar.height * flickable.contentHeight);
-            when: (dragger.drag.active);
-        }
-        MouseArea {
-            id: dragger;
-            anchors.fill: parent;
-            drag {
-                target: handle;
-                minimumX: handle.x;
-                maximumX: handle.x;
-                minimumY: 0 + upArrow.height + 100;
-                maximumY: (scrollbar.height - handle.height - downArrow.height);
-                axis: Drag.YAxis;
-            }
-        }
-    }
 }

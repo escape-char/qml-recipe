@@ -23,9 +23,10 @@ ApplicationWindow{
        }
        BrowseView{
             id: recipeBrowseView
-            width:parent.width - mainMenu.width
+            width:parent.width //- mainMenu.width
             anchors.left: mainMenu.right
         }
+       /*
        GroceriesView{
          id: groceriesView
          width: parent.width - mainMenu.width
@@ -34,6 +35,7 @@ ApplicationWindow{
        SettingsView{
            id:settingsView
         }
+        */
         states: [
             State {
                 name: "ADD_RECIPE"
@@ -43,7 +45,8 @@ ApplicationWindow{
                 name:"BROWSE"
                 PropertyChanges {target:recipeBrowseView; state: "SHOW"}
                 PropertyChanges {target: groceriesView;state:"HIDE"}
-            },
+            }
+            /*
           State{
                 name: "GROCERIES"
                 PropertyChanges {target: groceriesView;state:"SHOW"}
@@ -54,6 +57,7 @@ ApplicationWindow{
                 name: "SETTINGS"
                 PropertyChanges {target: settingsView;state:"SHOW"}
         }
+        */
         ]
   }
 }

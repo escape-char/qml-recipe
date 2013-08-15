@@ -33,7 +33,7 @@ import QtQuick.Controls 1.0
         }
 
         Component.onCompleted: {
-            mousearea.clicked.connect(recipeClicked)
+            //mousearea.clicked.connect(recipeClicked)
         }
 
         //checkbox
@@ -92,6 +92,7 @@ import QtQuick.Controls 1.0
                 anchors.topMargin: 7
             }
 
+            /*
             Rectangle {
                 width: parent.width
                 height: 30
@@ -120,6 +121,7 @@ import QtQuick.Controls 1.0
                      anchors.left: difficultyText.right
                  }
             }
+            */
         }
     }
 

@@ -18,18 +18,19 @@ Item {
     onItemClicked: {}
     onLoaded: {}
 
-    ScrollBar{
-        id: scrollbar
-        flickable: recipeListView
-    }
+        //background
+    Rectangle {id: background;color: "#C4C4C4"; anchors.fill:parent}
 
-    //background
-    Rectangle {id: background;color: "white"; anchors.fill:parent}
+    ScrollBar{
+        id:scrollBar
+        target:recipeListView
+    }
 
     ListView {
          id: recipeListView
-         height:parent.height - pagination.paginationHeight - 26
-         width: background.width
+         height:background.height - pagination.height
+         width:background.width
+         clip:true
          model: recipeModel
 
          delegate: RecipeDelegate {
@@ -44,17 +45,18 @@ Item {
          Component.onCompleted: {
              container.currentRecipe = recipeListView.currentItem.recipeData
              loaded()
-         }
+     }
+
+        /*
+        Rectangle {
+            height: 1
+            width: parent.width
+            color: "#BDBDBD"
+            anchors.top: recipeListView.bottom
+
+        }
+        */
     }
-
-    Rectangle {
-        height: 1
-        width: parent.width
-        color: "#BDBDBD"
-        anchors.top: recipeListView.bottom
-
-    }
-
     //Pagination bar
     ActionBar {
         id: pagination
