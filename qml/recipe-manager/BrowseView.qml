@@ -4,43 +4,34 @@ import QtQuick.Layouts 1.0
 
 import "StringFormat.js" as QML
 
-SplitView{
-    height: parent.height
-    width: parent.width
-    resizing:true
+Item{
+   height: parent.height
+   width: parent.width
 
-    //left pane
-    Rectangle{
-        Layout.minimumWidth:150
-        Layout.maximumWidth:200
-        CategoryList{
-            onCategorySelected:{
-                updateRecipeList(category.id)
-            }
-            onAllSelected: {
-                updateRecipeList(-1) //-1 means all categories
-            }
+    CategoryList{
+        id: categoryListView
+        onCategorySelected:{
+            updateRecipeList(category.id)
         }
-    }
-    //middle pane
-    Rectangle{
-        Layout.minimumWidth:300
-        Layout.maximumWidth:400
-        RecipeList{id:recipeList}
+        onAllSelected: {
+            updateRecipeList(-1) //-1 means all categories
+        }
+        anchors{left: parent.left; top:parent.top}
     }
 
+    RecipeList{
+            id:recipeList
+            anchors{left:categoryListView.right; top:categoryListView.top}
+    }
+    /*
     //right pane
+    //view recipe
     Rectangle{
         id: recipePane
-
-        property variant currentRecipe
-
         signal recipeChanged()
-
-        color: "lightgray"
-        height:parent.height;
-        Layout.minimumWidth: 300
-        Layout.fillWidth: true
+        color: "red"
+        height:parent.height
+        width: 100
 
         RecipeItem {
             id: recipeItem
@@ -48,11 +39,12 @@ SplitView{
                 recipeItem.recipe = recipePane.currentRecipe
             }
         }
-
-        onCurrentRecipeChanged: {
-            recipeItem.recipe = recipePane.currentRecipe
-        }
+       // onCurrentRecipeChanged: {
+           // recipeItem.recipe = recipePane.currentRecipe
+        //}
     }
+*/
+
     states: [
         State {
             name: "SHOW"
@@ -108,6 +100,6 @@ SplitView{
                 INNER JOIN directions as d ON recipes.id = d.recipe_id \
                 GROUP BY recipes.id;".format([id.toString()])
         }
-       recipeModel.updateQuery(query) //update recipeModel based on category selection
+       recipeModel.updateQuery(query)
     }
 }

@@ -8,6 +8,7 @@ Rectangle {
     width: parent.width
     color: "#ffffff"
 
+    //holds data for recipe
     property variant recipe
 
     signal loaded()
@@ -23,7 +24,7 @@ Rectangle {
         Text {
             height: 20
             width: parent.width
-            text: recipe.title
+            //text: recipe.title
             color: "#444444"
             font {pointSize: 22; bold: true}
         }

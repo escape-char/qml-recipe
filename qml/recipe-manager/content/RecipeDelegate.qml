@@ -37,12 +37,10 @@ import QtQuick.Controls 1.0
         }
 
         //checkbox
-        Rectangle {
+        Item {
             id: checkBoxContainer
             height: parent.height
             width: checkBoxWidth
-            color: "transparent"
-
             anchors.left: parent.left
 
             CheckBox {
@@ -64,8 +62,8 @@ import QtQuick.Controls 1.0
             anchors.topMargin: 10
         }
 
-        Rectangle {
-            width: parent.width -imageSize - (imageHorizMargin*2) - checkBoxWidth
+        Item {
+            width: parent.width
 
             anchors.top: parent.top
             anchors.topMargin: 10
@@ -77,8 +75,8 @@ import QtQuick.Controls 1.0
                 id: titleText
                 width: parent.width
                 text: title
-                wrapMode: Text.WordWrap
-                font { bold: true; family: "Helvetica"; pointSize: 12 }
+                //wrapMode: Text.WordWrap
+                //font { bold: true; family: "Helvetica"; pointSize: 12 }
             }
 
             //Rating
@@ -92,7 +90,6 @@ import QtQuick.Controls 1.0
                 anchors.topMargin: 7
             }
 
-            /*
             Rectangle {
                 width: parent.width
                 height: 30
@@ -121,7 +118,6 @@ import QtQuick.Controls 1.0
                      anchors.left: difficultyText.right
                  }
             }
-            */
         }
     }
 

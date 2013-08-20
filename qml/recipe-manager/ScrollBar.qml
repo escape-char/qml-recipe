@@ -22,6 +22,7 @@ BorderImage {
                         anchors.top: parent.top
                         MouseArea {
                                 anchors.fill: parent
+                                preventStealing: true
                                 onPressed: {
                                         console.log("SCROLLBAR: pressed up-arrow")
                                         timer.scrollAmount = -10
@@ -57,6 +58,7 @@ BorderImage {
                         height: parent.height
                         MouseArea {
                                 anchors.fill: parent
+                                preventStealing:true
 
                                 onPressed: {
                                         timer.scrollAmount = target.height * (mouseY < slider.y ? -1 : 1)       // scroll by a page
@@ -87,6 +89,7 @@ BorderImage {
                                         drag.axis: Drag.YAxis
                                         drag.minimumY: 0
                                         drag.maximumY: track.height - height
+                                        preventStealing: true
 
                                         onPositionChanged: {
                                                 if (pressedButtons == Qt.LeftButton) {
@@ -103,6 +106,7 @@ BorderImage {
                         anchors.bottom: parent.bottom
                         MouseArea {
                                 anchors.fill: parent
+                                preventStealing: true
                                 onPressed: {
                                         console.log("SCROLLBAR: pressed down arrow")
                                         timer.scrollAmount = 10

@@ -9,7 +9,8 @@ Item {
     property int currentPage: 1
     property int lastPage: 2
     property variant currentRecipe
-    anchors.fill: parent
+    height:parent.height
+    width:350
 
     signal itemClicked()
     signal loaded()
@@ -18,49 +19,51 @@ Item {
     onItemClicked: {}
     onLoaded: {}
 
-        //background
-    Rectangle {id: background;color: "#C4C4C4"; anchors.fill:parent}
+   //background
+    Rectangle {id: background;color: "white"; anchors.fill:parent}
 
-    ScrollBar{
-        id:scrollBar
-        target:recipeListView
-    }
+    ScrollArea{
+        width:background.width
+        height: background.height - pagination.height
+        ListView {
+             id: recipeListView
+             width: background.width
+             height: childrenRect.height
+             interactive: true
+             model: recipeModel
 
-    ListView {
-         id: recipeListView
-         height:background.height - pagination.height
-         width:background.width
-         clip:true
-         model: recipeModel
 
-         delegate: RecipeDelegate {
-             onRecipeClicked: {
-                 container.currentRecipe = recipeListView.currentItem.recipeData
-                 itemClicked()
+             delegate: RecipeDelegate {
+                 onRecipeClicked: {
+                     container.currentRecipe = recipeListView.currentItem.recipeData
+                     console.log("RECIPELIST: clicked " + currentRecipe.id + ") " + currentRecipe.title)
+                 }
              }
-         }
 
-         highlight: Rectangle { color: "#DCE0B8"; }
+             highlight: Rectangle { color: "#DCE0B8"; }
 
-         Component.onCompleted: {
-             container.currentRecipe = recipeListView.currentItem.recipeData
-             loaded()
-     }
+             /*
+             Component.onCompleted: {
+                 container.currentRecipe = recipeListView.currentItem.recipeData
+                 loaded()
+             }
+             */
 
-        /*
-        Rectangle {
-            height: 1
-            width: parent.width
-            color: "#BDBDBD"
-            anchors.top: recipeListView.bottom
-
+             /*
+            Rectangle {
+                height: 1
+                width: parent.width
+                color: "#BDBDBD"
+                anchors.top: recipeListView.bottom
+rectangle
+            }
+            */
         }
-        */
     }
     //Pagination bar
     ActionBar {
         id: pagination
-        anchors.bottom: background.bottom
+        anchors.bottom: parent.bottom
         property int paginationHeight: 17
         property int paginationWidth: 40
 
@@ -105,5 +108,4 @@ Item {
 
         anchors.right: background.right
     }
-
 }

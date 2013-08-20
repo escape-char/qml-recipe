@@ -6,58 +6,44 @@ ApplicationWindow{
     width:1024
     height:680
     visible: true
-//need rectangle in order to use states
-  Rectangle{
+
+ //Controller for states
+  Item{
         id: appWindow
         width:parent.width
         height:parent.height
         anchors.fill:parent
 
-       AddRecipeDialog{id:addRecipeDialog}
        MainMenu{
           id: mainMenu
-          onAddRecipeButtonClick: {appWindow.state = "ADD_RECIPE"}
-          onGroceriesButtonClick: {appWindow.state = "GROCERIES"}
-          onBrowseButtonClick: {appWindow.state = "BROWSE"}
-          onSettingsButtonClick:{appWindow.state = "SETTINGS"}
        }
+
        BrowseView{
             id: recipeBrowseView
-            width:parent.width //- mainMenu.width
+            height:parent.height
+            width:parent.width- mainMenu.width
             anchors.left: mainMenu.right
+            anchors.top: mainMenu.top
         }
-       /*
-       GroceriesView{
-         id: groceriesView
-         width: parent.width - mainMenu.width
-         anchors.left: mainMenu.right
-        }
-       SettingsView{
-           id:settingsView
-        }
-        */
         states: [
+            //Add Recipe State
             State {
                 name: "ADD_RECIPE"
                 PropertyChanges {target: addRecipeDialog;state:"SHOW"}
             },
+            //Browse Recipes State
             State{
                 name:"BROWSE"
                 PropertyChanges {target:recipeBrowseView; state: "SHOW"}
-                PropertyChanges {target: groceriesView;state:"HIDE"}
-            }
-            /*
+            },
+          //Groceries State
           State{
                 name: "GROCERIES"
-                PropertyChanges {target: groceriesView;state:"SHOW"}
-                PropertyChanges {target:recipeBrowseView; state:"HIDE"}
-                PropertyChanges {target:recipeBrowseView; state:"HIDE"}
            },
+          //Settings State
           State{
                 name: "SETTINGS"
-                PropertyChanges {target: settingsView;state:"SHOW"}
-        }
-        */
+          }
         ]
   }
 }
