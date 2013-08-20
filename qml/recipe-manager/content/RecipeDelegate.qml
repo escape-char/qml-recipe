@@ -75,8 +75,8 @@ import QtQuick.Controls 1.0
                 id: titleText
                 width: parent.width
                 text: title
-                //wrapMode: Text.WordWrap
-                //font { bold: true; family: "Helvetica"; pointSize: 12 }
+                wrapMode: Text.WordWrap
+                font { bold: true; family: "Helvetica"; pointSize: 12 }
             }
 
             //Rating

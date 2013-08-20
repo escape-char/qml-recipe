@@ -7,6 +7,7 @@ Item {
     property alias contentHeight: content.height
     default property alias children: content.children
     property color borderColor: "darkgray"
+    state: "HIDE"
 
     anchors.fill: parent
     function close() {
@@ -17,8 +18,6 @@ Item {
         dialog.opacity = 1;
     }
     signal closed();
-
-    state: "HIDE"
 
     Behavior on opacity {
         NumberAnimation { duration: 500 }
