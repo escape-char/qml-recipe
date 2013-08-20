@@ -15,6 +15,7 @@ Dialog {
     //dialog title
     Text{
         id: dialogTitle
+        height: 50
         anchors{top:background.top; left:background.left}
         text: "Add Recipe"
         font{pointSize: 16; bold: true}
@@ -27,7 +28,7 @@ Dialog {
         height: background.height - dialogTitle.height
         Rectangle{
             id:form
-            height:1000
+            height:childrenRect.height + 20
             width:  parent.width
             anchors{top:parent.top; left:parent.left}
 
@@ -38,7 +39,6 @@ Dialog {
                 height:125
                 width:125
                 source: "../../images/no-image.jpg"
-
             }
             //addrecipe button
             CustomButton{
@@ -46,9 +46,9 @@ Dialog {
                 anchors{topMargin: 10; top:recipeImage.bottom; left: recipeImage.left}
                 width: recipeImage.width
                 height: 30
-                label: "Upload Image"
+                radius: 3
+                label: "Choose Image"
            }
-
             //Title label
             Text{
                id:titleLabel
@@ -89,7 +89,7 @@ Dialog {
                id:addIngredients
                anchors{topMargin: 10; top: ingredientsLabel.bottom; left: ingredientsLabel.left}
             }
-            //Ingredients label
+            //Directions label
             Text{
                id:directionsLabel
                text: "Directions"
@@ -100,6 +100,38 @@ Dialog {
            AddItemView{
                id:addDirections
                anchors{topMargin: 10; top: directionsLabel.bottom; left: directionsLabel.left}
+            }
+           //description label
+            Text{
+               id:descriptionLabel
+               text: "Description"
+               anchors{topMargin: 35; top:addDirections.bottom; left:addDirections.left}
+               font{pointSize: 14}
+            }
+
+           //description
+           TextArea{
+               id:description
+               height:100
+               width:300
+               anchors{topMargin: 10; top:descriptionLabel.bottom; left:descriptionLabel.left}
+            }
+           //add Recipe Button
+           CustomButton{
+               id:addRecipeButton
+               label:"Add Recipe"
+               height:30
+               anchors{topMargin:35; top:description.bottom; right: description.right}
+
+            }
+           //Cancel Button
+           CustomButton{
+               id:cancelButton
+               label:"Cancel"
+               height:30
+               defaultColor: Qt.lighter("gray")
+               anchors{rightMargin: 25; top:addRecipeButton.top; right: addRecipeButton.left}
+
             }
 
         }

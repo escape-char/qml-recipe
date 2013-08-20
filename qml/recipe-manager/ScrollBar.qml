@@ -8,7 +8,7 @@ BorderImage {
         width: 17
 
         anchors {top: target.top; bottom: target.bottom; right: target.right }
-       // visible: (track.height == slider.height) ? false : true //TODO: !visible -> width: 0 (but creates a binding loop)
+        visible: (track.height == slider.height) ? false : true //TODO: !visible -> width: 0 (but creates a binding loop)
         z: target.z + 1
         clip:true
 
@@ -113,7 +113,7 @@ BorderImage {
                                         timer.running = true;
                                 }
                                 onReleased: {
-                                        console.log("released down arrow")
+                                        console.log("SCROLLBAR: released down arrow")
                                         timer.running = false;
                                 }
                         }

@@ -3,8 +3,8 @@ import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 
 ApplicationWindow{
-    width:1024
-    height:680
+    width:900
+    height:600
     visible: true
 
  //Controller for states
