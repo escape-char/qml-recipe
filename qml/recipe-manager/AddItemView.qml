@@ -18,7 +18,7 @@ Rectangle{
     }
     ListModel{
         id:model
-        ListElement{name: "sample"}
+        ListElement{name: ""}
     }
     Component{
         id: itemDelegate
@@ -69,6 +69,9 @@ Rectangle{
             width: parent.width
             height: childrenRect.height
             spacing: 1
+            Component.onCompleted: {
+                model.clear()
+            }
         }
     }
     //textbox for entering item
