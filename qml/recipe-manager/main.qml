@@ -1,12 +1,38 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
+import "DatabaseHandler.js" as DatabaseHandler
 
 ApplicationWindow{
     width:900
     height:600
     visible: true
 
+   function addRecipeToDb(recipe) {
+       console.log("APPWINDOW: adding recipe to db")
+       console.log("APPWINDOW.addRecipeToDb:adding recipe '" + recipe.title + "' to database")
+       //add recipe to database
+       DatabaseHandler.addRecipeToTableModel(tableModel, recipe)
+
+       if(browseLoader.status == Loader.Ready){
+            browseLoader.item.refreshCategories()
+           browseLoader.item.deselectCategories()
+        }
+      // DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
+       dialogLoader.item.state = "HIDE"
+       dialogLoader.source = ""
+
+    }
+   function cancelDialog(){
+        console.log("DIALOGLOADER: Canceling Dialog Window")
+
+        //nothing to cancel; dialog hasn't been loaded
+        if(dialogLoader.status !== Loader.Ready)
+            return;
+
+        dialogLoader.item.state = "HIDE"
+        dialogLoader.source = "" //unloaded component from loader
+    }
  //Controller for states
   Item{
         id: appWindow
@@ -52,15 +78,18 @@ ApplicationWindow{
             anchors{left:mainMenu.right; top: mainMenu.top}
             opacity: 1
            onStatusChanged: {
-               if(dialogLoader.status === Loader.Null)
+               if(dialogLoader.status === Loader.Null){
                    console.log("dialogLoader.onStatusChanged(): state is currently null")
+                }
                else if (dialogLoader.status ===- Loader.Error)
                    console.log("dialogLoader.onStatusChanged(): error occurred during load")
-               else if (dialogLoader.status === Loader.Loading)
+               else if (dialogLoader.status === Loader.Loading){
                    console.log("dialogLoader.onStatusChanged(): loading componenet... " +
                                dialogLoader.progress*100 + "%.")
-               else
+                }
+               else{
                    console.log("dialogLoader.onStatusChanged(): successfully loaded component")
+                }
             }
            onLoaded: {
               console.log("dialogLoader.onLoaded()")
@@ -68,5 +97,12 @@ ApplicationWindow{
             }
        }
     }
-
+    Connections{
+        ignoreUnknownSignals: true
+        target: dialogLoader.status === Loader.Ready ? dialogLoader.item : null
+        onCancelButtonClick: cancelDialog()
+        onAddRecipeButtonClick:{
+            addRecipeToDb(data)
+        }
+    }
 }

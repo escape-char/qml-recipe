@@ -42,27 +42,25 @@ namespace databaseHandler {
         }
 
         QSqlQuery query; //performs query
-        bool success = query.exec("DROP TABLE IF EXISTS ingredients");
-        success = query.exec(
-            "CREATE TABLE ingredients( \
-                id INTEGER PRIMARY KEY AUTOINCREMENT,\ 
-                ingredient VARCHAR(60) NOT NULL, \
-                recipe_id INT, \
-                FOREIGN KEY(recipe_id) REFERENCES recipes(id) \
-            );") && success;
-        if(!success){qDebug() << Q_FUNC_INFO << ": failed to create ingredients table"; return false;}
+        bool success = query.exec(
+            "CREATE TABLE IF NOT EXISTS ingredients( "
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "ingredient VARCHAR(60) NOT NULL, "
+                "recipe_id INT, "
+                "FOREIGN KEY(recipe_id) REFERENCES recipes(id) "
+            ");"
+        );
+        if(!success){qDebug() << Q_FUNC_INFO << ": failed to create ingredients table -> " << query.lastError() ; return false;}
 
-        success = query.exec("DROP TABLE if EXISTS categories;");
         success = query.exec(
-            "CREATE TABLE categories( "
+            "CREATE TABLE IF NOT EXISTS categories( "
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 "name VARCHAR(100) UNIQUE "
             ");"
         ) && success;
         if(!success){qDebug() << Q_FUNC_INFO << ": failed to create categories table" << query.lastError().text(); return false;}
-        success = query.exec("DROP TABLE IF EXISTS directions;");
         success = query.exec(
-            "CREATE TABLE directions( "
+            "CREATE TABLE IF NOT EXISTS directions( "
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 "step TEXT DEFAULT \", \", "
                 "recipe_id INT, "
@@ -71,9 +69,8 @@ namespace databaseHandler {
         ) && success;
         if(!success){qDebug() << Q_FUNC_INFO << ": failed to create directions table"; query.lastError().text();return false;}
 
-        success = query.exec("DROP TABLE IF EXISTS categories_recipes;");
         success = query.exec (
-            "CREATE TABLE categories_recipes("
+            "CREATE TABLE IF NOT EXISTS categories_recipes("
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 "category_id INTEGER, "
                 "recipe_id INTEGER, "
@@ -83,9 +80,8 @@ namespace databaseHandler {
         ) && success;
         if(!success){qDebug() << Q_FUNC_INFO << ": failed to create categories_recipes table"; return false;}
 
-        success = query.exec("DROP TABLE IF EXISTS recipes;");
         success = query.exec(
-            "CREATE TABLE recipes( "
+            "CREATE TABLE IF NOT EXISTS recipes( "
                 "id INTEGER PRIMARY KEY AUTOINCREMENT,  "
                 "title VARCHAR(155) NOT NULL DEFAULT \"\",  "
                 "description text DEFAULT \"\",  "
@@ -111,25 +107,20 @@ namespace databaseHandler {
         }
         QSqlQuery query; //performs query
 
-        bool ok = query.exec("DROP INDEX IF EXISTS recipes_index;");
-        ok = query.exec("CREATE INDEX recipes_index ON recipes(title);") && ok;
-        if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create recipes table index"; return false;}
+        bool ok = query.exec("CREATE INDEX IF NOT EXISTS recipes_index ON recipes(title);");
+        if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create recipes table indexi => " << query.lastError(); return false;}
 
-        ok = query.exec("DROP INDEX IF EXISTS ingredients_index;");
-        ok = query.exec("CREATE INDEX ingredients_index"
+        ok = query.exec("CREATE INDEX IF NOT EXISTS ingredients_index"
                           " ON ingredients(recipe_id, ingredient);") && ok;
         if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create ingredients table index"; return false;}
 
-        ok = query.exec("DROP INDEX IF EXISTS categories_index;");
-        ok = query.exec("CREATE INDEX categories_index ON categories(name);") && ok;
+        ok = query.exec("CREATE INDEX IF NOT EXISTS categories_index ON categories(name);") && ok;
         if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create categories table index"; return false;}
 
-        ok = query.exec("DROP INDEX IF EXISTS directions_index;");
-        ok = query.exec("CREATE INDEX directions_index ON directions(recipe_id, step);") && ok;
+        ok = query.exec("CREATE INDEX IF NOT EXISTS directions_index ON directions(recipe_id, step);") && ok;
         if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create direction table index"; return false;}
 
-        ok = query.exec("DROP INDEX IF EXISTS cat_recip_index;");
-        ok = query.exec("CREATE INDEX cat_recip_index ON "
+        ok = query.exec("CREATE INDEX IF NOT EXISTS cat_recip_index ON "
                         "categories_recipes(recipe_id, category_id);") && ok;
         if(!ok){qDebug() << Q_FUNC_INFO << ": failed to create cat_recip table index"; return false;}
 

@@ -19,9 +19,18 @@ Rectangle {
 
     //category event handlers
     signal categorySelected(variant category)
-    signal favoritesSelected()
-    signal allSelected()
+    signal favoritesClick()
+    signal allClick()
 
+    function refresh(){
+        console.log("CATEGORYLIST.refresh()")
+        category.updateQuery("SELECT * FROM Categories")
+    }
+
+    function deselect(){
+        console.log("CATEGORYLIST.deselect()")
+        categoriesListView.currentIndex = -1
+    }
     Rectangle {
         id: categoriesContent
         height: parent.height - 41; width: parent.width
@@ -49,7 +58,7 @@ Rectangle {
                     hasIcon: true
                     icon: FontAwesome.Icon.Book
                     label: "All"
-                    onCategoryItemClicked: allSelected()
+                    onCategoryItemClicked: allClick()
 
                 }
 
@@ -60,7 +69,7 @@ Rectangle {
 
                     anchors.top: all.bottom
                     anchors.topMargin: 2
-                    onCategoryItemClicked: favoritesSelected()
+                    onCategoryItemClicked: favoritesClick()
                 }
 
                 anchors.left: parent.left

@@ -5,6 +5,24 @@ Dialog {
     contentWidth:500
     clip:true
 
+    //holds recipe data from form
+    property var recipe: {
+        "title": "",
+        "categories": "",
+        "ingredients": [],
+        "directions": [],
+        "description":"",
+        "image": "",
+        "duration": -1,
+        "difficulty": "",
+        "rating": 0
+    }
+
+    //signal for canceling dialog
+    signal cancelButtonClick()
+    //signal for adding recipe
+    signal addRecipeButtonClick(variant data)
+
     //dialog background
     Rectangle{
         id: background
@@ -111,7 +129,7 @@ Dialog {
 
            //description
            TextArea{
-               id:description
+               id:descriptionField
                height:100
                width:300
                anchors{topMargin: 10; top:descriptionLabel.bottom; left:descriptionLabel.left}
@@ -121,7 +139,22 @@ Dialog {
                id:addRecipeButton
                label:"Add Recipe"
                height:30
-               anchors{topMargin:35; top:description.bottom; right: description.right}
+               anchors{topMargin:35; top:descriptionField.bottom; right: descriptionField.right}
+               onButtonClick: {
+                   console.log("ADDRECIPEDIALOG: saving recipe data to variant")
+                   recipe.title = titleField.text
+                   recipe.description = descriptionField.text
+                   recipe.categories = categoriesField.text.split(",")
+                   recipe.ingredients = addIngredients.getData()
+                   recipe.directions = addDirections.getData()
+                   console.log("ADDRECIPEDIALOG.addRecipeButton.onButtonClick: recipe title: " + recipe.title)
+                   console.log("ADDRECIPEDIALOG.addRecipeButton.onButtonClick: recipe description: " + recipe.description)
+                   console.log("ADDRECIPEDIALOG.addRecipeButton.onButtonClick: recipe categories: " + recipe.categories)
+                   console.log("ADDRECIPEDIALOG.addRecipeButton.onButtonClick: recipe ingredients: " + recipe.ingredients)
+                   console.log("ADDRECIPEDIALOG.addRecipeButton.onButtonClick: recipe directions: " + recipe.directions)
+
+                   addRecipeButtonClick(recipe)
+                }
 
             }
            //Cancel Button
@@ -131,7 +164,10 @@ Dialog {
                height:30
                defaultColor: Qt.lighter("gray")
                anchors{rightMargin: 25; top:addRecipeButton.top; right: addRecipeButton.left}
-
+               onButtonClick: {
+                   console.log("ADDRECIPEDIALOG: clicked cancel button")
+                   cancelButtonClick()
+              }
             }
 
         }

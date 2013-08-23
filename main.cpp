@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
     Q_ASSERT_X(success, "open database connection", "unable to open database");
     success = databaseHandler::createTables();
     success = databaseHandler::create_indices();
-    success = databaseHandler::populate(); //populate with data
 
     //models to be used in QML
     SqlTableModel* tableModel = new SqlTableModel(qApp);
