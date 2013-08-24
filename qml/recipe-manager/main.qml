@@ -20,9 +20,7 @@ ApplicationWindow{
         }
        else
            console.log("APPWINDOW.addRecipeToDb(): BrowseLoader is not READY. Unable to refresh")
-      // DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
-       dialogLoader.item.state = "HIDE"
-       dialogLoader.source = ""
+       DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
 
     }
    function cancelDialog(){

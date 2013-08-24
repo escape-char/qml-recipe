@@ -23,6 +23,7 @@ Item{
         onAllClick: {
             //update recipe model to select all categories
             DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
+            categoryListView.deselect()
         }
         anchors{left: parent.left; top:parent.top}
     }

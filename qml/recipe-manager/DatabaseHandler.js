@@ -92,7 +92,8 @@ function addRecipeToTableModel(tableModel, recipe){
 
     //add many-to-many relationship to database
     for(var i = 0; i < categoryIdList.length; i++){
-        categoriesRecipesRecord.fields["category_id"] = categoryIdList[i] tableModel.appendRecord(categoriesRecipesRecord)
+        categoriesRecipesRecord.fields["category_id"] = categoryIdList[i]
+        tableModel.appendRecord(categoriesRecipesRecord)
     }
 
     //record for direction

@@ -2,7 +2,7 @@ import QtQuick 2.0
 Item {
     id: dialog
 
-    z: parent.z + 3
+    z: parent ? parent.z + 3 : 20
     property alias contentWidth: content.width
     property alias contentHeight: content.height
     default property alias children: content.children
@@ -25,8 +25,8 @@ Item {
 
     Rectangle {
         id: overlay
-        width: dialog.parent.width
-        height: dialog.parent.height
+        width: dialog.parent ? dialog.parent.width : 300
+        height: dialog.parent ? dialog.parent.height: 300
 
         color: 'black'
         opacity: 0.5

@@ -108,7 +108,8 @@ Rectangle {
                     anchors.top: categoriesLabel.bottom
                     anchors.topMargin: 8
                     onCurrentItemChanged: {
-                        categorySelected(categoriesListView.currentItem.categoryData)
+                        if(categoriesListView.currentItem)
+                            categorySelected(categoriesListView.currentItem.categoryData)
                     }
                 }
 
