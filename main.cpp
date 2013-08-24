@@ -2,12 +2,12 @@
 #include <QtGui/QGuiApplication>
 #include <QtGlobal> //for asserts
 #include <QQmlContext> //for setting context for c++ classes and qml
-#include <QSqlRecord>
 #include <QQmlApplicationEngine>
 
 #include "qtquick2applicationviewer.h"
 #include "Headers/database.hpp"
 #include "Headers/sqlquerymodel.hpp"
+#include "Headers/rating.hpp"
 #include "sqltablemodel.hpp"
 
 int main(int argc, char *argv[])
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     //this engines allows us to run QtQuickControls
     QQmlApplicationEngine engine;
 
-    QtQuick2ApplicationViewer viewer; //view for handling widgets
+    qmlRegisterType<Rating>("Widgets", 1, 0, "Rating");
 
     //initialize database
     bool success = databaseHandler::createConnection();

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import Widgets 1.0
 
  Item {
     id: recipeDelegate
@@ -78,23 +79,23 @@ import QtQuick.Controls 1.0
                 wrapMode: Text.WordWrap
                 font { bold: true; family: "Helvetica"; pointSize: 12 }
             }
-
-            //Rating
-            Rectangle {
-                id: ratingWidget
-                height: 25
-                width: parent.width - 10
-                color: "lightgrey"
-
-                anchors.top: titleText.bottom
-                anchors.topMargin: 7
+            //rating
+            Item{
+                id:ratingWidget
+                height:30
+                width: parent.width
+                visible:true
+                Rating{
+                    anchors.fill:parent;
+                    x: 0
+                    y: 0
+                    size:8
+                }
+                anchors.top:titleText.bottom
             }
-
-            Rectangle {
+            Item {
                 width: parent.width
                 height: 30
-
-                color: "transparent"
 
                 anchors.top: ratingWidget.bottom
                 anchors.topMargin: 4
