@@ -8,6 +8,7 @@ Item{
    width: parent.width
    function refreshCategories(){
          categoryListView.refresh()
+         DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
    }
    function deselectCategories(){
        categoryListView.deselect()

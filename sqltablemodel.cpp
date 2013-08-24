@@ -94,10 +94,38 @@ int SqlTableModel::appendRecord(QVariant data){
         i++;
     }
     ok = query.exec();
+    qDebug() <<  Q_FUNC_INFO << "EXECUTE QUERY => " << query.executedQuery();
 
    if(!ok){
        qDebug() << Q_FUNC_INFO << " Failed to execute statement-> " << query.lastError();
        return -1;
     }
-    return query.lastInsertId().toInt();
+    return query.lastInsertId().toInt();//return row ID of newly appended record
+}
+bool SqlTableModel::removeRecord(const QString tableName, const QString fieldName, const QVariant conditionValue){
+   QSqlQuery query; 
+
+   //placeholder for where condition
+   QString placeholder = QString(":%1").arg(fieldName);
+   //sql statement to prepare
+   QString statement = QString("DELETE FROM %1 WHERE %2=%3").arg(tableName, fieldName, placeholder);
+   qDebug() << Q_FUNC_INFO << statement;
+
+   //prepare query before bind
+   bool ok = query.prepare(statement);
+   if(!ok){qDebug() << Q_FUNC_INFO << "could not prepare query => " << query.lastError(); return false;}
+
+   qDebug() << "before BIND";
+   //bind value
+   query.bindValue(placeholder, conditionValue);
+   if(query.lastError().isValid()){qDebug() << Q_FUNC_INFO << "failed bind " << query.lastError(); return false;}
+   qDebug() << "before Exec";
+
+   //execute query
+   ok = query.exec();
+   qDebug() << Q_FUNC_INFO << "EXECUTED QUERY: " << query.executedQuery();
+   if(!ok){qDebug() << "failed executing query => " << query.lastError(); return false;}
+   qDebug() << "after exec";
+
+   return true;
 }

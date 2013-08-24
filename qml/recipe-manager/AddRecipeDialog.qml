@@ -145,8 +145,8 @@ Dialog {
                    recipe.title = titleField.text
                    recipe.description = descriptionField.text
                    recipe.categories = categoriesField.text.split(",")
-                   recipe.ingredients = addIngredients.getData()
-                   recipe.directions = addDirections.getData()
+                   recipe.ingredients = addIngredients.getItems()
+                   recipe.directions = addDirections.getItems()
                    console.log("ADDRECIPEDIALOG.addRecipeButton.onButtonClick: recipe title: " + recipe.title)
                    console.log("ADDRECIPEDIALOG.addRecipeButton.onButtonClick: recipe description: " + recipe.description)
                    console.log("ADDRECIPEDIALOG.addRecipeButton.onButtonClick: recipe categories: " + recipe.categories)

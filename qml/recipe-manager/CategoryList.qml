@@ -24,7 +24,7 @@ Rectangle {
 
     function refresh(){
         console.log("CATEGORYLIST.refresh()")
-        category.updateQuery("SELECT * FROM Categories")
+        categoryModel.updateQuery("SELECT * FROM Categories")
     }
 
     function deselect(){

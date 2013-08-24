@@ -9,15 +9,17 @@ ApplicationWindow{
     visible: true
 
    function addRecipeToDb(recipe) {
-       console.log("APPWINDOW: adding recipe to db")
        console.log("APPWINDOW.addRecipeToDb:adding recipe '" + recipe.title + "' to database")
        //add recipe to database
        DatabaseHandler.addRecipeToTableModel(tableModel, recipe)
 
        if(browseLoader.status == Loader.Ready){
+           console.log("APPWINDOW.addRecipeToDb(): refreshing browse view")
             browseLoader.item.refreshCategories()
            browseLoader.item.deselectCategories()
         }
+       else
+           console.log("APPWINDOW.addRecipeToDb(): BrowseLoader is not READY. Unable to refresh")
       // DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
        dialogLoader.item.state = "HIDE"
        dialogLoader.source = ""

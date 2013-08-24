@@ -16,6 +16,18 @@ Rectangle{
         console.log("ADDITEMVIEW: listView count: " + listView.count)
         console.log("ADDITEMVIEW: model count: " + model.count)
     }
+    function getItems(){
+        var data = [] //holds data
+
+        //put model items in data
+        for(var i = 0; i < model.count; i++){
+            data.push(model.get(i).name)
+        }
+        return data
+    }
+    function clearItems(){
+        model.clear()
+    }
     ListModel{
         id:model
         ListElement{name: ""}

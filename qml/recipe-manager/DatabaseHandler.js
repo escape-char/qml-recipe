@@ -26,7 +26,7 @@ function addRecipeToTableModel(tableModel, recipe){
     console.log("DATABASEHANDLER.addRecipeToTableModel()")
 
     //record to add to recipes table
-    var recipes = {
+    var recipeRecord= {
         "tableName": "recipes",
         "fields":{
             "title": recipe.title,
@@ -39,12 +39,12 @@ function addRecipeToTableModel(tableModel, recipe){
     }
     //add recipe record to table
     //and get the rowid of new record
-    var recipe_id = tableModel.appendRecord(recipes)
+    var recipe_id = tableModel.appendRecord(recipeRecord)
 
     console.log("DATABASEHANDLER.addRecipeToTableModel(): recipeID: " + recipe_id)
 
     //date for ingredients table
-    var ingredients = {
+    var ingredientRecord = {
         "tableName": "ingredients",
         "fields":{
             "ingredient": "",
@@ -53,36 +53,36 @@ function addRecipeToTableModel(tableModel, recipe){
     }
     //add ingredients to ingredients table
     for(var i = 0; i < recipe.ingredients.length; i++){
-        ingredients.fields["ingredient"] = recipe.ingredients[i]
-        tableModel.appendRecord(ingredients)
+        ingredientRecord.fields["ingredient"] = recipe.ingredients[i]
+        tableModel.appendRecord(ingredientRecord)
     }
     //data for categories table
-    var categories = {
+    var categoryRecord = {
         "tableName": "categories",
         "fields":{
             "name": ""
         }
     }
-    //holds categories ids for many-many relationship table with recipe
-    var categoriesId = []
+    //holds category ids for many-many relationship table with recipe
+    var categoryIdList = []
 
     var id = -1;
     //add categories to categories table
     for(var i = 0; i<recipe.categories.length; i++){
-        categories.fields["name"] = recipe.categories[i]
+        categoryRecord.fields["name"] = recipe.categories[i]
 
-        console.log("DATABASEHANDLER.addRecipeToTable(): category name: " + categories.fields.name)
-        id = tableModel.rowIdOf(categories.tableName, "id", "name", categories.fields.name)
+        console.log("DATABASEHANDLER.addRecipeToTable(): category name: " + categoryRecord.fields.name)
+        id = tableModel.rowIdOf(categoryRecord.tableName, "id", "name", categoryRecord.fields.name)
         console.log("DATABASEHANDLER.addRecipeToTable(): category id: " + id)
 
         //check if row exists with that category name already
         if(id < 0)
-             id = tableModel.appendRecord(categories) //add new category
-        categoriesId.push(id)
+             id = tableModel.appendRecord(categoryRecord) //add new category
+        categoryIdList.push(id)
     }
 
     //many-many relationship data
-    var categories_recipes = {
+    var categoriesRecipesRecord = {
         "tableName": "categories_recipes",
         "fields":{
             "recipe_id": recipe_id,
@@ -91,9 +91,24 @@ function addRecipeToTableModel(tableModel, recipe){
     }
 
     //add many-to-many relationship to database
-    for(var i = 0; i < categoriesId.length; i++){
-        categories_recipes.fields["category_id"] = categoriesId[i]
-        tableModel.appendRecord(categories_recipes)
+    for(var i = 0; i < categoryIdList.length; i++){
+        categoriesRecipesRecord.fields["category_id"] = categoryIdList[i] tableModel.appendRecord(categoriesRecipesRecord)
+    }
+
+    //record for direction
+    var directionRecord = {
+        "tableName": "directions",
+        "fields": {
+            "step": "",
+            "recipe_id": recipe_id
+        }
+
+    }
+
+    //add direction to database
+    for(var i = 0; i < recipe.directions.length; i++){
+        directionRecord.fields["step"] = recipe.directions[i]
+        tableModel.appendRecord(directionRecord)
     }
 }
 

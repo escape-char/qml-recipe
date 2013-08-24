@@ -21,8 +21,10 @@ public:
    Q_INVOKABLE int rowIdOf(QString tableName, QString idField, QString fieldName, QVariant value);
 
     //remove row from table
-    //data should bq a QMap containing 'tableName' and 'id' keys
-   //Q_INVOKABLE bool removeRecord(QVariant data);
+    //tableName = name of table to remove record
+    //fieldName = Name to look for deleting rows
+    //fieldValue = value which field must have for record to be delted
+   Q_INVOKABLE bool removeRecord(QString tableName, QString fieldName, QVariant fieldValue);
 
 };
 #endif //SQLTABLEMODEL
