@@ -1,9 +1,18 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import Widgets 1.0
 Dialog {
-    contentHeight: 600
+    id: addRecipeDialog
+    contentHeight: parent ? parent.height : 500
     contentWidth:500
+    contentX: -(contentHeight)
+    contentY: 0
     clip:true
+    MouseArea{
+        anchors.fill:parent
+        preventStealing: true
+
+    }
 
     //holds recipe data from form
     property var recipe: {
@@ -77,21 +86,40 @@ Dialog {
             //Title field
            TextField{
                id:titleField
-               anchors{topMargin: 10; top: titleLabel.bottom; left: titleLabel.left}
+               anchors{leftMargin: 10; topMargin: 10; top: titleLabel.bottom; left: titleLabel.left}
                placeholderText: "Enter a Title"
                width: 250
+            }
+            //Rating label
+            Text{
+               id:ratingLabel
+               text: "Rate"
+               anchors{topMargin: 15; top:titleField.bottom; left:titleLabel.left}
+               font{pointSize: 14}
+            }
+
+           Rectangle{
+               id:ratingContainer
+               width:250
+               height:50
+               Rating{
+                   anchors.fill:parent
+                   size:10
+                }
+               anchors{top:ratingLabel.bottom; left:ratingLabel.left}
+
             }
             //Category label
             Text{
                id: categoriesLabel
                text: "Categories"
-               anchors{topMargin: 15; top:titleField.bottom; left:titleField.left}
+               anchors{topMargin: 15; top:ratingContainer.bottom; left:titleLabel.left}
                font{pointSize: 14}
             }
             //Category field
            TextField{
                id:categoriesField
-               anchors{topMargin: 10; top: categoriesLabel.bottom; left: categoriesLabel.left}
+               anchors{leftMargin: 10; topMargin: 10; top: categoriesLabel.bottom; left: categoriesLabel.left}
                placeholderText: "Enter categories separated by commas"
                width: 250
             }
@@ -99,31 +127,32 @@ Dialog {
             Text{
                id:ingredientsLabel
                text: "Ingredients"
-               anchors{topMargin: 15; top:categoriesField.bottom; left:categoriesField.left}
+               anchors{topMargin: 15; top:categoriesField.bottom; left:categoriesLabel.left}
                font{pointSize: 14}
             }
            //ingredients
            AddItemView{
                id:addIngredients
-               anchors{topMargin: 10; top: ingredientsLabel.bottom; left: ingredientsLabel.left}
+               anchors{leftMargin: 10; topMargin: 10; top: ingredientsLabel.bottom; left: ingredientsLabel.left}
             }
             //Directions label
             Text{
                id:directionsLabel
                text: "Directions"
-               anchors{topMargin: 35; top:addIngredients.bottom; left:addIngredients.left}
+               anchors{topMargin: 45; top:addIngredients.bottom; left:ingredientsLabel.left}
                font{pointSize: 14}
             }
            //ingredients
            AddItemView{
                id:addDirections
-               anchors{topMargin: 10; top: directionsLabel.bottom; left: directionsLabel.left}
+               width: 250
+               anchors{leftMargin: 10;topMargin: 10; top: directionsLabel.bottom; left: addIngredients.left}
             }
            //description label
             Text{
                id:descriptionLabel
                text: "Description"
-               anchors{topMargin: 35; top:addDirections.bottom; left:addDirections.left}
+               anchors{topMargin: 50; top:addDirections.bottom; left:directionsLabel.left}
                font{pointSize: 14}
             }
 
@@ -131,8 +160,8 @@ Dialog {
            TextArea{
                id:descriptionField
                height:100
-               width:300
-               anchors{topMargin: 10; top:descriptionLabel.bottom; left:descriptionLabel.left}
+               width:250
+               anchors{leftMargin: 10; topMargin: 10; top:descriptionLabel.bottom; left:descriptionLabel.left}
             }
            //add Recipe Button
            CustomButton{
@@ -169,7 +198,7 @@ Dialog {
                    cancelButtonClick()
               }
             }
-
         }
     }
+
 }

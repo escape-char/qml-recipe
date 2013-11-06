@@ -18,12 +18,14 @@ QML_IMPORT_PATH =
 HEADERS += \
     Headers/database.hpp \
     Headers/sqlquerymodel.hpp \
-    sqltablemodel.hpp
+    sqltablemodel.hpp \
+    Headers/rating.hpp
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     sqlquerymodel.cpp \
-    sqltablemodel.cpp
+    sqltablemodel.cpp \
+    rating.cpp
 
 # Installation path
 # target.path =
