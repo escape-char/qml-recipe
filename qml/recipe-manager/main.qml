@@ -2,11 +2,13 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 import "DatabaseHandler.js" as DatabaseHandler
+import Widgets 1.0
 
 ApplicationWindow{
     width:900
     height:600
     visible: true
+
 
    function addRecipeToDb(recipe) {
        console.log("APPWINDOW.addRecipeToDb:adding recipe '" + recipe.title + "' to database")
@@ -15,24 +17,13 @@ ApplicationWindow{
 
        if(browseLoader.status == Loader.Ready){
            console.log("APPWINDOW.addRecipeToDb(): refreshing browse view")
-            browseLoader.item.refreshCategories()
-           browseLoader.item.deselectCategories()
         }
        else
            console.log("APPWINDOW.addRecipeToDb(): BrowseLoader is not READY. Unable to refresh")
        DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
 
     }
-   function cancelDialog(){
-        console.log("DIALOGLOADER: Canceling Dialog Window")
 
-        //nothing to cancel; dialog hasn't been loaded
-        if(dialogLoader.status !== Loader.Ready)
-            return;
-
-        dialogLoader.item.state = "HIDE"
-        dialogLoader.source = "" //unloaded component from loader
-    }
  //Controller for states
   Item{
         id: appWindow
@@ -41,15 +32,19 @@ ApplicationWindow{
         anchors.fill:parent
 
         Component.onCompleted: {
-            browseLoader.asynchronous = true
-            browseLoader.source = "BrowseView.qml"
+            state = "BROWSE"
+        }
+        onStateChanged: {
+            console.log("APPWINDOW.onStateChanged: state is " + appWindow.state)
         }
 
        MainMenu{
           id: mainMenu
           onAddRecipeButtonClick: {
-              dialogLoader.asynchronous = true
-              dialogLoader.source = "AddRecipeDialog.qml"
+              if(browseLoader.status === Loader.Ready){
+                  //browseLoader.item.unloadRecipeList()
+               }
+              appWindow.state = "ADD-RECIPE"
           }
        }
        //browse area loader
@@ -66,8 +61,13 @@ ApplicationWindow{
                else if (browseLoader.status === Loader.Loading)
                    console.log("browseLoader.onStatusChanged(): loading componenet... " +
                                browseLoader.progress*100 + "%.")
-               else
+               else{
                    console.log("browseLoader.onStatusChanged(): successfully loaded component")
+                   browseLoader.item.state = "SHOW"
+                    browseLoader.item.refreshCategories()
+                   browseLoader.item.deselectCategories()
+                   browseLoader.item.loadRecipeList()
+                }
             }
        }
        //loads dialogs
@@ -75,8 +75,7 @@ ApplicationWindow{
            id:dialogLoader
             height: parent.height
             width: parent.width
-            anchors{left:mainMenu.right; top: mainMenu.top}
-            opacity: 1
+           anchors{left:mainMenu.right; top: mainMenu.top}
            onStatusChanged: {
                if(dialogLoader.status === Loader.Null){
                    console.log("dialogLoader.onStatusChanged(): state is currently null")
@@ -89,6 +88,7 @@ ApplicationWindow{
                 }
                else{
                    console.log("dialogLoader.onStatusChanged(): successfully loaded component")
+                   dialogLoader.state = "SHOW"
                 }
             }
            onLoaded: {
@@ -96,13 +96,44 @@ ApplicationWindow{
               dialogLoader.item.state = "SHOW"
             }
        }
+        states: [
+            //browse state
+            State{
+                name: "BROWSE"
+                PropertyChanges{target: browseLoader;asynchronous: true; source:"BrowseView.qml"}
+            },
+            State{
+                name:"ADD-RECIPE"
+                PropertyChanges{target: dialogLoader; asynchronous: true;  source:"AddRecipeDialog.qml"}
+            }
+        ]
+    }
+    Timer{
+        id:browseTimer
+        interval: 650
+        repeat: false
+        running: false
+        onTriggered: {
+            console.log("triggered browse timer")
+            appWindow.state = "BROWSE"
+        }
+
+
     }
     Connections{
         ignoreUnknownSignals: true
         target: dialogLoader.status === Loader.Ready ? dialogLoader.item : null
-        onCancelButtonClick: cancelDialog()
+        onCancelButtonClick: {
+            dialogLoader.item.state = "HIDE"
+        }
         onAddRecipeButtonClick:{
             addRecipeToDb(data)
+            dialogLoader.item.state = "HIDE"
+        }
+        onStateChanged:{
+            if(dialogLoader.item.state === "HIDE"){
+                browseTimer.start()
+            }
         }
     }
 }
