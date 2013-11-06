@@ -4,12 +4,13 @@ import "fontawesome.js" as FontAwesome
 Rectangle{
    id: mainMenu
    width: 70
-   color:"#333333"
    height: parent.height
+   color: "black"
    signal addRecipeButtonClick()
    signal groceriesButtonClick()
    signal browseButtonClick()
    signal settingsButtonClick()
+
 
    property string dividerColor: "#2B2B2B"
 
