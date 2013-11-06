@@ -4,8 +4,10 @@ import QtQuick.Layouts 1.0
 import "DatabaseHandler.js" as DatabaseHandler
 
 Item{
-   height: parent.height
-   width: parent.width
+   id: browseView
+   height: parent ? parent.height : 500
+   width: parent ? parent.width : 500
+   state: "HIDE"
    function refreshCategories(){
          categoryListView.refresh()
          DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
@@ -13,8 +15,14 @@ Item{
    function deselectCategories(){
        categoryListView.deselect()
    }
+   function loadRecipeList(){
+       recipeListLoader.source = "RecipeList.qml"
+    }
+   function unloadRecipeList(){
+       recipeListLoader.source = ""
+    }
 
-
+   //list of categories
     CategoryList{
         id: categoryListView
         onCategorySelected:{
@@ -27,10 +35,26 @@ Item{
         }
         anchors{left: parent.left; top:parent.top}
     }
+    //load recipeList dynamically
+    Loader{
+        id: recipeListLoader
+        anchors{left:categoryListView.right; top:categoryListView.top}
+        width:400
+        height: parent.height
 
-    RecipeList{
-            id:recipeList
-            anchors{left:categoryListView.right; top:categoryListView.top}
+
+        onStatusChanged: {
+           if(recipeListLoader.status === Loader.Null)
+               console.log("recipeListLoader.onStatusChanged(): state is currently null")
+           else if (recipeListLoader.status ===- Loader.Error)
+               console.log("recipeListLoader.onStatusChanged(): error occurred during load")
+           else if (recipeListLoader.status === Loader.Loading)
+               console.log("recipeListLoader.onStatusChanged(): loading componenet... " +
+                           recipeListLoader.progress*100 + "%.")
+           else
+               console.log("recipeListLoader.onStatusChanged(): successfully loaded component")
+        }
+
     }
     /*
     //right pane
@@ -57,13 +81,22 @@ Item{
     states: [
         State {
             name: "SHOW"
-            PropertyChanges {
-            }
+            PropertyChanges {target:browseView; opacity: 1 }
         },
         State {
             name: "HIDE"
-            PropertyChanges {
-            }
+            PropertyChanges{target:browseView; opacity: 0}
         }
     ]
+    transitions:[
+        Transition{
+           from:"HIDE"; to:"SHOW"
+           NumberAnimation{target: browseView; property: "opacity"; duration: 600}
+        }
+
+
+    ]
+    onStateChanged: {
+        console.log("BROWSEVIEW.onStateChange(): state is " + browseView.state);
+    }
 }
