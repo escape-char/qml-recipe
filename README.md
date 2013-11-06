@@ -1,5 +1,11 @@
-# Recipe Manager
-An open source and easy to use recipe manager made with QT/QML.
+qml-recipe
+==========
+Recipe manager application written in Qt/QML with good usability and design
 
-## Development
-To open this application in QT Creator, go to **file --> open project** and open the **recipe-manager.pro** file
+Goals:
+* allow user to add, remove, view recipes (Duh!), 
+* Groceries for ingredients to recipes
+* Simple and elegant GUI written in QML using transitions and states
+* Import recipes from other recipe websites 
+
+
