@@ -14,7 +14,7 @@ Rectangle {
     property int rowHeight: 30
 
     height: parent.height
-    width: 200
+    width: 170
     color: backgroundColor
 
     //category event handlers
