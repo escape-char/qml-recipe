@@ -43,7 +43,7 @@ function addRecipeToTableModel(tableModel, recipe){
 
     console.log("DATABASEHANDLER.addRecipeToTableModel(): recipeID: " + recipe_id)
 
-    //date for ingredients table
+    //data for ingredients table
     var ingredientRecord = {
         "tableName": "ingredients",
         "fields":{
