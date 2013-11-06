@@ -9,7 +9,7 @@ Item {
     property int currentPage: 1
     property int lastPage: 2
     property variant currentRecipe
-    height:parent.height
+    height: parent ? parent.height : 350
     width:350
 
     signal itemClicked()
