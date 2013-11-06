@@ -28,7 +28,6 @@ Rectangle {
         color: textColor
     }
 
-    //handle click
     MouseArea{
         id: buttonMouseArea
         anchors.fill:parent
