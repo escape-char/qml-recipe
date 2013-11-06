@@ -5,23 +5,17 @@ Item {
     z: parent ? parent.z + 3 : 20
     property alias contentWidth: content.width
     property alias contentHeight: content.height
+    property alias contentX: content.x
+    property alias contentY: content.y
     default property alias children: content.children
-    property color borderColor: "darkgray"
+    property color borderColor: "gray"
     state: "HIDE"
 
     anchors.fill: parent
-    function close() {
-        dialog.closed();
-        dialog.opacity = 0;
-    }
-    function show() {
-        dialog.opacity = 1;
-    }
+
+    signal runChanged()
     signal closed();
 
-    Behavior on opacity {
-        NumberAnimation { duration: 500 }
-    }
 
     Rectangle {
         id: overlay
@@ -29,7 +23,6 @@ Item {
         height: dialog.parent ? dialog.parent.height: 300
 
         color: 'black'
-        opacity: 0.5
         z: dialog.z - 1
     }
 
@@ -37,27 +30,55 @@ Item {
         id: content
         width: contentWidth
         height: contentHeight
-        anchors.centerIn: parent
+        x: -(contentWidth)
+        y: 0
         color: "lightyellow"
         z: dialog.z + 1
-        border.width: 5
+        border.width: 2
         border.color:borderColor
-        radius: 15
+        radius: 5
     }
     states: [
         State {
             name: "SHOW"
-            PropertyChanges {
-                target: dialog
-                opacity: 1
-            }
+            PropertyChanges{target: overlay;opacity: 0.75}
+            PropertyChanges{target: content; x:0}
         },
         State {
             name: "HIDE"
-            PropertyChanges {
-                target: dialog
-                opacity: 0
+            PropertyChanges{target: overlay;opacity: 0.10}
+            PropertyChanges {target:content; x:-(content.width)}
+
+        }
+    ]
+    transitions: [
+        Transition{
+            id: hideToShow
+            from: "HIDE"; to: "SHOW"
+            SequentialAnimation{
+                NumberAnimation{
+                    target:overlay; property:"opacity";  duration:500
+                }
+                NumberAnimation{
+                    target:content; property:"x";  duration:600
+                }
             }
+        },
+        Transition{
+            id: showToHide
+            from: "SHOW"; to: "HIDE"
+           SequentialAnimation{
+               NumberAnimation{
+                   target:content; property:"x";  duration:400
+                   alwaysRunToEnd: true
+                   onStopped: {
+                     console.log("stopped")
+                    }
+               }
+               NumberAnimation{
+                   target:overlay; property:"opacity";  duration:300
+               }
+          }
         }
     ]
 }
