@@ -25,6 +25,20 @@ Item {
     ActionBar {
         id: listViewActionBar
         anchors.top: parent.top
+
+        ActionBarButton {
+            id: categoriesButton
+            icon: FontAwesome.Icon.List
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+        }
+
+        ActionBarButton {
+            id: searchButton
+            icon: FontAwesome.Icon.Search
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+        }
     }
 
     ScrollArea{
@@ -92,6 +106,7 @@ rectangle
         //Previous Page Button
         ActionBarButton {
            icon: FontAwesome.Icon.ArrowLeft
+           disabled: true
            anchors.left: parent.left
            anchors.leftMargin: 10
 
@@ -100,6 +115,7 @@ rectangle
         //Next Page Button
         ActionBarButton {
            icon: FontAwesome.Icon.ArrowRight
+           disabled: true
            anchors.right: parent.right
            anchors.rightMargin: 10
         }
