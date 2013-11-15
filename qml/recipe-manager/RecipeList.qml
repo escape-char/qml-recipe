@@ -134,7 +134,7 @@ rectangle
     Rectangle {
         height: parent.height
         width: 1
-        color: "#2B2B2B"
+        color: "#232323"
         anchors.right: parent.right
     }
 
