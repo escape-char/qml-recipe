@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
-import "DatabaseHandler.js" as DatabaseHandler
+import "js/DatabaseHandler.js" as DatabaseHandler
 
 Item{
    id: browseView
@@ -23,7 +23,7 @@ Item{
     }
 
    //list of categories
-    CategoryList{
+    /*CategoryList{
         id: categoryListView
         onCategorySelected:{
             DatabaseHandler.updateRecipeModelByCategory(recipeModel, category.id)
@@ -33,12 +33,16 @@ Item{
             DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
             categoryListView.deselect()
         }
-        anchors{left: parent.left; top:parent.top}
-    }
+
+    }*/
+
+   RecipeList {
+    anchors {top: parent.top; left: parent.left}
+   }
     //load recipeList dynamically
-    Loader{
+    /*Loader{
         id: recipeListLoader
-        anchors{left:categoryListView.right; top:categoryListView.top}
+        anchors{left: parent.left; top:parent.top}
         width:400
         height: parent.height
 
@@ -55,7 +59,7 @@ Item{
                console.log("recipeListLoader.onStatusChanged(): successfully loaded component")
         }
 
-    }
+    }*/
     /*
     //right pane
     //view recipe

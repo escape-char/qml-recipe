@@ -1,20 +1,21 @@
 import QtQuick 2.0
-import "fontawesome.js" as FontAwesome
+import "js/fontawesome.js" as FontAwesome
 
 Rectangle {
-    property color backgroundColor: "#333333"
-    property color hoverBackgroundColor: "#383838"
-    property color activeBackgroundColor: "#1F1F1F"
-    property color textColor: "#EBEBEB"
+    property color  backgroundColor: parent.color
+    property color  hoverBackgroundColor: "#9C3E44"
+    property color  activeBackgroundColor: "#7A3F3F"
+    property color  iconColor: "#DBC0BF"
     property string icon: FontAwesome.Icon.Ok
-    property string label: "None"
-    property bool isActive: false
+    property int    fontSize: 32
+    property int    padding: 10
+    property bool   isActive: false
 
     signal mainMenuItemClick()
 
     id: mainMenuItem
     width: parent.width
-    height: 60
+    height: 50
     color: isActive ? activeBackgroundColor : backgroundColor
 
     FontLoader {
@@ -31,33 +32,15 @@ Rectangle {
         onExited: { stoppedHovering() }
     }
 
-    Rectangle {
-        id: mainMenuItemContent
-        width: 45
-        height: parent.height - 11
-        color: isActive ? activeBackgroundColor : backgroundColor
-
-        anchors.verticalCenter: parent.verticalCenter
-
-        //Icon
-        Text {
-            id: buttonIcon
-            color: textColor
-            font {pointSize: 32; family: "FontAwesome"}
-            text: icon
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
-
-        anchors.horizontalCenter: parent.horizontalCenter
-    }
-
-    //bottom border
-    Rectangle {
-        id: border
-        height: 1; width: parent.width;
-        color: dividerColor
-        anchors.top: parent.bottom
+    Text {
+        id: buttonIcon
+        color: iconColor
+        width: parent.width
+        height: parent.height
+        font {pointSize: fontSize; family: "FontAwesome"}
+        text: icon
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
     }
 
     function hovering() {
@@ -67,6 +50,6 @@ Rectangle {
 
     function stoppedHovering() {
         mainMenuItem.color = isActive ? activeBackgroundColor : backgroundColor
-        mainMenuItemContent.color = isActive ? activeBackgroundColor : backgroundColor
+        this.color = isActive ? activeBackgroundColor : backgroundColor
     }
 }

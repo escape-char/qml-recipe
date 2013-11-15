@@ -4,14 +4,14 @@ Rectangle {
     id: actionBar
     height: 41
     width: parent.width
-    color: "#A9A9A9"
+    color: "#404040"
 
 
     //Top border
     Rectangle {
         id: actionBarBorder
         height: 1; width: parent.width
-        color: "#8A8A8A"
+        color: "#363636"
         anchors.bottom: parent.top
     }
 }

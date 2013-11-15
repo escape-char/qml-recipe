@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.XmlListModel 2.0
 import "content"
-import "fontawesome.js" as FontAwesome
+import "js/fontawesome.js" as FontAwesome
 
 Item {
     id:container
@@ -10,8 +10,7 @@ Item {
     property int lastPage: 2
     property variant currentRecipe
     height: parent ? parent.height : 350
-    width:350
-
+    width:300
     signal itemClicked()
     signal loaded()
 
@@ -20,7 +19,13 @@ Item {
     onLoaded: {}
 
    //background
-    Rectangle {id: background;color: "white"; anchors.fill:parent}
+    Rectangle {id: background;color: "#515151"; anchors.fill:parent}
+
+    //Action bar for List view
+    ActionBar {
+        id: listViewActionBar
+        anchors.top: parent.top
+    }
 
     ScrollArea{
         width:background.width
@@ -100,12 +105,12 @@ rectangle
         }
     }
 
-    //Right border
+    //left border
     Rectangle {
         height: parent.height
         width: 1
-        color: "#A2A2A2"
+        color: "#474747"
 
-        anchors.right: background.right
+        anchors.left: parent.left
     }
 }
