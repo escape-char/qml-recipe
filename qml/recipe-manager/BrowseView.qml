@@ -37,6 +37,7 @@ Item{
     }*/
 
    RecipeList {
+    id: recipeList
     anchors {top: parent.top; left: parent.left}
    }
     //load recipeList dynamically
@@ -60,7 +61,6 @@ Item{
         }
 
     }*/
-    /*
     //right pane
     //view recipe
     Rectangle{
@@ -68,7 +68,11 @@ Item{
         signal recipeChanged()
         color: "red"
         height:parent.height
-        width: 100
+        width: parent.width - recipeList.width
+
+        anchors {
+            top:parent.top; left: recipeList.right;
+        }
 
         RecipeItem {
             id: recipeItem
@@ -80,7 +84,6 @@ Item{
            // recipeItem.recipe = recipePane.currentRecipe
         //}
     }
-*/
 
     states: [
         State {
@@ -95,7 +98,7 @@ Item{
     transitions:[
         Transition{
            from:"HIDE"; to:"SHOW"
-           NumberAnimation{target: browseView; property: "opacity"; duration: 600}
+           NumberAnimation{target: browseView; property: "opacity"; duration: 0}
         }
 
 
