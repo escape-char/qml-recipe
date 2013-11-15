@@ -45,7 +45,7 @@ Rectangle {
 
     function hovering() {
         mainMenuItem.color = isActive ? activeBackgroundColor : hoverBackgroundColor
-        mainMenuItemContent.color = isActive ? activeBackgroundColor : hoverBackgroundColor
+        this.color = isActive ? activeBackgroundColor : hoverBackgroundColor
     }
 
     function stoppedHovering() {
