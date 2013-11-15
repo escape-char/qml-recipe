@@ -14,14 +14,14 @@ Rectangle{
    signal settingsButtonClick()
 
 
-   property string dividerColor: "#823035"
+   property string dividerColor: "#732A2F"
 
    //add recipe button
     MainMenuButton{
         id: addRecipeButton
         icon: FontAwesome.Icon.PlusSign
         anchors.top: parent.top
-        anchors.topMargin: 15
+        anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
         onMainMenuItemClick: addRecipeButtonClick()
     }
@@ -81,7 +81,7 @@ Rectangle{
         icon: FontAwesome.Icon.Cog
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 15
+        anchors.bottomMargin: 10
         onMainMenuItemClick:settingsButtonClick()
     }
 }
