@@ -113,4 +113,13 @@ rectangle
 
         anchors.left: parent.left
     }
+
+    //right border
+    Rectangle {
+        height: parent.height
+        width: 1
+        color: "#333333"
+        anchors.right: parent.right
+    }
+
 }
