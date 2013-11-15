@@ -19,7 +19,7 @@ Item {
     onLoaded: {}
 
    //background
-    Rectangle {id: background;color: "#515151"; anchors.fill:parent}
+    Rectangle {id: background;color: "#454545"; anchors.fill:parent}
 
     //Action bar for List view
     ActionBar {
@@ -125,7 +125,7 @@ rectangle
     Rectangle {
         height: parent.height
         width: 1
-        color: "#474747"
+        color: "#303030"
 
         anchors.left: parent.left
     }
@@ -134,7 +134,7 @@ rectangle
     Rectangle {
         height: parent.height
         width: 1
-        color: "#333333"
+        color: "#2B2B2B"
         anchors.right: parent.right
     }
 
