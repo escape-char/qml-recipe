@@ -8,15 +8,21 @@ Rectangle {
 
     property string label:                  "Button"
     property string fontFamily:             "Helvetica"
-    property int    fontSize:               12
-    property color  defaultColor:           "gray"
-    property color  defaultBorderColor:     "darkgray"
-    property color  hoverBorderColor:       "white"
+    property int    fontSize:                12
+    property color  backgroundColor:           "gray"
+    property color  borderColor:            "darkgray"
+    property color  hoverBackgroundColor:   "lightgray"
     property color  textColor:              "white"
+    property bool   disabled:               false
 
     signal buttonClick();
 
-    border.color: defaultBorderColor
+    color: backgroundColor
+    border.color: borderColor
+
+    FontLoader {
+        source: "fonts/fontawesome-webfont.ttf"
+    }
 
     //label
     Text{
@@ -33,9 +39,17 @@ Rectangle {
         anchors.fill:parent
         hoverEnabled: true
         onClicked: buttonClick()
-        onEntered: parent.border.color= hoverBorderColor
-        onExited: parent.border.color = defaultBorderColor
+        onEntered: {
+            if (disabled == false) {
+                parent.color = hoverBackgroundColor
+                parent.radius = 5
+            }
+        }
+
+        onExited: {
+            parent.color = backgroundColor
+            parent.radius = 0
+        }
     }
-    color: buttonMouseArea.pressed ? Qt.darker(defaultColor) : defaultColor
 
 }
