@@ -4,13 +4,16 @@ import "components"
 
 Rectangle {
     property string icon:                   FontAwesome.Icon.Ok
-    property bool   disabled:               true
+    property bool   disabled:               false
     property string disabledTextColor:      "#525252"
     property string enabledTextColor:       "#B9B9B9"
 
-    width: 25
-    height: 25
-    color: parent.color
+    width: 30
+    height: 30
+    color: "transparent";
+    radius: 5
+
+
     anchors.verticalCenter: parent.verticalCenter
 
     FontLoader {
@@ -22,9 +25,12 @@ Rectangle {
         height: parent.width
         color: parent.color
         border.width: 0
-        defaultColor: "red"
+        border.color: "transparent"
         fontFamily: "FontAwesome"
+        backgroundColor : "transparent"
+        hoverBackgroundColor: "#505050"
         textColor: disabled ? disabledTextColor : enabledTextColor
         label: icon
+        disabled: parent.disabled
     }
 }
