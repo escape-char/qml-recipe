@@ -30,8 +30,6 @@ Item {
         id: content
         width: contentWidth
         height: contentHeight
-        x: -(contentWidth)
-        y: 0
         color: "lightyellow"
         z: dialog.z + 1
         border.width: 2
@@ -49,36 +47,6 @@ Item {
             PropertyChanges{target: overlay;opacity: 0.10}
             PropertyChanges {target:content; x:-(content.width)}
 
-        }
-    ]
-    transitions: [
-        Transition{
-            id: hideToShow
-            from: "HIDE"; to: "SHOW"
-            SequentialAnimation{
-                NumberAnimation{
-                    target:overlay; property:"opacity";  duration:500
-                }
-                NumberAnimation{
-                    target:content; property:"x";  duration:600
-                }
-            }
-        },
-        Transition{
-            id: showToHide
-            from: "SHOW"; to: "HIDE"
-           SequentialAnimation{
-               NumberAnimation{
-                   target:content; property:"x";  duration:400
-                   alwaysRunToEnd: true
-                   onStopped: {
-                     console.log("stopped")
-                    }
-               }
-               NumberAnimation{
-                   target:overlay; property:"opacity";  duration:300
-               }
-          }
         }
     ]
 }
