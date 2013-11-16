@@ -125,7 +125,7 @@ function updateRecipeModelByCategory(recipeModel, id){
     String.prototype.format.regex = new RegExp("{-?[0-9]+}", "g");
 
     //select all recipes regardless of categories
-    if(id  < 0){
+    if(id  <= 0 || ! id){
         query = "SELECT recipes.id as recipes_id, recipes.title as title, \
                 recipes.description, recipes.rating, recipes.difficulty, \
                 recipes.image, recipes.created, recipes.updated, recipes.duration, \
