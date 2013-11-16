@@ -1,20 +1,20 @@
 import QtQuick 2.0
 import "content"
-import "fontawesome.js" as FontAwesome
+import "js/fontawesome.js" as FontAwesome
 
 Rectangle {
     id: categoryList
-    property color backgroundColor: "#C4C4C4"
+    property color backgroundColor: "#333333"
     property color labelColor: "#777"
     property int textSize: 12
     property int labelSize: 10
     property bool enableEdit: false
     property int leftMargin: 15
-    property int topMargin: 25
+    property int topMargin: 10
     property int rowHeight: 30
 
     height: parent.height
-    width: 170
+    width: 200
     color: backgroundColor
 
     //category event handlers
@@ -31,10 +31,12 @@ Rectangle {
         console.log("CATEGORYLIST.deselect()")
         categoriesListView.currentIndex = -1
     }
+
     Rectangle {
         id: categoriesContent
         height: parent.height - 41; width: parent.width
-        color: "#c4c4c4"
+        color: "transparent"
+
 
         Rectangle {
             id: listItems
@@ -80,7 +82,7 @@ Rectangle {
                 id: separator
                 height: 1
                 width: parent.width
-                color: "#A8A8A8"
+                color: "#292929"
                 anchors.top: mainItems.bottom
                 anchors.topMargin: 5
             }
@@ -121,10 +123,8 @@ Rectangle {
         }
     }
 
-    ActionBar {
-        anchors.top: categoriesContent.bottom
-
-        ActionBarButton {
-        }
-    }
+    //right border
+    Rectangle {height: parent.height; width:1; color: "#303030"; anchors.right:parent.right; }
+    //left border
+    Rectangle {height: parent.height; width:1; color: "#222"; anchors.left:parent.left; }
 }
