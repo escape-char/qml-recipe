@@ -5,7 +5,7 @@ Rectangle {
     property color  backgroundColor: parent.color
     property color  hoverBackgroundColor: "#9C3E44"
     property color  activeBackgroundColor: "#641B1B"
-    property color  iconColor: "#E3CBCA"
+    property color  iconColor: "#EEDBDB"
     property string icon: FontAwesome.Icon.Ok
     property int    fontSize: 32
     property int    padding: 10
