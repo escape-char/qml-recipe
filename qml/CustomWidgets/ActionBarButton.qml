@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import "fontawesome.js" as FontAwesome
+import "../../js/fontawesome.js" as FontAwesome
 
 Rectangle {
     property string icon:                   FontAwesome.Icon.Ok
@@ -14,7 +14,7 @@ Rectangle {
     anchors.verticalCenter: parent.verticalCenter
 
     FontLoader {
-        source: "fonts/fontawesome-webfont.ttf"
+        source: "../../fonts/fontawesome-webfont.ttf"
     }
 
     CustomButton {

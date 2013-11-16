@@ -36,8 +36,7 @@ ApplicationWindow{
         onStateChanged: {
             console.log("APPWINDOW.onStateChanged: state is " + appWindow.state)
         }
-
-       MainMenu{
+       RecipeMainMenu{
           id: mainMenu
           onAddRecipeButtonClick: {
               if(browseLoader.status === Loader.Ready){

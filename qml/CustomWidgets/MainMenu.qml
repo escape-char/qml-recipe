@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import "../../js/fontawesome.js" as FontAwesome
 
 Rectangle{
    id: mainMenu
