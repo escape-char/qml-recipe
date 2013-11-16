@@ -1,9 +1,13 @@
 # Add more folders to ship with the application, here
 folder_01.source = qml/
-folder_01.target = qml
+folder_01.target = ./
 folder_02.source = images/
+folder_03.source = js/
+folder_04.source = fonts/
 DEPLOYMENTFOLDERS += folder_01 \
-                     folder_02
+                     folder_02 \
+                     folder_03 \
+                     folder_04 \
 
 
 # Additional import path used to resolve QML modules in Creator's code model
@@ -38,7 +42,6 @@ OTHER_FILES += \
     100x100.gif \
     recipe_manager.xml \
     README.md \
-    qml/recipe-manager/AddItemView.qml
 
 QT += sql widgets
 

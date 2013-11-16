@@ -28,7 +28,7 @@
 // navigation model. Pages can be defined as QML items or components.
 
 import QtQuick 2.0
-import "PageStack.js" as Engine
+import "../../js/PageStack.js" as Engine
 
 Item {
     id: root
@@ -46,7 +46,7 @@ Item {
     property Item toolBar: null
 
     // Indicates whether there is an ongoing page transition.
-    property bool busy: (currentPage && currentPage.parent.busy)
+    //property bool busy: (currentPage && currentPage.parent.busy)
 
     // Pushes a page on the stack.
     // The page can be defined as a component or an item.

@@ -13,6 +13,7 @@ Rectangle {
     property color  defaultBorderColor:     "darkgray"
     property color  hoverBorderColor:       "white"
     property color  textColor:              "white"
+    property bool   disabled: false
 
     signal buttonClick();
 

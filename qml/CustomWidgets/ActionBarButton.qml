@@ -4,8 +4,8 @@ import "../../js/fontawesome.js" as FontAwesome
 Rectangle {
     property string icon:                   FontAwesome.Icon.Ok
     property bool   disabled:               false
-    property string disabledTextColor:      "#525252"
-    property string enabledTextColor:       "#B9B9B9"
+    property color disabledTextColor:      "#525252"
+    property color enabledTextColor:       "#B9B9B9"
 
     width: 30
     height: 30
@@ -25,8 +25,7 @@ Rectangle {
         border.width: 0
         border.color: "transparent"
         fontFamily: "FontAwesome"
-        backgroundColor : "transparent"
-        hoverBackgroundColor: "#505050"
+        defaultColor : "transparent"
         textColor: disabled ? disabledTextColor : enabledTextColor
         label: icon
         disabled: parent.disabled

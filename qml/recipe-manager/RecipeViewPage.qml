@@ -1,15 +1,13 @@
 import QtQuick 2.0
-
-
+import "../CustomWidgets"
 Page {
     id: itemlist
     width: parent.width
     height: parent.height
-
-    RecipeListCompact{
-        id: recipeList
-        width: 300
-        anchors {top: parent.top; left: parent.left}
+    RecipeList{
+        id:recipeList
+        width:300
+        anchors{top:parent.top; left:parent.left}
     }
 
     RecipeItem{

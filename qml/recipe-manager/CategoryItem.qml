@@ -34,7 +34,7 @@ Rectangle {
         anchors.topMargin: 3
 
         FontLoader {
-            source: "fonts/fontawesome-webfont.ttf"
+            source: "../../fonts/fontawesome-webfont.ttf"
         }
 
         Text {

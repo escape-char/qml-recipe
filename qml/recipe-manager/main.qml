@@ -62,9 +62,9 @@ ApplicationWindow{
                else{
                    console.log("browseLoader.onStatusChanged(): successfully loaded component")
                    browseLoader.item.state = "SHOW"
-                    browseLoader.item.refreshCategories()
-                   browseLoader.item.deselectCategories()
-                   browseLoader.item.loadRecipeList()
+                  //  browseLoader.item.refreshCategories()
+                  // browseLoader.item.deselectCategories()
+                   //browseLoader.item.loadRecipeList()
                 }
             }
        }

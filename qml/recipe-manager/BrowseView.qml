@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 import "../../js/DatabaseHandler.js" as DatabaseHandler
+import "../CustomWidgets"
 
 Item{
    id: browseView
@@ -15,9 +16,11 @@ Item{
    function deselectCategories(){
        categoryListView.deselect()
    }
+   /*
    function loadRecipeList(){
        recipeListLoader.source = "RecipeList.qml"
     }
+    */
    function unloadRecipeList(){
        recipeListLoader.source = ""
     } 
