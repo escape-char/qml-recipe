@@ -7,8 +7,16 @@ Rectangle {
     width: parent.width
     color: "#ffffff"
 
+
     //holds data for recipe
     property variant recipe
+
+    Rectangle {
+        height: parent.height;
+        width: 1
+        color: "#ccc"
+        anchors {top: parent.top; left: parent.left}
+    }
 
     signal loaded()
 
@@ -17,12 +25,13 @@ Rectangle {
     }
 
     ActionBar {
+        id: topBar
         anchors.top: recipeItemContent.top
     }
 
     Rectangle {
         id: recipeItemContent
-        height: parent.height - 41
+        height: parent.height - topBar*2
 
         Text {
             height: 20
