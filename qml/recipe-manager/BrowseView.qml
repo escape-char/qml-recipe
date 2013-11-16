@@ -6,8 +6,13 @@ import "../CustomWidgets"
 
 Item{
    id: browseView
-   height: parent ? parent.height : 500
-   width: parent ? parent.width : 500
+
+   property int curWidth: parent ? parent.width : 0
+   property int curHeight: parent ? parent.height : 0
+
+   height: curHeight
+   width: curWidth
+
    state: "HIDE"
    function refreshCategories(){
          categoryListView.refresh()
@@ -26,28 +31,39 @@ Item{
     } 
     PageStack {
         id: pageStack
-        height: parent.height
-        width: parent.width
+        height: curHeight
+        width: curWidth
     }
 
     RecipeListPage {
         id: listPage
+        height: curHeight
+        width: curWidth
+        onRecipeClicked: {
+            pageStack.push(viewPage);
+        }
+
+
     }
 
     RecipeViewPage {
         id: viewPage
+        height: curHeight
+        width: curWidth
+        onBackButtonClicked: {
+           console.log(pageStack.depth)
+           viewPage = pageStack.pop(viewPage);
+            console.log(pageStack.depth)
+            console.log(pageStack.currentPage.toString())
+        }
     }
 
     Component.onCompleted: {
-        pageStack.push(listPage)
+        console.log("---------------");
+        console.log("PUSHED LIST PAGE");
+        pageStack.push(listPage);
+        console.log("---------------");
     }
 
 
-    MouseArea {
-        id: mousearea
-        anchors.fill: parent
-        onClicked: {
-            pageStack.push(viewPage)
-        }
-    }
 }
