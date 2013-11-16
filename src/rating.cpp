@@ -15,6 +15,8 @@ Rating::Rating(QQuickItem* parent):
     this->_hover=NONE;
     this->_size = 10;
     this->_spacing = 10;
+    this->_fillColor = "#bbb";
+    this->_strokeColor = this->_fillColor;
 
     this->setKeepMouseGrab(true);
 }
@@ -33,7 +35,10 @@ void Rating::paint(QPainter *painter){
     //star to draw
     QPainterPath path;
 
-    QBrush brush("gold");
+    QBrush brush(_fillColor);
+    QPen pen(_strokeColor);
+
+    painter->setPen(pen);
 
     //outter loop to draw five stars
     for(int star = 1; star <= totalStars; star++){
@@ -41,7 +46,7 @@ void Rating::paint(QPainter *painter){
         //used to detect if mouse is at a star
         QRect boundingRect;
         boundingRect.moveTo(center[0] - radius, center[1] - radius);
-        boundingRect.setSize(QSize(2* radius, 2*radius));
+        boundingRect.setSize(QSize(2* radius + _spacing, 2*radius));
 
         //star bounding rectangle for each star
         this->starRect[star - 1] = boundingRect;
@@ -58,10 +63,14 @@ void Rating::paint(QPainter *painter){
 
             path.lineTo(dx, dy);
         }
+
+        pen.setColor(_strokeColor);
+
         //paint star gold if hover or clicked on it
-        if(((_hover > 0) && (star <= this->_hover)) ||
-            ((star <=_selected) && (_hover == 0))){
-            brush.setColor("gold");
+        if(_hover > 0 && star <= this->_hover ||
+            star <=_selected && _hover == 0){
+
+            brush.setColor(_fillColor);
         }
         //star is transparent
         else{

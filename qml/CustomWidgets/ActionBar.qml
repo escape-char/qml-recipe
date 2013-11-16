@@ -4,5 +4,5 @@ Rectangle {
     id: actionBar
     height: 41
     width: parent.width
-    color: "#383838"
+    color: "#404040"
 }

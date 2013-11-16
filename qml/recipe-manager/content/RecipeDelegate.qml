@@ -17,7 +17,7 @@ import Widgets 1.0
     property color backgroundColor: "#fafafa"
     property color activeBackgroundColor: "#fafafa"
 
-    property color titleColor: "#454545"
+    property color titleColor: "#358C91"
     property color descriptionColor: "#888"
 
     /*Margins */
@@ -118,17 +118,18 @@ import Widgets 1.0
 
         Rectangle {
             id:ratingWidget
-            height:30
+            height:40
             width: itemWidth - 300 - 85
             visible:true
             color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor
 
             Rating{
                 anchors.fill: parent
-                fillColor: parent.color
+                fillColor: "gold"
+
                 x: 0
                 y: 0
-                size:8
+                size:11
             }
             anchors{top: parent.top; topMargin: topMargin}
         }
