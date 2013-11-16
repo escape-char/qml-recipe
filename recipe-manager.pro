@@ -7,7 +7,7 @@ folder_04.source = fonts/
 DEPLOYMENTFOLDERS += folder_01 \
                      folder_02 \
                      folder_03 \
-                     folder_04 \
+                     folder_04
 
 
 # Additional import path used to resolve QML modules in Creator's code model

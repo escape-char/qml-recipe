@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 import "../../js/DatabaseHandler.js" as DatabaseHandler
+import "../CustomWidgets"
 import Widgets 1.0
 
 ApplicationWindow{
@@ -24,7 +25,7 @@ ApplicationWindow{
     }
 
  //Controller for states
- Item{
+  Item{
         id: appWindow
         width:parent.width
         height:parent.height
@@ -38,12 +39,11 @@ ApplicationWindow{
         }
        RecipeMainMenu{
           id: mainMenu
-          onAddRecipeButtonClicked: {
-              console.log("main clicked");
+          onAddRecipeButtonClick: {
               if(browseLoader.status === Loader.Ready){
                   //browseLoader.item.unloadRecipeList()
                }
-              appWindow.state = "ADD-RECIPE";
+              appWindow.state = "ADD-RECIPE"
           }
        }
        //browse area loader
@@ -72,9 +72,9 @@ ApplicationWindow{
        //loads dialogs
        Loader{
            id:dialogLoader
-            height: parent.height
-            width: parent.width
-           anchors{left:mainMenu.right; top: mainMenu.top}
+           width: parent.width - mainMenu.width
+           anchors.left: mainMenu.right
+           height: parent.height
            onStatusChanged: {
                if(dialogLoader.status === Loader.Null){
                    console.log("dialogLoader.onStatusChanged(): state is currently null")
@@ -87,12 +87,10 @@ ApplicationWindow{
                 }
                else{
                    console.log("dialogLoader.onStatusChanged(): successfully loaded component")
-                   dialogLoader.state = "SHOW"
+                   dialogLoader.item.state = "SHOW"
+                   console.log("Browse: " + browseLoader.item.state)
+
                 }
-            }
-           onLoaded: {
-              console.log("dialogLoader.onLoaded()")
-              dialogLoader.item.state = "SHOW"
             }
        }
         states: [
@@ -104,6 +102,7 @@ ApplicationWindow{
             State{
                 name:"ADD-RECIPE"
                 PropertyChanges{target: dialogLoader; asynchronous: true;  source:"AddRecipeDialog.qml"}
+                PropertyChanges{target: browseLoader;asynchronous: true; source:"BrowseView.qml"}
             }
         ]
     }
@@ -117,10 +116,13 @@ ApplicationWindow{
         onAddRecipeButtonClicked:{
             addRecipeToDb(data)
             dialogLoader.item.state = "HIDE"
+            appWindow.state = "BROWSE"
+
         }
         onStateChanged:{
             if(dialogLoader.item.state === "HIDE"){
-                browseTimer.start()
+                dialogLoader.source=""
+                appWindow.state = "BROWSE"
             }
         }
     }
