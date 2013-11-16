@@ -50,39 +50,4 @@ Item{
             pageStack.push(viewPage)
         }
     }
-
-   //list of categories
-    CategoryList{
-        id: categoryListView
-        onCategorySelected:{
-            DatabaseHandler.updateRecipeModelByCategory(recipeModel, category.id)
-        }
-        onAllClick: {
-            //update recipe model to select all categories
-            DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
-            categoryListView.deselect()
-        }
-        anchors{left: parent.left; top:parent.top}
-    }
-
-    states: [
-        State {
-            name: "SHOW"
-            PropertyChanges {target:browseView; opacity: 1 }
-        },
-        State {
-            name: "HIDE"
-            PropertyChanges{target:browseView; opacity: 0}
-        }
-    ]
-    transitions:[
-        Transition{
-           from:"HIDE"; to:"SHOW"
-           NumberAnimation{target: browseView; property: "opacity"; duration: 0}
-        }
-
-    ]
-    onStateChanged: {
-        console.log("BROWSEVIEW.onStateChange(): state is " + browseView.state);
-    }
 }
