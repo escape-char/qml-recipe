@@ -14,15 +14,14 @@ Item {
     height: parent.height
     width: curWidth
 
-    signal itemClicked()
-    signal loaded()
+    signal recipeClicked
+    signal loaded
 
+    onRecipeClicked: {}
 
-    onItemClicked: {}
-    onLoaded: {}
 
    //background
-    Rectangle {id: background; color: "#444"; anchors.fill:parent}
+    Rectangle {id: background; color: "#424242"; anchors.fill:parent}
 
     //Action bar for List view
     ActionBar {
@@ -58,10 +57,11 @@ Item {
              model: recipeModel
 
              delegate: RecipeDelegate {
-                 onRecipeClicked: {
-                     container.currentRecipe = recipeListView.currentItem.recipeData
-                     console.log(recipeListView.delegate)
-                     console.log("RECIPELIST: clicked " + currentRecipe.id +  " " + currentRecipe.title)
+                 id: recipeDelegate
+                 onClicked: recipeClicked
+
+                 Component.onCompleted: {
+                     recipeDelegate.clicked.connect(recipeClicked)
                  }
              }
 
@@ -69,7 +69,7 @@ Item {
 
              Component.onCompleted: {
                  container.currentRecipe = recipeListView.currentItem ? recipeListView.currentItem.recipeData : null
-                 loaded()
+
              }
         }
     }
@@ -120,6 +120,15 @@ Item {
            anchors.right: parent.right
            anchors.rightMargin: 10
         }
+    }
+
+    //left border
+    Rectangle {
+        height: parent.height
+        width: 1
+        color: "#333"
+
+        anchors.left: parent.left
     }
 
     //left border
