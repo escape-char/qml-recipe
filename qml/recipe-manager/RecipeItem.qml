@@ -16,6 +16,10 @@ Rectangle {
         loaded()
     }
 
+    ActionBar {
+        anchors.top: recipeItemContent.top
+    }
+
     Rectangle {
         id: recipeItemContent
         height: parent.height - 41

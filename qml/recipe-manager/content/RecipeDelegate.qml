@@ -8,21 +8,33 @@ import Widgets 1.0
     //property to access recipe data from other compontents
     property variant recipeData: model
 
-    property int itemHeight: 110
+    property int itemHeight: 100
+    property int itemWidth: parent.width
     property int imageSize: 75
     property int checkBoxWidth: 10
     property int imageHorizMargin: 10
-    property string borderColor: "#B8B8B8"
+    property color borderColor: "#B8B8B8"
+    property color backgroundColor: "#fafafa"
+    property color activeBackgroundColor: "#fafafa"
+
+    property color titleColor: "#454545"
+    property color descriptionColor: "#888"
+
+    /*Margins */
+    property int topMargin: 10
+    property int rightMargin: 10
+    property int leftMargin: 10
 
     signal recipeClicked()
 
     height: itemHeight
-    width: recipeDelegate.ListView.view.width
+    width: itemWidth
 
-    Rectangle {
-        id: recipeDelegateContainer
-        height: parent.height; width: parent.width
-        color: recipeDelegate.ListView.isCurrentItem ? "#DCE0B8" : "#EBEBEB"
+    Rectangle {width: itemWidth; height: itemHeight; color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor}
+
+    Row {
+        height: itemHeight
+        spacing: 10
 
         MouseArea {
             id: mousearea
@@ -33,98 +45,119 @@ import Widgets 1.0
             }
         }
 
+
         Component.onCompleted: {
-            //mousearea.clicked.connect(recipeClicked)
+            mousearea.clicked.connect(recipeClicked)
+            console.log(recipeData.title)
         }
 
-        //checkbox
-        Item {
-            id: checkBoxContainer
-            height: parent.height
-            width: checkBoxWidth
-            anchors.left: parent.left
+        Rectangle {
+            height:parent.height
+            color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor
+            width: 1;
 
-            CheckBox {
-                anchors.top: parent.top
-                anchors.topMargin: 40
-                anchors.left: parent.left
-                anchors.leftMargin: 3
-            }
         }
 
-        Image {
-            id: img
-            width: imageSize; height: imageSize
-            //source: image
-
-            anchors.left: checkBoxContainer.right
-            anchors.leftMargin: imageHorizMargin
-            anchors.top: parent.top
-            anchors.topMargin: 10
+        Rectangle {
+            height: 85 - topMargin
+            width: 85
+            color: "#BFBFBF"
+            anchors {top: parent.top; topMargin: topMargin}
+            //Image {
+            //    id: img
+            //    width: imageSize; height: imageSize
+            //}
         }
 
-        Item {
-            width: parent.width
+        Rectangle {
+            width: 300;
+            height: itemHeight-topMargin;
+            color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor
+            anchors {top: parent.top; topMargin: topMargin}
 
-            anchors.top: parent.top
-            anchors.topMargin: 10
-            anchors.left: img.right
-            anchors.leftMargin: imageHorizMargin
-
-            //Title
             Text {
                 id: titleText
-                width: parent.width
+                width: itemWidth
                 text: title
+                color: titleColor
                 wrapMode: Text.WordWrap
-                font { bold: true; family: "Helvetica"; pointSize: 12 }
-            }
-            //rating
-            Item{
-                id:ratingWidget
-                height:30
-                width: parent.width
-                visible:true
-                Rating{
-                    anchors.fill:parent;
-                    x: 0
-                    y: 0
-                    size:8
-                }
-                anchors.top:titleText.bottom
-            }
-            Item {
-                width: parent.width
-                height: 30
+                font { bold: true; pointSize: 12 }
+                anchors {top: parent.top}
 
-                anchors.top: ratingWidget.bottom
-                anchors.topMargin: 4
-
-                //Difficulty
-                Text {
-                     id: difficultyText
-                     width: 50
-                     text: difficulty
-                     color: "#787878"
-                     wrapMode: Text.WordWrap; font.family: "Helvetica"; font.pointSize: 10
-                }
-
-                 //Duration
-                 Text {
-                     id: durationText
-                     width:  50
-                     text: duration
-                     color: "#787878"
-                     wrapMode: Text.WordWrap; font.family: "Helvetica"; font.pointSize: 10
-                     anchors.left: difficultyText.right
-                 }
             }
+
+            Text {
+                id: descriptionText
+                height:20
+                width: itemWidth
+                text: description
+                color: descriptionColor
+                wrapMode: Text.WordWrap
+                font { pointSize: 11 }
+                anchors {top: titleText.bottom; topMargin: 7}
+            }
+
+            //Difficulty
+            Text {
+                 id: difficultyText
+                 width: 200
+                 text: "Difficulty: " + difficulty
+                 color: "#aaa"
+                 wrapMode: Text.WordWrap; font.pointSize: 8
+                 anchors {top: descriptionText.bottom; topMargin: 10}
+            }
+            Text {
+                 id: durationText
+                 width: 200
+                 text: "Durection: : " + duration
+                 color: "#aaa"
+                 wrapMode: Text.WordWrap; font.pointSize: 8
+                 anchors {top:difficultyText.top;}
+            }
+         }
+
+        Rectangle {
+            id:ratingWidget
+            height:30
+            width: itemWidth - 300 - 85
+            visible:true
+            color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor
+
+            Rating{
+                anchors.fill: parent
+                fillColor: parent.color
+                x: 0
+                y: 0
+                size:8
+            }
+            anchors{top: parent.top; topMargin: topMargin}
         }
-    }
 
-    //Bottom Border
-    Rectangle {
-     width: parent.width; height: 1; color: borderColor
-     anchors.bottom: parent.bottom
-    }
+
+
+                //rating
+
+                /*Item {
+                    width: parent.width
+                    height: 30
+
+                    anchors.top: ratingWidget.bottom
+                    anchors.topMargin: 4
+
+
+
+                     //Duration
+                     Text {
+                         id: durationText
+                         width:  50
+                         text: duration
+                         color: "#787878"
+                         wrapMode: Text.WordWrap; font.family: "Helvetica"; font.pointSize: 10
+                         anchors.left: difficultyText.right
+                     }
+                }
+            } */
+      }
+
+    Rectangle { height: 1; width: parent.width; color: "#ddd"; anchors.bottom: parent.bottom; }
  }

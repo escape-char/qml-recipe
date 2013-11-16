@@ -20,6 +20,32 @@ Item{
     }
    function unloadRecipeList(){
        recipeListLoader.source = ""
+    } 
+    PageStack {
+        id: pageStack
+        height: parent.height
+        width: parent.width
+    }
+
+    RecipeListPage {
+        id: listPage
+    }
+
+    RecipeViewPage {
+        id: viewPage
+    }
+
+    Component.onCompleted: {
+        pageStack.push(listPage)
+    }
+
+
+    MouseArea {
+        id: mousearea
+        anchors.fill: parent
+        onClicked: {
+            pageStack.push(viewPage)
+        }
     }
 
    //list of categories
@@ -35,48 +61,6 @@ Item{
         }
         anchors{left: parent.left; top:parent.top}
     }
-    //load recipeList dynamically
-    Loader{
-        id: recipeListLoader
-        anchors{left:categoryListView.right; top:categoryListView.top}
-        width:400
-        height: parent.height
-
-
-        onStatusChanged: {
-           if(recipeListLoader.status === Loader.Null)
-               console.log("recipeListLoader.onStatusChanged(): state is currently null")
-           else if (recipeListLoader.status ===- Loader.Error)
-               console.log("recipeListLoader.onStatusChanged(): error occurred during load")
-           else if (recipeListLoader.status === Loader.Loading)
-               console.log("recipeListLoader.onStatusChanged(): loading componenet... " +
-                           recipeListLoader.progress*100 + "%.")
-           else
-               console.log("recipeListLoader.onStatusChanged(): successfully loaded component")
-        }
-
-    }
-    /*
-    //right pane
-    //view recipe
-    Rectangle{
-        id: recipePane
-        signal recipeChanged()
-        color: "red"
-        height:parent.height
-        width: 100
-
-        RecipeItem {
-            id: recipeItem
-            onLoaded: {
-                recipeItem.recipe = recipePane.currentRecipe
-            }
-        }
-       // onCurrentRecipeChanged: {
-           // recipeItem.recipe = recipePane.currentRecipe
-        //}
-    }
-*/
 
     states: [
         State {
@@ -91,9 +75,8 @@ Item{
     transitions:[
         Transition{
            from:"HIDE"; to:"SHOW"
-           NumberAnimation{target: browseView; property: "opacity"; duration: 600}
+           NumberAnimation{target: browseView; property: "opacity"; duration: 0}
         }
-
 
     ]
     onStateChanged: {

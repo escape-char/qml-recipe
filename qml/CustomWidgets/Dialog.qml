@@ -8,7 +8,7 @@ Item {
     property alias contentX: content.x
     property alias contentY: content.y
     default property alias children: content.children
-    property color borderColor: "#888888"
+    property color borderColor: "gray"
     state: "HIDE"
 
     anchors.fill: parent
@@ -31,11 +31,9 @@ Item {
         width: contentWidth
         height: contentHeight
         anchors.centerIn: parent
-
-
         color: "lightyellow"
         z: dialog.z + 1
-        border.width: 1
+        border.width: 2
         border.color:borderColor
         radius: 5
     }

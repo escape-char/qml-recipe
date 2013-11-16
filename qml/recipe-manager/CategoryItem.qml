@@ -4,9 +4,9 @@ import "../../js/fontawesome.js" as FontAwesome
 Rectangle {
     id: categoryItemContainer
 
-    property color backgroundColor: "#C4C4C4"
-    property color textColor: "#555"
-    property color  hoverBackgroundColor: Qt.darker(backgroundColor, 1.4)
+    property color backgroundColor: "#333333"
+    property color textColor: "#c0c0c0"
+    property color  hoverBackgroundColor: "#3f3f3f"
     property string label: "Example"
     property string icon: FontAwesome.Icon.Star
     property int textSize: 12
@@ -20,7 +20,6 @@ Rectangle {
     height: rowHeight
     border.color: "transparent"
     border.width: 1
-    radius:5
 
     signal categoryItemClicked()
 

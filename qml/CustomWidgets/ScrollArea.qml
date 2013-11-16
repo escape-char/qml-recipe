@@ -3,7 +3,7 @@ import QtQuick.Controls 1.0
 
 Item {
     //
-    property int margins: 2
+    property int margins: 0
     property int contentWidth: content.childrenRect.width
     property int contentHeight: content.childrenRect.height
     property alias color: background.color
@@ -38,7 +38,7 @@ Item {
         Item{
             id:scrollAreaMargins
             anchors.fill:parent
-            anchors.margins:2
+            anchors.margins: margins
 
             //content
             Item{

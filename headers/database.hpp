@@ -10,7 +10,7 @@
 //handles database connection and initialization
 namespace databaseHandler {
     //name of database
-    #define DATABASE_NAME  "recipemanager"
+    #define DATABASE_NAME  "recipemanager.db"
 
    //database type
     #define CONNECTION_TYPE "QSQLITE" 
