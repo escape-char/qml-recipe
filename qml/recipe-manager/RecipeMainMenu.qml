@@ -37,6 +37,7 @@ MainMenu{
         //Browse Menu Item
         MainMenuItem {
             id:browseButton
+
             icon: FontAwesome.Icon.Book
             isActive: true;
             anchors.top: parent.top

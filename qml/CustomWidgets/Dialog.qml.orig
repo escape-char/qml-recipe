@@ -4,6 +4,14 @@ Item {
     id: dialog
 
     z: parent ? parent.z + 3 : 20
+<<<<<<< Updated upstream
+    property alias contentWidth: content.width
+    property alias contentHeight: content.height
+    property alias contentX: content.x
+    property alias contentY: content.y
+    default property alias children: content.children
+    property color borderColor: "gray"
+=======
     property int contentWidth: 200
     property int contentHeight: 200
     property int contentX: 100;
@@ -17,6 +25,7 @@ Item {
     property string titleText: "Title"
     property color titleColor:  "black"
 
+>>>>>>> Stashed changes
     state: "HIDE"
 
     anchors.fill: parent
@@ -41,8 +50,18 @@ Item {
         border.color: borderColor
         border.width: 2
         anchors.centerIn: parent
+<<<<<<< Updated upstream
+        color: "lightyellow"
+        z: dialog.z + 1
+        border.width: 2
+        border.color:borderColor
+        radius: 5
+=======
         z: dialog.z
         color: "white"
+
+
+>>>>>>> Stashed changes
     }
 
     Rectangle{
