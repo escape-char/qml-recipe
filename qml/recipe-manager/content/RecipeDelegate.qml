@@ -17,7 +17,7 @@ import Widgets 1.0
     property color backgroundColor: "#fafafa"
     property color activeBackgroundColor: "#fafafa"
 
-    property color titleColor: "#454545"
+    property color titleColor: "#358C91"
     property color descriptionColor: "#888"
 
     /*Margins */
