@@ -18,7 +18,7 @@ Rectangle {
     color: isActive ? activeBackgroundColor : backgroundColor
 
     FontLoader {
-        source: "fonts/fontawesome-webfont.ttf"
+        source: "../../fonts/fontawesome-webfont.ttf"
     }
 
     MouseArea{
