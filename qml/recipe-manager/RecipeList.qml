@@ -2,7 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.XmlListModel 2.0
 import "content"
-import "fontawesome.js" as FontAwesome
+import "../CustomWidgets"
+import "../../js/fontawesome.js" as FontAwesome
 
 Item {
     id:container

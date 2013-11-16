@@ -1,18 +1,12 @@
 import QtQuick 2.0
-import "fontawesome.js" as FontAwesome
+import "../CustomWidgets"
 
-Rectangle{
+MainMenu{
    id: mainMenu
-   width: 70
-   height: parent.height
-   color: "black"
    signal addRecipeButtonClick()
    signal groceriesButtonClick()
    signal browseButtonClick()
    signal settingsButtonClick()
-
-
-   property string dividerColor: "#2B2B2B"
 
    //add recipes button
     MainMenuItem{
@@ -68,10 +62,4 @@ Rectangle{
         onMainMenuItemClick:settingsButtonClick()
         backgroundColor: parent.color
     }
-   //Right Border
-   Rectangle {
-       height: parent.height; width: 1
-       anchors.left: parent.right
-       color: "#CFCFCF"
-   }
 }

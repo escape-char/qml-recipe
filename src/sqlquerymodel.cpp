@@ -4,7 +4,7 @@
 #include <QVariant>
 #include <iostream>
 
- #include "Headers/sqlquerymodel.hpp"
+ #include "headers/sqlquerymodel.hpp"
 
 SqlQueryModel::SqlQueryModel(QObject *parent)
     : QSqlQueryModel(parent){

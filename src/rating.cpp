@@ -5,7 +5,7 @@
 #include<QBrush>
 #include<QRect>
 #include <cmath>
-#include "Headers/rating.hpp"
+#include "headers/rating.hpp"
 
 Rating::Rating(QQuickItem* parent):
     QQuickPaintedItem(parent){
@@ -59,8 +59,8 @@ void Rating::paint(QPainter *painter){
             path.lineTo(dx, dy);
         }
         //paint star gold if hover or clicked on it
-        if(_hover > 0 && star <= this->_hover ||
-            star <=_selected && _hover == 0){
+        if(((_hover > 0) && (star <= this->_hover)) ||
+            ((star <=_selected) && (_hover == 0))){
             brush.setColor("gold");
         }
         //star is transparent

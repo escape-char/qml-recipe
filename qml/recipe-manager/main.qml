@@ -1,14 +1,13 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
-import "DatabaseHandler.js" as DatabaseHandler
+import "../../js/DatabaseHandler.js" as DatabaseHandler
 import Widgets 1.0
 
 ApplicationWindow{
     width:900
     height:600
     visible: true
-
 
    function addRecipeToDb(recipe) {
        console.log("APPWINDOW.addRecipeToDb:adding recipe '" + recipe.title + "' to database")

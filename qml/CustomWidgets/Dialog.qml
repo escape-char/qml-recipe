@@ -8,7 +8,7 @@ Item {
     property alias contentX: content.x
     property alias contentY: content.y
     default property alias children: content.children
-    property color borderColor: "gray"
+    property color borderColor: "#888888"
     state: "HIDE"
 
     anchors.fill: parent
@@ -30,24 +30,23 @@ Item {
         id: content
         width: contentWidth
         height: contentHeight
-        x: -(contentWidth)
-        y: 0
+        anchors.centerIn: parent
+
+
         color: "lightyellow"
         z: dialog.z + 1
-        border.width: 2
+        border.width: 1
         border.color:borderColor
         radius: 5
     }
     states: [
         State {
             name: "SHOW"
-            PropertyChanges{target: overlay;opacity: 0.75}
-            PropertyChanges{target: content; x:0}
+            PropertyChanges{target: overlay;opacity: 0.50}
         },
         State {
             name: "HIDE"
-            PropertyChanges{target: overlay;opacity: 0.10}
-            PropertyChanges {target:content; x:-(content.width)}
+            PropertyChanges{target: overlay;opacity: 0.00}
 
         }
     ]
@@ -57,10 +56,7 @@ Item {
             from: "HIDE"; to: "SHOW"
             SequentialAnimation{
                 NumberAnimation{
-                    target:overlay; property:"opacity";  duration:500
-                }
-                NumberAnimation{
-                    target:content; property:"x";  duration:600
+                    target:overlay; property:"opacity";  duration:1000
                 }
             }
         },
@@ -68,13 +64,6 @@ Item {
             id: showToHide
             from: "SHOW"; to: "HIDE"
            SequentialAnimation{
-               NumberAnimation{
-                   target:content; property:"x";  duration:400
-                   alwaysRunToEnd: true
-                   onStopped: {
-                     console.log("stopped")
-                    }
-               }
                NumberAnimation{
                    target:overlay; property:"opacity";  duration:300
                }

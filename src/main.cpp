@@ -5,10 +5,10 @@
 #include <QQmlApplicationEngine>
 
 #include "qtquick2applicationviewer.h"
-#include "Headers/database.hpp"
-#include "Headers/sqlquerymodel.hpp"
-#include "Headers/rating.hpp"
-#include "sqltablemodel.hpp"
+#include "headers/database.hpp"
+#include "headers/sqlquerymodel.hpp"
+#include "headers/rating.hpp"
+#include "headers/sqltablemodel.hpp"
 
 int main(int argc, char *argv[])
 {

@@ -1,8 +1,7 @@
 import QtQuick 2.0
+import "../CustomWidgets"
 
 Rectangle {
-
-
     id: recipeItem
     height: parent.height
     width: parent.width

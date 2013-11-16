@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import "fontawesome.js" as FontAwesome
+import "../../js/fontawesome.js" as FontAwesome
 
 Rectangle {
     id: categoryItemContainer

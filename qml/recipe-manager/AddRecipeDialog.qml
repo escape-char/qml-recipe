@@ -1,17 +1,16 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import Widgets 1.0
+import "../CustomWidgets"
+
 Dialog {
     id: addRecipeDialog
-    contentHeight: parent ? parent.height : 500
+    contentHeight: 500
     contentWidth:500
-    contentX: -(contentHeight)
-    contentY: 0
     clip:true
     MouseArea{
         anchors.fill:parent
         preventStealing: true
-
     }
 
     //holds recipe data from form

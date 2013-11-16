@@ -1,5 +1,5 @@
 # Add more folders to ship with the application, here
-folder_01.source = qml/recipe-manager
+folder_01.source = qml/
 folder_01.target = qml
 folder_02.source = images/
 DEPLOYMENTFOLDERS += folder_01 \
@@ -16,19 +16,19 @@ QML_IMPORT_PATH =
 
 #header files for project
 HEADERS += \
-    Headers/database.hpp \
-    Headers/sqlquerymodel.hpp \
-    sqltablemodel.hpp \
-    Headers/rating.hpp
+    headers/database.hpp \
+    headers/sqlquerymodel.hpp \
+    headers/sqltablemodel.hpp \
+    headers/rating.hpp
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp \
-    sqlquerymodel.cpp \
-    sqltablemodel.cpp \
-    rating.cpp
+SOURCES += src/main.cpp \
+    src/sqlquerymodel.cpp \
+    src/sqltablemodel.cpp \
+    src/rating.cpp
 
 # Installation path
-# target.path =
+target.path = ./debug
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)

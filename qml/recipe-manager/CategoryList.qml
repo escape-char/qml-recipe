@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import "content"
-import "fontawesome.js" as FontAwesome
+import "../CustomWidgets"
+import "../../js/fontawesome.js" as FontAwesome
 
 Rectangle {
     id: categoryList

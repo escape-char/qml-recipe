@@ -5,7 +5,7 @@
 #include <QMapIterator>
 #include <QStringList>
 #include <QMap>
-#include "sqltablemodel.hpp"
+#include "../headers/sqltablemodel.hpp"
 
 SqlTableModel::SqlTableModel(QObject* parent)
         : QSqlTableModel(parent){
