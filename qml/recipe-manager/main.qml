@@ -5,7 +5,7 @@ import "js/DatabaseHandler.js" as DatabaseHandler
 import Widgets 1.0
 
 ApplicationWindow{
-    width:900
+    width:1024
     height:600
     visible: true
 
