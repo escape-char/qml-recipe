@@ -24,7 +24,7 @@ ApplicationWindow{
     }
 
  //Controller for states
-  Item{
+ Item{
         id: appWindow
         width:parent.width
         height:parent.height
@@ -38,11 +38,12 @@ ApplicationWindow{
         }
        RecipeMainMenu{
           id: mainMenu
-          onAddRecipeButtonClick: {
+          onAddRecipeButtonClicked: {
+              console.log("main clicked");
               if(browseLoader.status === Loader.Ready){
                   //browseLoader.item.unloadRecipeList()
                }
-              appWindow.state = "ADD-RECIPE"
+              appWindow.state = "ADD-RECIPE";
           }
        }
        //browse area loader
@@ -106,25 +107,14 @@ ApplicationWindow{
             }
         ]
     }
-    Timer{
-        id:browseTimer
-        interval: 650
-        repeat: false
-        running: false
-        onTriggered: {
-            console.log("triggered browse timer")
-            appWindow.state = "BROWSE"
-        }
 
-
-    }
     Connections{
         ignoreUnknownSignals: true
         target: dialogLoader.status === Loader.Ready ? dialogLoader.item : null
-        onCancelButtonClick: {
+        onCancelButtonClicked: {
             dialogLoader.item.state = "HIDE"
         }
-        onAddRecipeButtonClick:{
+        onAddRecipeButtonClicked:{
             addRecipeToDb(data)
             dialogLoader.item.state = "HIDE"
         }
