@@ -8,11 +8,11 @@ Item {
     id:container
     property int currentPage: 1
     property int lastPage: 2
-    property int listWidth: 300
     property variant currentRecipe
+    property int curWidth: parent.width
 
     height: parent.height
-    width: listWidth
+    width: curWidth
 
     signal itemClicked()
     signal loaded()
@@ -24,7 +24,7 @@ Item {
 
 
    //background
-    Rectangle {id: background; color: "#555555"; anchors.fill:parent}
+    Rectangle {id: background; color: "#444"; anchors.fill:parent}
 
     //Action bar for List view
     ActionBar {
@@ -50,13 +50,15 @@ Item {
 
     ScrollArea{
         id: scrollList
-        width: listWidth
+        width: curWidth
         height: background.height
         anchors {top: listViewActionBar.bottom; left: parent.left; topMargin: 0;}
 
+
+
         ListView {
              id: recipeListView
-             width: listWidth
+             width: curWidth
              height: childrenRect.height
              interactive: true
 
@@ -74,7 +76,7 @@ Item {
 
 
              Component.onCompleted: {
-                 container.currentRecipe = recipeListView.currentItem.recipeData
+                 container.currentRecipe = recipeListView.currentItem ? recipeListView.currentItem.recipeData : null
                  loaded()
              }
 
@@ -138,7 +140,7 @@ Item {
     Rectangle {
         height: parent.height
         width: 1
-        color: "#333333"
+        color: "#333"
 
         anchors.left: parent.left
     }
