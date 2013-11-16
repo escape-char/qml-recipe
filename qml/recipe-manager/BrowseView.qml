@@ -8,7 +8,8 @@ Item{
    height: parent ? parent.height : 500
    width: parent ? parent.width : 500
    state: "HIDE"
-   function refreshCategories(){
+
+   /*function refreshCategories(){
          categoryListView.refresh()
          DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
    }
@@ -20,7 +21,36 @@ Item{
     }
    function unloadRecipeList(){
        recipeListLoader.source = ""
+    } */
+
+    PageStack {
+        id: pageStack
+        height: parent.height
+        width: parent.width
     }
+
+    RecipeListPage {
+        id: listPage
+    }
+
+    RecipeViewPage {
+        id: viewPage
+    }
+
+    Component.onCompleted: {
+        pageStack.push(listPage)
+    }
+
+
+    MouseArea {
+        id: mousearea
+        anchors.fill: parent
+        onClicked: {
+            pageStack.push(viewPage)
+        }
+    }
+
+
 
    //list of categories
     /*CategoryList{
@@ -36,10 +66,7 @@ Item{
 
     }*/
 
-   RecipeList {
-    id: recipeList
-    anchors {top: parent.top; left: parent.left}
-   }
+
     //load recipeList dynamically
     /*Loader{
         id: recipeListLoader
@@ -63,7 +90,7 @@ Item{
     }*/
     //right pane
     //view recipe
-    Rectangle{
+    /*Rectangle{
         id: recipePane
         signal recipeChanged()
         color: "red"
@@ -83,7 +110,7 @@ Item{
        // onCurrentRecipeChanged: {
            // recipeItem.recipe = recipePane.currentRecipe
         //}
-    }
+    } */
 
     states: [
         State {
