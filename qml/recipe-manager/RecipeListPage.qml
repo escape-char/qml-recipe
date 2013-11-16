@@ -1,9 +1,14 @@
 import QtQuick 2.0
 import "../CustomWidgets"
 Page {
-    id: itemlist
+    id: itemList
     width: parent.width
     height: parent.height
+
+    signal recipeClicked
+
+    onRecipeClicked: {}
+
     Rectangle {
         anchors.fill: parent
 
@@ -23,6 +28,10 @@ Page {
             id: recipeList
             height: parent.height
             width: parent.width - categoryListView.width
+            Component.onCompleted: {
+                recipeList.recipeClicked.connect(itemList.recipeClicked)
+            }
+
             anchors {top: parent.top; left: categoryListView.right}
         }
 
