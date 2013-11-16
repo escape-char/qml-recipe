@@ -2,6 +2,7 @@ import QtQuick 2.0
 import "../../js/fontawesome.js" as FontAwesome
 
 Rectangle {
+    id: button
     property string icon:                   FontAwesome.Icon.Ok
     property bool   disabled:               false
     property color disabledTextColor:      "#525252"
@@ -12,6 +13,7 @@ Rectangle {
     color: "transparent";
     radius: 5
 
+    signal clicked
     anchors.verticalCenter: parent.verticalCenter
 
     FontLoader {
@@ -19,6 +21,7 @@ Rectangle {
     }
 
     CustomButton {
+        id: custButton
         width: parent.height
         height: parent.width
         color: parent.color
@@ -29,5 +32,9 @@ Rectangle {
         textColor: disabled ? disabledTextColor : enabledTextColor
         label: icon
         disabled: parent.disabled
+
+        Component.onCompleted: {
+            custButton.clicked.connect(button.clicked)
+        }
     }
 }
