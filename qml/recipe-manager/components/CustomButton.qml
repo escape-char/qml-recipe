@@ -20,9 +20,6 @@ Rectangle {
     color: backgroundColor
     border.color: borderColor
 
-    FontLoader {
-        source: "fonts/fontawesome-webfont.ttf"
-    }
 
     //label
     Text{
