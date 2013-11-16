@@ -8,10 +8,4 @@ Rectangle{
 
    property color dividerColor: "#2B2B2B"
 
-   //Right Border
-   Rectangle {
-       height: parent.height; width: 1
-       anchors.left: parent.right
-       color: "#CFCFCF"
-   }
 }
