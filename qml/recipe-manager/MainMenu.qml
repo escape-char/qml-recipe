@@ -6,7 +6,7 @@ Rectangle{
    width: 65
    height: parent.height
    color: "#91353B"
-
+   z: 1
 
    signal addRecipeButtonClick()
    signal groceriesButtonClick()
