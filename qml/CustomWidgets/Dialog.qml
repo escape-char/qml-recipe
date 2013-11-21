@@ -9,11 +9,11 @@ Item {
     property int contentX: 100;
     property int contentY: 100;
     default property alias children: scrollArea.children
-    property color topColor: "darkblue"
-    property color bottomColor: "#444444"
-    property color borderColor: "black"
-    property color submitColor: "gray"
-    property color cancelColor: "lightgray"
+    property color topColor: "#2A3126"
+    property color bottomColor: "#313131"
+    property color borderColor: "#575757"
+    property color submitColor: topColor
+    property color cancelColor: "#636363"
     property string titleText: "Title"
     property color titleColor:  "black"
 
@@ -23,6 +23,7 @@ Item {
 
     signal submitClick()
     signal cancelClick();
+    signal exitClick();
 
 
     Rectangle {
@@ -70,6 +71,24 @@ Item {
             text: titleText
             font{pointSize: 16; bold: true}
         }
+        //exit button
+        CustomButton{
+            id: exitButton
+            height: 18
+            width: 18
+            label: "x"
+            defaultColor: "red"
+            anchors{
+                top: top.top;
+                right: top.right;
+                rightMargin: 5;
+                topMargin: 5;
+            }
+            onButtonClick: {
+                exitClick();
+                dialog.state  = "HIDE";
+            }
+        }
     }    //scrollable area
     ScrollArea{
         id:scrollArea
@@ -93,7 +112,7 @@ Item {
         z: dialog.z
         width: contentWidth
         color: bottomColor
-        height: 44
+        height: 50
         anchors.left: container.left
         anchors.bottom: container.bottom
 
@@ -108,7 +127,11 @@ Item {
              anchors.bottomMargin: 10
              anchors.rightMargin: 4
              height: 30
-             onButtonClick: submitClick()
+             onButtonClick: {
+
+                 submitClick();
+
+             }
             label: "Submit"
         }
         CustomButton{
@@ -119,7 +142,10 @@ Item {
              anchors.bottomMargin: 10
              anchors.rightMargin: 4
              height: 30
-             onButtonClick: cancelClick()
+             onButtonClick:{
+                 cancelClick()
+                 dialog.state = "HIDE"
+             }
             label: "Cancel"
         }
     }
