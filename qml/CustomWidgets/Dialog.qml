@@ -32,7 +32,7 @@ Item {
         height: dialog.parent ? dialog.parent.height: 300
 
         color: 'black'
-        z: dialog.z - 1
+        z: dialog.z - 2
     }
 
     Rectangle{
@@ -92,17 +92,14 @@ Item {
     }    //scrollable area
     ScrollArea{
         id:scrollArea
-        default property alias children: content.children
-        color: "yellow"
 
         anchors{top:top.bottom; left:top.left}
 
-        width:contentWidth
-        height: contentHeight - title.height - bottom.height
+        width:dialog.contentWidth
+        height: dialog.contentHeight - top.height - bottom.height
 
-        Rectangle {
+        Item{
             id: content
-            color: "red"
             anchors.fill: parent;
 
         }
@@ -182,8 +179,6 @@ Item {
             name: "HIDE"
             PropertyChanges{target: overlay;opacity: 0.00}
             PropertyChanges{target: dialog;opacity: 0.00}
-
-
         }
     ]
     transitions: [
