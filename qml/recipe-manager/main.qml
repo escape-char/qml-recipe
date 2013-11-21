@@ -114,15 +114,18 @@ ApplicationWindow{
         ignoreUnknownSignals: true
         target: dialogLoader.status === Loader.Ready ? dialogLoader.item : null
         onCancelClick: {
-            console.log("Clicked cancel")
+            console.log("APPWINDOW:DIALOGLOADER:onCancelClick()")
             dialogLoader.item.state = "HIDE"
         }
         onSubmitClick:{
-            console.log("Clicked submit")
-
+            console.log("APPWINDOW:DIALOGLOADER:onSubmitClick()")
             //addRecipeToDb(data)
-            dialogLoader.item.state = "HIDE"
             appWindow.state = "BROWSE"
+        }
+        onExitClick:{
+            console.log("APPWINDOW:DIALOGLOADER:onSubmitClick()")
+
+
 
         }
         onStateChanged:{
