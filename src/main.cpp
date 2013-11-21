@@ -15,9 +15,13 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv); //main application
 
     //this engines allows us to run QtQuickControls
-    QQmlApplicationEngine engine;
+   QQuickView view;
+   view.setResizeMode(QQuickView::SizeRootObjectToView);
 
     qmlRegisterType<Rating>("Widgets", 1, 0, "Rating");
+    qmlRegisterType<SqlQueryModel>("Widgets", 1,0, "SqlQueryModel");
+    qmlRegisterType<SqlTableModel>("Widgets", 1,0, "SqlTableModel");
+
 
     //initialize database
     bool success = databaseHandler::createConnection();
@@ -32,12 +36,8 @@ int main(int argc, char *argv[])
     SqlQueryModel* categorySqlModel = new SqlQueryModel(qApp);
     categorySqlModel->setQuery(modelquery::CATEGORY_QUERY);
 
-    //set models to be usuable in QML
-    engine.rootContext()->setContextProperty("recipeModel", recipeSqlModel);
-    engine.rootContext()->setContextProperty("categoryModel", categorySqlModel);
-    engine.rootContext()->setContextProperty("tableModel", tableModel);
-
-    engine.load(QUrl::fromLocalFile("qml/recipe-manager/main.qml"));
+    view.setSource(QUrl::fromLocalFile("qml/recipe-manager/main.qml"));
+    view.show();
 
     return app.exec();
 }
