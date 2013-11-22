@@ -21,7 +21,7 @@ Item {
 
 
    //background
-    Rectangle {id: background; color: "#424242"; anchors.fill:parent}
+    Rectangle {id: background; color: "#616161"; anchors.fill:parent}
 
     //Action bar for List view
     ActionBar {
@@ -42,11 +42,14 @@ Item {
             anchors.rightMargin: 10
         }
     }
+
+    Rectangle {id: border1; width: curWidth; height: 1; color: "#cdcdcd"; anchors {top: listViewActionBar.bottom; left: parent.left; }}
+
     ScrollArea{
         id: scrollList
         width: curWidth
         height: background.height
-        anchors {top: listViewActionBar.bottom; left: parent.left; topMargin: 0;}
+        anchors {top: border1.bottom; left: parent.left; topMargin: 0;}
 
         ListView {
              id: recipeListView
@@ -126,16 +129,7 @@ Item {
     Rectangle {
         height: parent.height
         width: 1
-        color: "#333"
-
-        anchors.left: parent.left
-    }
-
-    //left border
-    Rectangle {
-        height: parent.height
-        width: 1
-        color: "#333"
+        color: "#BFBFBF"
 
         anchors.left: parent.left
     }
