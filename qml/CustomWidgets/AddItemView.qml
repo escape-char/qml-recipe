@@ -1,12 +1,21 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
-Rectangle{
+Item{
     id:addItemView
     height: 160
     width: 180
-    border.color: "gray"
-    color: "white"
+
+    Rectangle{
+        id:container
+        anchors.top: parent.top
+        anchors.left: parent.left
+        height: parent.height - textField.height - textField.anchors.topMargin
+        width: parent.width
+        color: "white"
+        border.width: 2
+        border.color: "gray"
+    }
 
     signal addButtonClick()
     onAddButtonClick: {
@@ -35,8 +44,8 @@ Rectangle{
     Component{
         id: itemDelegate
         Rectangle{
-            height: 30
-            width: addItemView.width - 5
+            height: 15
+            width: 150
             color: "white"
             border.color: "lightgray"
             border.width: 1
@@ -44,7 +53,7 @@ Rectangle{
             Text{
                 id:itemText
                 width: parent.width * 0.85
-                anchors{margins:10; top:parent.top; left: parent.left}
+                anchors{top:parent.top; left: parent.left}
                 color: "gray"
                 text: name
             }
@@ -72,8 +81,13 @@ Rectangle{
     }
     ScrollArea{
         id:scrollArea
-        height: parent.height
-        width:parent.width
+        height: container.height - 8
+        width:container.width - 10
+        anchors.top: container.top
+        anchors.left: container.left
+        anchors.topMargin: 5
+        anchors.leftMargin: 5
+
         ListView{
             id: listView
             model:model
