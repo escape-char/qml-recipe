@@ -38,7 +38,6 @@ import Widgets 1.0
 
         MouseArea {
             id: mousearea
-            anchors.fill: parent
             onClicked: {
                 recipeDelegate.ListView.view.currentIndex = index
                 recipeClicked()
@@ -73,7 +72,6 @@ import Widgets 1.0
             width: 300;
             height: itemHeight-topMargin;
             color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor
-            anchors {top: parent.top; topMargin: topMargin}
 
             Text {
                 id: titleText
@@ -160,5 +158,5 @@ import Widgets 1.0
             } */
       }
 
-    Rectangle { height: 1; width: parent.width; color: "#ddd"; anchors.bottom: parent.bottom; }
+    Rectangle { height: 1; width: parent.width; color: "#ddd"; }
  }
