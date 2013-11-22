@@ -3,9 +3,9 @@ import QtQuick 2.0
 BorderImage {
         property variant target
 
-        source: "../../images/scrollbar.png"
-        border {left: 0; top: 3; right: 0; bottom: 3}
-        width: 17
+        //source: "../../images/scrollbar.png"
+        border {left: 0; top: 0; right: 0; bottom: 0}
+        width: 8
 
         anchors {top: target.top; bottom: target.bottom; right: target.right }
         visible: (track.height == slider.height) ? false : true //TODO: !visible -> width: 0 (but creates a binding loop)
@@ -16,24 +16,6 @@ BorderImage {
         Item {
                 anchors {fill: parent; margins: 1; rightMargin: 2; bottomMargin: 2}
 
-                Image {
-                        id: upArrow
-                        source: "../../images/up-arrow.png"
-                        anchors.top: parent.top
-                        MouseArea {
-                                anchors.fill: parent
-                                preventStealing: true
-                                onPressed: {
-                                        console.log("SCROLLBAR: pressed up-arrow")
-                                        timer.scrollAmount = -10
-                                        timer.running = true;
-                                }
-                                onReleased: {
-                                        console.log("SCROLLBAR: released up-arrow")
-                                        timer.running = false;
-                                }
-                        }
-                }
 
                 //timer to keep scrolling when clicking arrows
                 //or pressing tracks
@@ -95,22 +77,6 @@ BorderImage {
                                                         target.contentY = slider.y * target.contentHeight / track.height
                                                 }
                                         }
-                                }
-                        }
-                }
-                Image {
-                        id: dnArrow
-                        source: "../../images/dn-arrow.png"
-                        anchors.bottom: parent.bottom
-                        MouseArea {
-                                anchors.fill: parent
-                                preventStealing: true
-                                onPressed: {
-                                        timer.scrollAmount = 10
-                                        timer.running = true;
-                                }
-                                onReleased: {
-                                        timer.running = false;
                                 }
                         }
                 }
