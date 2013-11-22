@@ -22,7 +22,7 @@ Item {
 
 
    //background
-    Rectangle {id: background; color: "#424242"; anchors.fill:parent}
+    Rectangle {id: background; color: "#555555"; anchors.fill:parent}
 
     //Action bar for List view
     ActionBar {
