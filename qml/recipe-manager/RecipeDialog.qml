@@ -20,15 +20,16 @@ Dialog {
     property int labelWidth: 40
     property int inputHeight: 10
 
+
     //holds recipe data
     property var recipe: {
         "title": "",
-        "categories": "",
-        "ingredients": [],
-        "directions": [],
+         "categories": [],
+         "ingredients": [],
+         "directions": [],
         "description":"",
         "image": "",
-        "duration": -1,
+        "duration": "0:0",
         "difficulty": 0,
         "rating": 0
     }
@@ -52,8 +53,11 @@ Dialog {
         }
         //title field
         TextField{
+            id:titletField
             placeholderText: "Enter a title"
             width: inputWidth
+            height: 30
+            text: recipe.title
             maximumLength: 100
         }
         //Rating label
@@ -66,10 +70,28 @@ Dialog {
             font{bold: true;pointSize: 14}
         }
         Rating{
+            id: rating
             width: 205
             height: 40
             fillColor: "gold"
+            selected:  recipe.rating
             size:15
+        }
+        //categorylabel
+        Text{
+            width: labelWidth
+            height: 50
+            text: "Categories"
+            color: "#1C1C1C"
+
+            font{bold: true;pointSize: 14}
+        }
+        //category field
+        TextArea{
+            id: categoryField
+            width: inputWidth
+            height: 30
+            text: recipe.categories.toString()
         }
 
         //description label
@@ -83,8 +105,10 @@ Dialog {
         }
         //description field
         TextArea{
+            id: descrField
             width: inputWidth
             height: 100
+            text: recipe.description
         }
     }
 
@@ -114,6 +138,7 @@ Dialog {
             anchors.top: imageLabel.top
             width: 250
             height: 30
+            text: recipe.image
             maximumLength: 50
         }
         CustomButton{
@@ -165,24 +190,30 @@ Dialog {
 
         //difficulty combobox
         ComboBox{
+            id:diffCombo
+            model:["", "Easy", "Medium", "Hard"]
             width:100
+            currentIndex: recipe.rating
         }
         Item{
             height: 30
             width: contentWidth
             //hr spinner
             SpinBox{
-                id: hrSpin
-                decimals: 1
+                id: hourSpin
+                decimals: 0
+                maximumValue: 99
                 suffix: "hr"
+                value: parseInt(recipe.duration.split(":")[0])
 
             }
             SpinBox{
-                id:minSpin
-                anchors{left:hrSpin.right; top:hrSpin.top}
-                decimals:1
+                id:minuteSpin
+                anchors{left:hourSpin.right; top:hourSpin.top}
+                decimals:0
                 suffix: "min"
                 maximumValue: 59
+                value: parseInt(recipe.duration.split(":")[1])
             }
         }
     }
@@ -225,13 +256,38 @@ Dialog {
             font{bold: true;pointSize: 14}
         }
         AddItemView{
+            id: ingredList
             height:100
+            items: recipe.ingredients
 
         }
         AddItemView{
+            id: dirlist
             height: 100
-
+            items: recipe.directions
         }
+
+    }
+    onSubmitClick: {
+        console.log("RECIPEDIALOG.onSubmitClick()")
+        recipe.title = titleText
+        recipe.rating = rating.selected
+        recipe.categories=categoryField.text.split(",")
+        recipe.description = descrField.text
+        recipe.image = imageField.text
+        recipe.directions = dirlist.items
+        recipe.ingredients = ingredList.items
+        recipe.duration =  hourSpin.value + ":" + minuteSpin.value
+        recipe.difficulty= diffCombo.currentIndex
+
+       console.log("title: " + recipe.title)
+        console.log("rating: " + recipe.rating)
+        console.log("categories: " + recipe.categories.toString())
+        console.log("descr: " + recipe.description)
+        console.log("directions: " + recipe.directions.toString())
+        console.log("ingredients: " + recipe.ingredients.toString())
+        console.log("duration: " + recipe.duration)
+        console.log("difficulty: " + recipe.difficulty)
 
     }
 
