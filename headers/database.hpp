@@ -8,9 +8,10 @@
 #include <iostream>
 
 //handles database connection and initialization
-namespace databaseHandler {
+class databaseHandler {
+public:
     //name of database
-    #define DATABASE_NAME  "recipemanager.db"
+    #define DATABASE_NAME  "recipe-manager.db"
 
    //database type
     #define CONNECTION_TYPE "QSQLITE" 
@@ -45,7 +46,7 @@ namespace databaseHandler {
         bool success = query.exec(
             "CREATE TABLE IF NOT EXISTS ingredients( "
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                "ingredient VARCHAR(60) NOT NULL, "
+                "ingredient VARCHAR(60) NOT NULL DEFAULT \"\", "
                 "recipe_id INT, "
                 "FOREIGN KEY(recipe_id) REFERENCES recipes(id) "
             ");"
@@ -55,14 +56,14 @@ namespace databaseHandler {
         success = query.exec(
             "CREATE TABLE IF NOT EXISTS categories( "
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                "name VARCHAR(100) UNIQUE "
+                "name VARCHAR(100) UNIQUE  DEFAULT \"\""
             ");"
         ) && success;
         if(!success){qDebug() << Q_FUNC_INFO << ": failed to create categories table" << query.lastError().text(); return false;}
         success = query.exec(
             "CREATE TABLE IF NOT EXISTS directions( "
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                "step TEXT DEFAULT \", \", "
+                "step VARCHAR(100) DEFAULT \"\", "
                 "recipe_id INT, "
                 "FOREIGN KEY(recipe_id) REFERENCES recipes(id) "
             ");"
@@ -82,15 +83,15 @@ namespace databaseHandler {
 
         success = query.exec(
             "CREATE TABLE IF NOT EXISTS recipes( "
-                "id INTEGER PRIMARY KEY AUTOINCREMENT,  "
-                "title VARCHAR(155) NOT NULL DEFAULT \"\",  "
-                "description text DEFAULT \"\",  "
-                "difficulty VARCHAR(30) DEFAULT \"\",  "
-                "rating SMALLINT, "
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "title VARCHAR(155) NOT NULL DEFAULT \"\","
+                "description TEST NOT NULL DEFAULT \"\","
+                "difficulty SMALLINT DEFAULT 0,  "
+                "rating SMALLINT DEFAULT 0, "
                 "created DATE DEFAULT CURRENT_DATE,  "
                 "updated DATE DEFAULT CURRENT_DATE,  "
-                "duration SMALLINT,  "
-                "image VARCHAR(155) "
+                "duration STRING NOT NULL DEFAULT \"0:0\", "
+                "image VARCHAR(155) NOT NULL DEFAULT \"\" "
             ");"
         ) && success;
         if(!success){qDebug() << Q_FUNC_INFO << ": failed to create recipes table"; return false;}
@@ -126,96 +127,11 @@ namespace databaseHandler {
 
         return true;
     }
-    //populate database with dummy data
-    static bool populate(){
-        QSqlDatabase db = QSqlDatabase::database(CONNECTION_NAME); //get database
-
-        //not a valid driver for db
-        if(!db.isValid()){
-            std::cerr << Q_FUNC_INFO << "Invalid connection name / driver for database" << std::endl;
-            return false;
-        }
-        QSqlQuery query;
-
-        //populate recipe table
-        bool ok = query.exec(
-            "INSERT INTO recipes(title, description, difficulty, rating, duration, image) "
-            "VALUES(\"Blueberry Muffin\", \"A delicious muffin only your grandma would like\","
-                    "\"hard\", 4, 10, \"random-muffin.jpg\"),"
-                "(\"Banana pot pie\", \"Youve had it before. Well here it is again\","
-                    "\"impossible\",1, 1, \"pot.jpg\"),"
-                "(\"vanilla ice yogurt\", \"perfect for a cool day\", \"doable\","
-                    "5, 20, \"yogurt.jpg\"),"
-                "(\"tofu ninja sandwich\", \"sometimes getting punched in the face is a good thing\","
-                    "\"infinity\", 100, 2, \"invisibleninja.jpg\");"
-        );
-        if(!ok){qDebug() << " Failed populating recipes: " << query.lastError().text(); return false;}
-        //populate recipe table
-        ok = query.exec(
-            "INSERT INTO recipes(title, description, difficulty, rating, duration, image) "
-            "VALUES(\"Blueberry Muffin\", \"A delicious muffin only your grandma would like\","
-                    "\"hard\", 4, 10, \"random-muffin.jpg\"),"
-                "(\"Banana pot pie\", \"Youve had it before. Well here it is again\","
-                    "\"impossible\",1, 1, \"pot.jpg\"),"
-                "(\"vanilla ice yogurt\", \"perfect for a cool day\", \"doable\","
-                    "5, 20, \"yogurt.jpg\"),"
-                "(\"tofu ninja sandwich\", \"sometimes getting punched in the face is a good thing\","
-                    "\"infinity\", 100, 2, \"invisibleninja.jpg\");"
-        );
-        if(!ok){qDebug() << " Failed populating recipes: " << query.lastError().text(); return false;}
-
-
-        //populate ingredients table
-        ok = query.exec(
-            "INSERT INTO ingredients(ingredient, recipe_id) "
-               "VALUES (\"blueberries\", 1), "
-               "(\"flour\", 1), "
-                "(\"banana\", 2), "
-                " (\"pot\", 2),"
-                " (\"pie\", 2),"
-                " (\"vanilla extract\", 3),"
-                " (\"homemade icecream\", 3),"
-                " (\"magic\", 4);"
-       );
-      if(!ok){qDebug() << " Failed populating ingredients: " << query.lastError().text(); return false;}
-      ok = query.exec(
-         "INSERT INTO directions(step, recipe_id) "
-              "VALUES(\"put the muffin in the microwave and wait patiently\", 1),"
-              "(\"when its ready, eat it\", 1),"
-              "(\"put the blueberries in the pot\", 2),"
-              "(\"put the pot in the pie\", 2),"
-              "(\"this is step 1\", 3),"
-              "(\"this is step 2\", 3),"
-              "(\"this is step 3\", 3),"
-              "(\"this is step 1\", 4),"
-              "(\"this is step 2\", 4),"
-              "(\"this is step 3\", 4);"
-      );
-      if(!ok){qDebug() << " Failed populating directions: " << query.lastError().text(); return false;}
-
-      //populate categories
-      ok = query.exec(
-         "INSERT INTO categories(name) "
-            "VALUES('fruit'),"
-              "('lunch'),"
-              "('dessert');"
-      );
-      if(!ok){qDebug() << " Failed populating categories: " << query.lastError().text(); return false;}
-
-      //populate many-to-many categories_recipes table
-      ok = query.exec(
-          "INSERT INTO categories_recipes(recipe_id, category_id) "
-              "VALUES(1,1),(2,1),(2,2),(4,2),(3,3);"
-        );
-      if(!ok){qDebug() << " Failed populating categories_recipes: " << query.lastError().text(); return false;}
-
-      return true;
-    }
     static void close(){
         QSqlDatabase db = QSqlDatabase::database(CONNECTION_NAME, false);
         //close open connection
         if(db.isOpen()){db.close();}
     }
-}
+};
 
 #endif //DATABASEk_H
