@@ -6,7 +6,7 @@ Rectangle {
     property string icon:                   FontAwesome.Icon.Ok
     property bool   disabled:               false
     property color disabledTextColor:      "#525252"
-    property color enabledTextColor:       "#B9B9B9"
+    property color enabledTextColor:       "#949494"
 
     width: 30
     height: 30
