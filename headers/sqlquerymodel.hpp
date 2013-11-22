@@ -29,9 +29,20 @@ namespace modelquery{
 //use QSqlTableModel for manipulating tables
 class SqlQueryModel: public QSqlQueryModel {
     Q_OBJECT
+    Q_PROPERTY(QString query READ query WRITE changeQuery)
+
 
 public:
     explicit SqlQueryModel(QObject *parent = 0);
+
+
+    QString query(){return _query;}
+
+    void changeQuery(QString q){
+        _query = q;
+        this->setQuery(_query);
+    }
+
 
     //gets data from a model index and role
     //views use this method to get model's data
@@ -55,6 +66,7 @@ public:
 private:
     //roles for accessing data
     QHash <int, QByteArray> _roles;
+    QString _query;
 };
 
 #endif //RECIPESQUERYMODEL_H
