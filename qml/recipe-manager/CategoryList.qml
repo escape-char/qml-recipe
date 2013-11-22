@@ -25,14 +25,15 @@ Rectangle {
 
     SqlQueryModel{
         id:categoryModel
+        query: "SELECT * FROM categories"
         Component.onCompleted: {
-            categoryModel.updateQuery("SELECT * FROM Categories")
+            categoryModel.updateQuery("SELECT * FROM categories")
         }
     }
 
     function refresh(){
         console.log("CATEGORYLIST.refresh()")
-        categoryModel.updateQuery("SELECT * FROM Categories")
+        categoryModel.updateQuery("SELECT * FROM categories")
     }
 
     function deselect(){
