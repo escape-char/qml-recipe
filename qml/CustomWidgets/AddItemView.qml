@@ -5,6 +5,7 @@ Item{
     id:addItemView
     height: 160
     width: 180
+    property var items: []
 
     Rectangle{
         id:container
@@ -16,65 +17,67 @@ Item{
         border.width: 2
         border.color: "gray"
     }
+    Component.onCompleted: {
+        console.log("AddItemView.oncCompleted()");
+       items.forEach(function(i){model.append({"name": i});})
+    }
 
     signal addButtonClick()
     onAddButtonClick: {
-        console.log("ADDITEMVIEW: clicked add button")
-        listView.model.append({"name": textField.text})
-        textField.text = ""
-        console.log("ADDITEMVIEW: listView count: " + listView.count)
-        console.log("ADDITEMVIEW: model count: " + model.count)
-    }
-    function getItems(){
-        var data = [] //holds data
-
-        //put model items in data
-        for(var i = 0; i < model.count; i++){
-            data.push(model.get(i).name)
-        }
-        return data
-    }
-    function clearItems(){
-        model.clear()
+        console.log("ADDITEMVIEW.onAddButtonClick")
+        if(textField.text.length){
+            items.push(textField.text)
+            model.append({"name": textField.text})
+            textField.text = ""
+         }
     }
     ListModel{
         id:model
-        ListElement{name: ""}
     }
     Component{
         id: itemDelegate
         Rectangle{
-            height: 15
-            width: 150
+            height: 23
+            width: scrollArea.scrollBarVisible ? container.width - 25 : container.width
             color: "white"
             border.color: "lightgray"
             border.width: 1
 
             Text{
                 id:itemText
-                width: parent.width * 0.85
+                width: parent.width * 0.80
                 anchors{top:parent.top; left: parent.left}
                 color: "gray"
                 text: name
             }
             //remove action
             Rectangle{
-                height: 30
-                width: 10
-                Text{id: textField; text: "X"; color: "darkred"}
-                anchors{left: itemText.right; top: itemText.top}
-                MouseArea{
-                   anchors.fill: parent
-                   hoverEnabled: true
-                   onEntered: {
-                       textField.font.bold = true
-                    }
-                   onExited: {
-                       textField.font.bold = false
-                    }
-                   onClicked: {
-                        listView.model.remove(index)
-                    }
+                height: parent.height
+                width: 23
+                border.width: 1
+                border.color: "lightgray"
+                anchors{right:parent.right; top:parent.top}
+                Item{
+                    height: 10
+                    width: 10
+                    Text{id: exitField; text: "X"; color: "red"; font{pointSize: 6}}
+
+                    anchors{centerIn: parent}
+
+                }
+            }
+            MouseArea{
+               anchors.fill: parent
+               hoverEnabled: true
+               onEntered: {
+                   textField.font.bold = true
+                }
+               onExited: {
+                   textField.font.bold = false
+                }
+               onClicked: {
+                    listView.model.remove(index)
+                    items.splice(index, 1)
                 }
             }
         }
@@ -92,11 +95,10 @@ Item{
             id: listView
             model:model
             delegate: itemDelegate
-            width: parent.width
+            width: parent.width - 10
             height: childrenRect.height
             spacing: 1
             Component.onCompleted: {
-                model.clear()
             }
         }
     }
