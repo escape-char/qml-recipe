@@ -24,8 +24,8 @@ Item {
 
     SqlQueryModel{
         id:recipeModel
+        query: "SELECT * FROM recipes"
         Component.onCompleted:{
-            recipeModel.updateQuery("SELECT * FROM recipes")
         }
     }
 
