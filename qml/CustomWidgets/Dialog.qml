@@ -92,11 +92,11 @@ Item {
     }    //scrollable area
     ScrollArea{
         id:scrollArea
-
         anchors{top:top.bottom; left:top.left}
 
         width:dialog.contentWidth
         height: dialog.contentHeight - top.height - bottom.height
+        z: container.z + 1
 
         Item{
             id: content

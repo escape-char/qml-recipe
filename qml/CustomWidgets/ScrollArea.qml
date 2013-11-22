@@ -18,7 +18,7 @@ Item {
     Rectangle{
         id:background
         color: "transparent"
-        anchors.fill:parent
+        anchors.fill: parent
     }
     ScrollBar{
         id:scrollBar
