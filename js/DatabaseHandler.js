@@ -124,42 +124,34 @@ function updateRecipeModelByCategory(recipeModel, id){
     //regex to use for formating string
     String.prototype.format.regex = new RegExp("{-?[0-9]+}", "g");
 
-    //select all recipes regardless of categories
-    if(id  < 0){
-        query = "SELECT recipes.id as recipes_id, recipes.title as title, \
-                recipes.description, recipes.rating, recipes.difficulty, \
-                recipes.image, recipes.created, recipes.updated, recipes.duration, \
-                cr.category_id, \
-                c.name, \
-                i.id as ingredient_id, \
-                GROUP_CONCAT(i.ingredient), \
-                d.id as directions_id,  \
-                GROUP_CONCAT(d.step) \
-            from recipes  \
-                LEFT OUTER JOIN categories_recipes as cr ON recipes_id=cr.recipe_id  \
-                LEFT OUTER JOIN categories as c ON cr.category_id = c.id \
-                LEFT OUTER JOIN ingredients as i ON recipes.id = i.recipe_id \
-                LEFT OUTER JOIN directions as d ON recipes.id = d.recipe_id \
-                GROUP BY recipes.id;"
+    var placeHolder = ""
+
+    //select all
+    if(!id || id < 0){
+        placeHolder = "cr.id"
     }
-    //select specific category
+    //filter by category id
     else{
-        query =
-            "SELECT recipes.id as recipes_id, recipes.title as title,\
-                recipes.description, recipes.rating, recipes.difficulty, \
-                recipes.image, recipes.created, recipes.updated, recipes.duration, \
-                cr.category_id, \
-                c.name, \
-                i.id as ingredient_id, \
-                GROUP_CONCAT(i.ingredient), \
-                d.id as directions_id, \
-                GROUP_CONCAT(d.step) \
-               FROM recipes \
-            INNER JOIN categories_recipes as cr ON recipes_id=cr.recipe_id \
-            INNER JOIN categories as c ON cr.category_id={0} \
-            LEFT OUTER JOIN ingredients as i ON recipes.id = i.recipe_id \
-            LEFT OUTER JOIN directions as d ON recipes.id = d.recipe_id \
-            GROUP BY recipes.id;".format([id.toString()])
+        placeHolder = id.toString()
     }
+
+    query =
+        "SELECT recipes.id as recipes_id, recipes.title as title,\
+            recipes.description, recipes.rating, recipes.difficulty, \
+            recipes.image, recipes.created, recipes.updated, recipes.duration, \
+            cr.category_id, \
+            c.name, \
+            i.id as ingredient_id, \
+            GROUP_CONCAT(i.ingredient), \
+            d.id as directions_id, \
+            GROUP_CONCAT(d.step) \
+           FROM recipes \
+        INNER JOIN categories_recipes as cr ON recipes_id=cr.recipe_id \
+        INNER JOIN categories as c ON cr.category_id={0} \
+        LEFT OUTER JOIN ingredients as i ON recipes.id = i.recipe_id \
+        LEFT OUTER JOIN directions as d ON recipes.id = d.recipe_id \
+        GROUP BY recipes.id;".format([placeHolder])
+    console.log(query)
+
    recipeModel.updateQuery(query)
 }
