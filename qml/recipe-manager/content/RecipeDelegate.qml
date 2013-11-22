@@ -16,8 +16,10 @@ import Widgets 1.0
     property color borderColor: "#B8B8B8"
     property color backgroundColor: "#fafafa"
     property color activeBackgroundColor: "#fafafa"
+    property color hoverBackgroundColor: "#FFFAD6"
 
-    property color titleColor: "#358C91"
+
+    property color titleColor: "#2E797D"
     property color descriptionColor: "#888"
 
     property int  borderWidth: 1;
@@ -32,7 +34,7 @@ import Widgets 1.0
     height: itemHeight
     width: itemWidth
 
-    Rectangle {width: itemWidth; height: itemHeight; color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor}
+    Rectangle {id: background; width: itemWidth; height: itemHeight; color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor}
 
     //Borders
     Rectangle { height: 1; width: itemWidth; color: "#bbb"; anchors.bottom: parent.bottom; }
@@ -40,6 +42,13 @@ import Widgets 1.0
     MouseArea {
         id: mousearea
         anchors.fill: parent
+        hoverEnabled: true
+        onEntered: {
+            background.color = hoverBackgroundColor;
+        }
+        onExited: {
+            background.color = backgroundColor;
+        }
     }
 
     Component.onCompleted: {
