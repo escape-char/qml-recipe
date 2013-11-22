@@ -18,17 +18,18 @@ Rating::Rating(QQuickItem* parent):
     this->_fillColor = "#bbb";
     this->_strokeColor = this->_fillColor;
 
-    this->setKeepMouseGrab(true);
+    this->setKeepMouseGrab(false);
 }
 void Rating::paint(QPainter *painter){
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
+
     const int totalStars = 5;
 
     float angle = (2*M_PI) / 10;
 
     float radius = _size;
 
-    float center[2] = {2*_size,2*_size};
+    float center[2] = {2*_size, _size};
 
     float offset = 2*radius + _spacing;
 
@@ -81,6 +82,7 @@ void Rating::paint(QPainter *painter){
         center[0] = center[0] + offset;
 
         path.moveTo(center[0], center[1]);
+
     }
 }
 Rating::Type Rating::getBoundedStar(QPoint point){
@@ -104,6 +106,8 @@ void Rating::mousePressEvent(QMouseEvent *event){
 }
 void Rating::hoverMoveEvent(QHoverEvent *event){
     qDebug() << Q_FUNC_INFO;
+
+
     Type type = getBoundedStar(event->pos());
     this->_hover = type;
     this->update();

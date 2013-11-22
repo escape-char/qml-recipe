@@ -2,7 +2,7 @@ import QtQuick 2.0
 import "content"
 import "../CustomWidgets"
 import "../../js/fontawesome.js" as FontAwesome
-
+import Widgets 1.0
 Rectangle {
     id: categoryList
     property color backgroundColor: "#F2F2F2"
@@ -23,6 +23,13 @@ Rectangle {
     signal favoritesClick()
     signal allClick()
 
+    SqlQueryModel{
+        id:categoryModel
+        Component.onCompleted: {
+            categoryModel.updateQuery("SELECT * FROM Categories")
+        }
+    }
+
     function refresh(){
         console.log("CATEGORYLIST.refresh()")
         categoryModel.updateQuery("SELECT * FROM Categories")
@@ -32,6 +39,7 @@ Rectangle {
         console.log("CATEGORYLIST.deselect()")
         categoriesListView.currentIndex = -1
     }
+
     Rectangle {
         id: categoriesContent
         height: parent.height - 41; width: parent.width

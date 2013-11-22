@@ -62,7 +62,6 @@ BorderImage {
 
                                 onPressed: {
                                         timer.scrollAmount = target.height * (mouseY < slider.y ? -1 : 1)       // scroll by a page
-                                        console.log("SCROLLBAR: pressed on scrollbar")
                                         timer.running = true;
 
 
@@ -93,7 +92,6 @@ BorderImage {
 
                                         onPositionChanged: {
                                                 if (pressedButtons == Qt.LeftButton) {
-                                                        console.log("SCROLLBAR: moved slider to y position " + slider.y.toString())
                                                         target.contentY = slider.y * target.contentHeight / track.height
                                                 }
                                         }
@@ -108,12 +106,10 @@ BorderImage {
                                 anchors.fill: parent
                                 preventStealing: true
                                 onPressed: {
-                                        console.log("SCROLLBAR: pressed down arrow")
                                         timer.scrollAmount = 10
                                         timer.running = true;
                                 }
                                 onReleased: {
-                                        console.log("SCROLLBAR: released down arrow")
                                         timer.running = false;
                                 }
                         }

@@ -4,6 +4,7 @@ import QtQuick.XmlListModel 2.0
 import "content"
 import "../CustomWidgets"
 import "../../js/fontawesome.js" as FontAwesome
+import Widgets 1.0
 
 Item {
     id:container
@@ -18,6 +19,17 @@ Item {
     signal loaded
 
     onRecipeClicked: {}
+
+
+    SqlQueryModel{
+        id:recipeModel
+        Component.onCompleted:{
+            recipeModel.updateQuery("SELECT * FROM recipes")
+        }
+    }
+
+
+
 
 
    //background
