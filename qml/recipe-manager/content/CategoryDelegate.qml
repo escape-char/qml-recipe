@@ -14,7 +14,7 @@ Rectangle {
 
 
     property variant selectedCategory
-    color: categoryDelegate.ListView.isCurrentItem ? Qt.darker("#C4C4C4", 1.3) : "#C4C4C4"
+    color: categoryDelegate.ListView.isCurrentItem ? Qt.lighter("#333333", 1.3) : "#333333"
 
 
     Component.onCompleted: {
