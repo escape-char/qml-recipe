@@ -17,6 +17,8 @@ Item {
     property string titleText: "Title"
     property color titleColor:  "black"
 
+    property bool scrollBarVisible: scrollArea.scrollBarVisible
+
     state: "HIDE"
 
     anchors.fill: parent

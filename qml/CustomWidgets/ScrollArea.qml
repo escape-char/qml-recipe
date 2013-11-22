@@ -6,6 +6,7 @@ Item {
     property int margins: 0
     property int contentWidth: content.childrenRect.width
     property int contentHeight: content.childrenRect.height
+    property bool scrollBarVisible: scrollBar.visible
     property alias color: background.color
     height:300
     width:300
