@@ -86,7 +86,7 @@ Item {
                 rightMargin: 5;
                 topMargin: 5;
             }
-            onButtonClick: {
+            onClicked: {
                 exitClick();
                 dialog.state  = "HIDE";
             }
@@ -126,8 +126,7 @@ Item {
              anchors.bottomMargin: 10
              anchors.rightMargin: 4
              height: 30
-             onButtonClick: {
-
+             onClicked: {
                  submitClick();
 
              }
@@ -141,7 +140,7 @@ Item {
              anchors.bottomMargin: 10
              anchors.rightMargin: 4
              height: 30
-             onButtonClick:{
+             onClicked:{
                  cancelClick()
                  dialog.state = "HIDE"
              }
