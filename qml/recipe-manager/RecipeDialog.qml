@@ -10,6 +10,8 @@ Dialog {
     contentHeight: 450
     contentWidth: 550
 
+
+
     titleText: "Add a Recipe"
 
     property int labelPadding: 5
@@ -18,7 +20,8 @@ Dialog {
     property int fontSize: 14
     property int inputWidth: 350
     property int labelWidth: 40
-    property int inputHeight: 10
+    property int inputHeight: 20
+    property color labelColor: "#5a5a5a"
 
 
     //holds recipe data
@@ -48,8 +51,8 @@ Dialog {
             width: labelWidth
             height: 10
             text: "Title"
-            color: "#1C1C1C"
-            font{bold: true;pointSize: 14}
+            color: labelColor
+            font{bold: false;pointSize: 12}
         }
         //title field
         TextField{
@@ -65,9 +68,9 @@ Dialog {
             width: labelWidth
             height: 20
             text: "Rating"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{bold: false; pointSize: 12}
         }
         Rating{
             id: rating
@@ -82,9 +85,9 @@ Dialog {
             width: labelWidth
             height: 50
             text: "Categories"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{bold: false; pointSize: 12}
         }
         //category field
         TextArea{
@@ -99,9 +102,9 @@ Dialog {
             width: labelWidth
             height: 50
             text: "Description"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{pointSize: 12}
         }
         //description field
         TextArea{
@@ -126,9 +129,9 @@ Dialog {
             width: labelWidth + 90
             height: 50
             text: "Image"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{pointSize: 12}
         }
         //image field
         TextField{
@@ -146,7 +149,7 @@ Dialog {
             anchors.left:imageField.right
             anchors.top: imageField.top
             height: imageField.height - 2
-            label: "Upload"
+            label: "Browse..."
             width: 70
         }
 
