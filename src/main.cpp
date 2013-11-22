@@ -29,12 +29,6 @@ int main(int argc, char *argv[])
     success = databaseHandler::createTables();
     success = databaseHandler::create_indices();
 
-    //models to be used in QML
-    SqlTableModel* tableModel = new SqlTableModel(qApp);
-    SqlQueryModel* recipeSqlModel = new SqlQueryModel(qApp);
-    recipeSqlModel->setQuery("SELECT * FROM recipes");
-    SqlQueryModel* categorySqlModel = new SqlQueryModel(qApp);
-    categorySqlModel->setQuery(modelquery::CATEGORY_QUERY);
 
     view.setSource(QUrl::fromLocalFile("qml/recipe-manager/main.qml"));
     view.show();
