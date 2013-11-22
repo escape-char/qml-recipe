@@ -39,7 +39,7 @@ ApplicationWindow{
         }
        RecipeMainMenu{
           id: mainMenu
-          onAddRecipeButtonClick: {
+          onAddRecipeButtonClicked: {
               if(browseLoader.status === Loader.Ready){
                   //browseLoader.item.unloadRecipeList()
                }
