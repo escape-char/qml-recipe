@@ -45,42 +45,48 @@ Item{
 
             Text{
                 id:itemText
-                width: parent.width * 0.80
+                width: parent.width * 0.50
                 anchors{top:parent.top; left: parent.left}
                 color: "gray"
                 text: name
             }
             //remove action
             Rectangle{
+                id:exitContainer
                 height: parent.height
-                width: 23
+                width: height
                 border.width: 1
+                color:"#EEEBEB"
                 border.color: "lightgray"
-                anchors{right:parent.right; top:parent.top}
+                anchors{right:parent.right; top:parent.top; rightMargin: 10}
                 Item{
                     height: 10
                     width: 10
-                    Text{id: exitField; text: "X"; color: "red"; font{pointSize: 6}}
+                    Text{id: exitText; text: "X"; color: "red"; font{pointSize: 6}}
 
-                    anchors{centerIn: parent}
+                    anchors{centerIn: parent;}
 
                 }
-            }
-            MouseArea{
-               anchors.fill: parent
-               hoverEnabled: true
-               onEntered: {
-                   textField.font.bold = true
-                }
-               onExited: {
-                   textField.font.bold = false
-                }
-               onClicked: {
-                    listView.model.remove(index)
-                    items.splice(index, 1)
+                MouseArea{
+                   anchors.fill: parent
+                   hoverEnabled: true
+                   onEntered: {
+                       exitText.font.bold = true
+                       exitContainer.border.color = "gray"
+
+                    }
+                   onExited: {
+                       exitText.font.bold = false
+                       exitContainer.border.color = "lightgray"
+                    }
+                   onClicked: {
+                        listView.model.remove(index)
+                        items.splice(index, 1)
+                    }
                 }
             }
         }
+
     }
     ScrollArea{
         id:scrollArea
