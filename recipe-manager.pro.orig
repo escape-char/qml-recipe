@@ -1,7 +1,18 @@
 # Add more folders to ship with the application, here
-folder_01.source = qml/recipe-manager
-folder_01.target = qml
-DEPLOYMENTFOLDERS = folder_01
+folder_01.source = qml/
+folder_01.target = ./
+folder_02.source = images/
+folder_03.source = js/
+folder_04.source = fonts/
+DEPLOYMENTFOLDERS += folder_01 \
+                     folder_02 \
+                     folder_03 \
+<<<<<<< Updated upstream
+                     folder_04 \
+=======
+                     folder_04
+>>>>>>> Stashed changes
+
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
@@ -13,33 +24,34 @@ QML_IMPORT_PATH =
 
 #header files for project
 HEADERS += \
-    Headers/database.hpp \
-    Headers/sqlquerymodel.hpp
+    headers/database.hpp \
+    headers/sqlquerymodel.hpp \
+    headers/sqltablemodel.hpp \
+    headers/rating.hpp
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp \
-    sqlquerymodel.cpp
+SOURCES += src/main.cpp \
+    src/sqlquerymodel.cpp \
+    src/sqltablemodel.cpp \
+    src/rating.cpp
 
 # Installation path
-# target.path =
+target.path = ./debug
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
-<<<<<<< Updated upstream
-QT += sql widgets
-
-=======
->>>>>>> Stashed changes
 OTHER_FILES += \
     100x100.gif \
     recipe_manager.xml \
-    README.md
+    README.md \
 <<<<<<< Updated upstream
 =======
-
+    qml/recipe-manager/AddItemView.qml \
+    qml/recipe-manager/RecipeDialog.qml
 >>>>>>> Stashed changes
+
 QT += sql widgets
 
 OTHER_FILES +=

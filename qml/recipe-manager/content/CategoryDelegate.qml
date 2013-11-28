@@ -22,9 +22,7 @@ Rectangle {
     }
 
     CategoryItem {
-        property int category_id: id
-        property string category_name: name
-        label: category_name
+        label: name
         hasIcon: false
         onCategoryItemClicked: {
             categoryDelegate.ListView.view.currentIndex = index

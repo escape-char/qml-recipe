@@ -1,5 +1,3 @@
-console.log("Inside DatabaseHandler.js")
-
 //add format method to String object
 String.prototype.format = function (args) {
     var str = this;
@@ -113,18 +111,18 @@ function addRecipeToTableModel(tableModel, recipe){
     }
 }
 
-//updates recipe model by a given category id
-//recipeModel = model to interact with the recipes table in database
-//id = category id
-function updateRecipeModelByCategory(recipeModel, id){
-    console.log("DATABASEHANDLER.updateRecipeModelByCategory()")
+//filters recipes by a category
+//queryModel = SqlQueryModel to interact with database
+//id = category id to filter by
+function filterByCategory(queryModel, id){
+    console.log("DatabaseHandler.updateRecipeModelByCategory()")
 
-    var query = null
+    var query = null; //query to filter database
 
     //regex to use for formating string
     String.prototype.format.regex = new RegExp("{-?[0-9]+}", "g");
 
-    var placeHolder = ""
+    var placeHolder = ""; //placeholder for query
 
     //select all
     if(!id || id < 0){
@@ -151,7 +149,8 @@ function updateRecipeModelByCategory(recipeModel, id){
         LEFT OUTER JOIN ingredients as i ON recipes.id = i.recipe_id \
         LEFT OUTER JOIN directions as d ON recipes.id = d.recipe_id \
         GROUP BY recipes.id;".format([placeHolder])
-    console.log(query)
 
-   recipeModel.updateQuery(query)
+    console.log("DatabaseHandler.filterByCategory(): " + query);
+
+   queryModel.updateQuery(query)
 }

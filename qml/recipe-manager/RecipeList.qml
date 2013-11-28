@@ -15,11 +15,16 @@ Item {
     height: parent.height
     width: curWidth
 
-    signal recipeClicked
-    signal loaded
+    signal itemClicked()
+    signal loaded()
 
-    onRecipeClicked: {}
 
+    onItemClicked: {}
+    onLoaded: {}
+
+    function refresh(){
+        recipeListView.update()
+    }
 
     SqlQueryModel{
         id:recipeModel
@@ -28,12 +33,8 @@ Item {
         }
     }
 
-
-
-
-
    //background
-    Rectangle {id: background; color: "#616161"; anchors.fill:parent}
+    Rectangle {id: background; color: "#444"; anchors.fill:parent}
 
     //Action bar for List view
     ActionBar {
@@ -54,14 +55,11 @@ Item {
             anchors.rightMargin: 10
         }
     }
-
-    Rectangle {id: border1; width: curWidth; height: 1; color: "#cdcdcd"; anchors {top: listViewActionBar.bottom; left: parent.left; }}
-
     ScrollArea{
         id: scrollList
         width: curWidth
         height: background.height
-        anchors {top: border1.bottom; left: parent.left; topMargin: 0;}
+        anchors {top: listViewActionBar.bottom; left: parent.left; topMargin: 0;}
 
         ListView {
              id: recipeListView
@@ -72,11 +70,9 @@ Item {
              model: recipeModel
 
              delegate: RecipeDelegate {
-                 id: recipeDelegate
-                 onClicked: recipeClicked
-
-                 Component.onCompleted: {
-                     recipeDelegate.clicked.connect(recipeClicked)
+                 onRecipeClicked: {
+                     container.currentRecipe = recipeListView.currentItem.recipeData
+                     console.log("RECIPELIST: clicked " + currentRecipe.id +  " " + currentRecipe.title)
                  }
              }
 
@@ -84,7 +80,7 @@ Item {
 
              Component.onCompleted: {
                  container.currentRecipe = recipeListView.currentItem ? recipeListView.currentItem.recipeData : null
-
+                 loaded()
              }
         }
     }
@@ -141,7 +137,7 @@ Item {
     Rectangle {
         height: parent.height
         width: 1
-        color: "#BFBFBF"
+        color: "#333"
 
         anchors.left: parent.left
     }

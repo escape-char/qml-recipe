@@ -8,36 +8,35 @@ Rectangle {
     width: 230
     height: fontPixelSize+25
 
-    property alias maximumLength: input.maximumLength
+    property alias maxLength: input.maximumLength
     property alias inputMask: input.inputMask
     property alias validator: input.validator
-    property int fontPixelSize: 26
+
+    property int pixelSize: 14
+    property int text: ""
+    property color activeColor: "red"
+    property color inactiveColor: ""
+    property string placeHolder: "enter text"
 
 
     function floatValue() {
         return parseFloat(container.value);
     }
-/*
+
     states: [
         State {
             name: 'input'
             PropertyChanges {
                 target: container
-                color: 'lightblue'
+                border.color: 'lightblue'
             }
-            PropertyChanges {
-                target: input
-                visible: true
-                focus: true
-            }
-            PropertyChanges {
-                target: displayValue
-                visible: false
-            }
-        }
-    ]
-*/
+        },
+        State {
+            name: 'default'
 
+        }
+
+    ]
     transitions: [
          Transition {
              ColorAnimation { duration: 150 }
@@ -52,7 +51,7 @@ Rectangle {
             if (container.state == 'input')
                 container.state = '';
             else {
-                input.text = container.value;
+                input.text = container.text;
                 input.selectionStart = 0;
                 input.selectionEnd = input.text.length;
                 container.state = 'input';

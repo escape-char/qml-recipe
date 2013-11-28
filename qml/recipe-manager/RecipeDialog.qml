@@ -23,6 +23,8 @@ Dialog {
     property int inputHeight: 20
     property color labelColor: "#5a5a5a"
 
+    signal saveRecipe(variant r)
+
 
     //holds recipe data
     property var recipe: {
@@ -272,7 +274,7 @@ Dialog {
 
     }
     onSubmitClick: {
-        console.log("RECIPEDIALOG.onSubmitClick()")
+        console.log("RecipeDialog.onSubmitClick()")
         recipe.title = titleText
         recipe.rating = rating.selected
         recipe.categories=categoryField.text.split(",")
@@ -283,15 +285,9 @@ Dialog {
         recipe.duration =  hourSpin.value + ":" + minuteSpin.value
         recipe.difficulty= diffCombo.currentIndex
 
-       console.log("title: " + recipe.title)
-        console.log("rating: " + recipe.rating)
-        console.log("categories: " + recipe.categories.toString())
-        console.log("descr: " + recipe.description)
-        console.log("directions: " + recipe.directions.toString())
-        console.log("ingredients: " + recipe.ingredients.toString())
-        console.log("duration: " + recipe.duration)
-        console.log("difficulty: " + recipe.difficulty)
 
+
+        saveRecipe(recipe)
     }
 
 }

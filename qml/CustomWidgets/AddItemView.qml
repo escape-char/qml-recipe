@@ -18,13 +18,11 @@ Item{
         border.color: "gray"
     }
     Component.onCompleted: {
-        console.log("AddItemView.oncCompleted()");
        items.forEach(function(i){model.append({"name": i});})
     }
 
     signal addButtonClick()
     onAddButtonClick: {
-        console.log("ADDITEMVIEW.onAddButtonClick")
         if(textField.text.length){
             items.push(textField.text)
             model.append({"name": textField.text})

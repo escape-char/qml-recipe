@@ -19,7 +19,7 @@ Rectangle {
     color: backgroundColor
 
     //category event handlers
-    signal categorySelected(variant category)
+    signal categorySelect(variant category)
     signal favoritesClick()
     signal allClick()
 
@@ -30,15 +30,18 @@ Rectangle {
             categoryModel.updateQuery("SELECT * FROM categories")
         }
     }
+    Component.onCompleted: {
+        //deselect();
+    }
 
     function refresh(){
-        console.log("CATEGORYLIST.refresh()")
-        categoryModel.updateQuery("SELECT * FROM categories")
+        console.log("CATEGORYLIST.refresh()");
+        categoryModel.updateQuery("SELECT * FROM categories");
     }
 
     function deselect(){
-        console.log("CATEGORYLIST.deselect()")
-        categoriesListView.currentIndex = -1
+        console.log("CATEGORYLIST.deselect()");
+        //categoriesListView.currentIndex = -1;
     }
 
     Rectangle {
@@ -115,11 +118,22 @@ Rectangle {
                    width: parent.width
                     model: categoryModel
                     delegate: CategoryDelegate {id: categoryDelegate}
-                    anchors.top: categoriesLabel.bottom
-                    anchors.topMargin: 8
+
                     onCurrentItemChanged: {
-                        if(categoriesListView.currentItem)
-                            categorySelected(categoriesListView.currentItem.categoryData)
+                        //have item changed
+                        if(categoriesListView.currentItem){
+
+                            var d = categoriesListView.currentItem.categoryData;
+
+                            console.log("CategoryList.onCurrentItemChanged(): category.id = " + d.id);
+                            console.log("CategoryList.onCurrentItemChanged(): category.name = " + d.name);
+
+                           categorySelect(d); //give item to those holding signal
+                        }
+                        //don't have changed item
+                        else{
+                            console.log("CategoryList.onCurrentItemChange(): currentItem is null");
+                        }
                     }
                 }
 

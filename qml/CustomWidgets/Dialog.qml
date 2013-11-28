@@ -9,9 +9,9 @@ Item {
     property int contentX: 100;
     property int contentY: 100;
     default property alias children: scrollArea.children
-    property color topColor: "transparent"
+    property color topColor: "#2A3126"
     property color bottomColor: "#313131"
-    property color borderColor: "transparent"
+    property color borderColor: "#575757"
     property color submitColor: topColor
     property color cancelColor: "#636363"
     property string titleText: "Title"
@@ -25,13 +25,12 @@ Item {
 
     signal submitClick()
     signal cancelClick();
-    signal exitClick();
 
 
     Rectangle {
         id: overlay
         width: dialog.parent ? dialog.parent.width : 300
-        height: dialog.parent ? dialog.parent.height: 600
+        height: dialog.parent ? dialog.parent.height: 300
 
         color: 'black'
         z: dialog.z - 2
@@ -40,9 +39,9 @@ Item {
     Rectangle{
         id: container
         width: contentWidth
-        height: 500
+        height: contentHeight
         border.color: borderColor
-        border.width: 0
+        border.width: 2
         anchors.centerIn: parent
         z: dialog.z
         color: "white"
@@ -54,7 +53,7 @@ Item {
         border.color: borderColor
         border.width: 2
         width: contentWidth
-        height: 34
+        height: 44
         color: topColor
         anchors.left: container.left
         anchors.top: container.top
@@ -63,7 +62,7 @@ Item {
         Text{
             id: tText
             height: parent.height
-            color: "#888"
+            color: "white"
             anchors{
                 top: top.top;
                 left: top.left;
@@ -71,7 +70,7 @@ Item {
                 topMargin: 10;
             }
             text: titleText
-            font{pointSize: 12; bold: true}
+            font{pointSize: 16; bold: true}
         }
         //exit button
         CustomButton{
@@ -86,9 +85,10 @@ Item {
                 rightMargin: 5;
                 topMargin: 5;
             }
-            onClicked: {
-                exitClick();
+            onButtonClick: {
                 dialog.state  = "HIDE";
+                cancelClick();
+
             }
         }
     }    //scrollable area
@@ -126,7 +126,8 @@ Item {
              anchors.bottomMargin: 10
              anchors.rightMargin: 4
              height: 30
-             onClicked: {
+             onButtonClick: {
+
                  submitClick();
 
              }
@@ -140,7 +141,7 @@ Item {
              anchors.bottomMargin: 10
              anchors.rightMargin: 4
              height: 30
-             onClicked:{
+             onButtonClick:{
                  cancelClick()
                  dialog.state = "HIDE"
              }
@@ -153,14 +154,12 @@ Item {
         preventStealing: true
 
         onClicked: {
-            console.log("clicked dialog")
             if(!isMouseInDialog()){
-                console.log("Clicked outside of dialog")
-                dialog.state = "HIDE"
+                console.log("Dialog.onClick(): clicked outside of dialog");
+                dialog.state = "HIDE";
+                cancelClick();
             }
-
         }
-
     }
     function isMouseInDialog(){
         return((mouseArea.mouseX >= container.x) &&

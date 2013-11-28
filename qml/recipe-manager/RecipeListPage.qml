@@ -1,40 +1,43 @@
 import QtQuick 2.0
 import "../CustomWidgets"
 Page {
-    id: itemList
+    id: itemlist
     width: parent.width
     height: parent.height
 
-    signal recipeClicked
+    signal categoryChosen(variant category)
 
-    onRecipeClicked: {}
+    function update(){
+        recipeList.refresh();
+    }
+
 
     Rectangle {
         anchors.fill: parent
 
         CategoryList{
             id: categoryListView
-            /*onCategorySelected:{
-                DatabaseHandler.updateRecipeModelByCategory(recipeModel, category.id)
+
+            onCategorySelect:{
+                console.log("RecipeListPage.onCategorySelect()");
+                console.log("RecipeListPage.onCategorySelect(): filter by category id: " + category.id);
+
+               categoryChosen(category);
             }
-            onAllClick: {
+           // onAllClick: {
                 //update recipe model to select all categories
-                DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
-                categoryListView.deselect()
-            }*/
+            //    DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
+            //    categoryListView.deselect()
+            //}
+
             anchors {top: parent.top; left: parent.left}
         }
         RecipeList {
             id: recipeList
             height: parent.height
             width: parent.width - categoryListView.width
-            Component.onCompleted: {
-                recipeList.recipeClicked.connect(itemList.recipeClicked)
-            }
-
             anchors {top: parent.top; left: categoryListView.right}
         }
-
 
     }
 

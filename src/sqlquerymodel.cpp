@@ -10,7 +10,6 @@ SqlQueryModel::SqlQueryModel(QObject *parent)
     : QSqlQueryModel(parent){
 }
 QVariant SqlQueryModel::data(const QModelIndex &index, int role) const{
-
    //Qt predefined role
    if(role < Qt::UserRole){return  QSqlQueryModel::data(index, role);}
 
@@ -26,6 +25,7 @@ QVariant SqlQueryModel::data(const QModelIndex &index, int role) const{
    return QSqlQueryModel::data(modelIndex, Qt::DisplayRole);
 }
 void SqlQueryModel::generateRoleNames(){
+
     _roles.clear();
     for(int i = 0; i < this->record().count(); i++){
         //start assigning roles from Qt UserRole and onward
@@ -60,6 +60,8 @@ void SqlQueryModel::setQuery(const QSqlQuery & query)
     generateRoleNames();
 }
 bool SqlQueryModel::updateQuery(QString query){
+    qDebug() << Q_FUNC_INFO;
+
     this->setQuery(query);
 
     //error performing query
