@@ -26,15 +26,6 @@ Item{
 
     RecipeMainMenu{
        id: mainMenu
-       /*
-       onAddRecipeButtonClick: {
-           console.log("AppWindow: clicked add recipe")
-           if(browseLoader.status === Loader.Ready){
-               //browseLoader.item.unloadRecipeList()
-            }
-           appWindow.state = "ADD-RECIPE"
-       }
-       */
     }
 
     //browse area loader
@@ -53,49 +44,4 @@ Item{
         height: parent.height
     }
 
-    states: [
-        //browse state
-        State{
-            name: "BROWSE"
-        }        ,
-        State{
-            name:"DIALOG"
-        },
-        State{
-            name:"GROCERY"
-        }
-    ]
-    /*
-    //connection with dialogLoader
-    Connections{
-        ignoreUnknownSignals: true
-        target: dialogLoader.status === Loader.Ready ? dialogLoader.item : null
-        onCancelClick: {
-            console.log("APPWINDOW:DIALOGLOADER:onCancelClick()")
-            dialogLoader.item.state = "HIDE"
-        }
-        onSaveRecipe:{
-            console.log("APPWINDOW:DIALOGLOADER:onSubmitClick()")
-            var tableModel = Qt.createQmlObject("import QtQuick 2.0; import Widgets 1.0; SqlTableModel{}",
-                                                dialogLoader, "./");
-           DatabaseHandler.addRecipeToTableModel(tableModel, r)
-        }
-        onExitClick:{
-            console.log("APPWINDOW:DIALOGLOADER:onSubmitClick()")
-        }
-        onStateChanged:{
-            if(dialogLoader.item.state === "HIDE"){
-                dialogLoader.source=""
-                appWindow.state = "BROWSE"
-            }
-        }
-    }
-    //connection with browseload
-    Connections{
-        ignoreUnknownSignals: true
-        target: browseLoader.status === Loader.Ready ? browseLoader.item : null
-        onStateChanged:{
-        }
-     }
-     */
 }
