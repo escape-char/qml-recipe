@@ -8,10 +8,10 @@ MainMenu{
    height: parent.height
    color: "#91353B"
    z: 1
-   signal addRecipeButtonClick()
-   signal groceriesButtonClick()
-   signal browseButtonClick()
-   signal settingsButtonClick()
+   signal addRecipeButtonClicked()
+   signal groceriesButtonClicked()
+   signal browseButtonClicked()
+   signal settingsButtonClicked()
 
    property string dividerColor: "#732A2F"
 
@@ -22,7 +22,10 @@ MainMenu{
         anchors.top: parent.top
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
-        onMainMenuItemClick: addRecipeButtonClick()
+
+        Component.onCompleted: {
+            addRecipeButton.clicked.connect(mainMenu.addRecipeButtonClicked)
+        }
     }
 
    //middle container holding add recipes, groceries
@@ -41,7 +44,9 @@ MainMenu{
             icon: FontAwesome.Icon.Book
             isActive: true;
             anchors.top: parent.top
-            onMainMenuItemClick: browseButtonClick()
+            Component.onCompleted: {
+                browseButton.clicked.connect(mainMenu.browseButtonClicked)
+            }
         }
 
         Rectangle {
@@ -56,7 +61,9 @@ MainMenu{
             id:groceriesButton
             icon: FontAwesome.Icon.ShoppingCart
             anchors.top:  browseButton.bottom
-            onMainMenuItemClick:groceriesButtonClick()
+            Component.onCompleted: {
+                groceriesButton.clicked.connect(mainMenu.groceriesButtonClicked)
+            }
 
         }
 
@@ -82,6 +89,8 @@ MainMenu{
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
-        onMainMenuItemClick:settingsButtonClick()
+        Component.onCompleted: {
+            settingsButton.clicked.connect(mainMenu.settingsButtonClicked)
+        }
     }
 }

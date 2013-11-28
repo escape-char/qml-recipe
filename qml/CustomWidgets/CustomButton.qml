@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 //Button
 Rectangle {
-
+    id: button
     width: 100
     height: 62
 
@@ -15,7 +15,7 @@ Rectangle {
     property color  textColor:              "white"
     property bool   disabled: false
 
-    signal buttonClick();
+    signal clicked();
 
     border.color: defaultBorderColor
 
@@ -33,10 +33,14 @@ Rectangle {
         id: buttonMouseArea
         anchors.fill:parent
         hoverEnabled: true
-        onClicked: buttonClick()
         onEntered: parent.border.color= hoverBorderColor
         onExited: parent.border.color = defaultBorderColor
     }
+
+    Component.onCompleted: {
+        buttonMouseArea.clicked.connect(button.clicked)
+    }
+
     color: buttonMouseArea.pressed ? Qt.darker(defaultColor) : defaultColor
 
 }

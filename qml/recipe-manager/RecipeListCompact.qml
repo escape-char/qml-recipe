@@ -4,36 +4,25 @@ import QtQuick.XmlListModel 2.0
 import "content"
 import "../CustomWidgets"
 import "../../js/fontawesome.js" as FontAwesome
-import Widgets 1.0
 
 Item {
     id:container
+
     property int currentPage: 1
     property int lastPage: 2
     property variant currentRecipe
-    property int curWidth: parent.width
+    property int curWidth: 350
+
     height: parent.height
     width: curWidth
 
-    signal recipeClicked
-    signal loaded
-
-    onRecipeClicked: {}
-
-
-    SqlQueryModel{
-        id:recipeModel
-        query: "SELECT * FROM recipes"
-        Component.onCompleted:{
-        }
-    }
-
-
-
+    signal itemClicked()
+    signal loaded()
+    signal backButtonClicked()
 
 
    //background
-    Rectangle {id: background; color: "#616161"; anchors.fill:parent}
+    Rectangle {id: background; color: "#555555"; anchors.fill:parent}
 
     //Action bar for List view
     ActionBar {
@@ -41,27 +30,20 @@ Item {
         anchors.top: parent.top
 
         ActionBarButton {
-            id: categoriesButton
-            icon: FontAwesome.Icon.List
-            anchors.left: parent.left
-            anchors.leftMargin: 10
+            id: backButton
+            icon: FontAwesome.Icon.ArrowLeft
+            anchors {left: parent.left; leftMargin: 10}
+            onClicked: {
+                backButtonClicked()
+            }
         }
 
-        ActionBarButton {
-            id: searchButton
-            icon: FontAwesome.Icon.Search
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-        }
     }
-
-    Rectangle {id: border1; width: curWidth; height: 1; color: "#cdcdcd"; anchors {top: listViewActionBar.bottom; left: parent.left; }}
-
     ScrollArea{
         id: scrollList
         width: curWidth
         height: background.height
-        anchors {top: border1.bottom; left: parent.left; topMargin: 0;}
+        anchors {top: listViewActionBar.bottom; left: parent.left; topMargin: 0;}
 
         ListView {
              id: recipeListView
@@ -71,12 +53,11 @@ Item {
 
              model: recipeModel
 
-             delegate: RecipeDelegate {
-                 id: recipeDelegate
-                 onClicked: recipeClicked
-
-                 Component.onCompleted: {
-                     recipeDelegate.clicked.connect(recipeClicked)
+             delegate: RecipeCompactDelegate {
+                 onClicked: {
+                     container.currentRecipe = recipeListView.currentItem.recipeData
+                     console.log(recipeListView.delegate)
+                     console.log("RECIPELIST: clicked " + currentRecipe.id +  " " + currentRecipe.title)
                  }
              }
 
@@ -84,17 +65,11 @@ Item {
 
              Component.onCompleted: {
                  container.currentRecipe = recipeListView.currentItem ? recipeListView.currentItem.recipeData : null
-
+                 loaded()
              }
         }
     }
-    Rectangle {
-        height: parent.height
-        width: 1
-        color: "#c8c8c8"
-        anchors.right: scrollList.right
-        anchors.top: scrollList.top
-    }
+
     //Pagination bar
     ActionBar {
         id: pagination
@@ -141,7 +116,7 @@ Item {
     Rectangle {
         height: parent.height
         width: 1
-        color: "#BFBFBF"
+        color: "#333"
 
         anchors.left: parent.left
     }

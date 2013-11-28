@@ -11,7 +11,7 @@ Rectangle {
     property int    padding: 10
     property bool   isActive: false
 
-    signal mainMenuItemClick()
+    signal clicked
 
     id: mainMenuItem
     width: parent.width
@@ -22,15 +22,6 @@ Rectangle {
         source: "../../fonts/fontawesome-webfont.ttf"
     }
 
-    MouseArea{
-        id: buttonMouseArea
-        anchors.fill:parent
-        hoverEnabled: true
-        onClicked: mainMenuItemClick()
-        onEntered: { hovering() }
-
-        onExited: { stoppedHovering() }
-    }
 
     Text {
         id: buttonIcon
@@ -43,13 +34,24 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
     }
 
+    MouseArea{
+        id: buttonMouseArea
+        anchors.fill:parent
+        hoverEnabled: true
+
+        onEntered: hovering()
+        onExited: stoppedHovering()
+    }
+
+    Component.onCompleted: {
+        buttonMouseArea.clicked.connect(mainMenuItem.clicked);
+    }
+
     function hovering() {
-        mainMenuItem.color = isActive ? activeBackgroundColor : hoverBackgroundColor
-        this.color = isActive ? activeBackgroundColor : hoverBackgroundColor
+        mainMenuItem.color = isActive ? activeBackgroundColor : hoverBackgroundColor;
     }
 
     function stoppedHovering() {
-        mainMenuItem.color = isActive ? activeBackgroundColor : backgroundColor
-        this.color = isActive ? activeBackgroundColor : backgroundColor
+        mainMenuItem.color = isActive ? activeBackgroundColor : backgroundColor;
     }
 }

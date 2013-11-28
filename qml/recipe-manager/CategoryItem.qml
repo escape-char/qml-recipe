@@ -4,9 +4,9 @@ import "../../js/fontawesome.js" as FontAwesome
 Rectangle {
     id: categoryItemContainer
 
-    property color backgroundColor: "#333333"
-    property color textColor: "#c0c0c0"
-    property color  hoverBackgroundColor: "#3f3f3f"
+    property color backgroundColor: "transparent"
+    property color textColor: "#7D7D7D"
+    property color  hoverBackgroundColor: "#E3E3E3"
     property string label: "Example"
     property string icon: FontAwesome.Icon.Star
     property int textSize: 12

@@ -16,147 +16,47 @@ import Widgets 1.0
     property color borderColor: "#B8B8B8"
     property color backgroundColor: "#fafafa"
     property color activeBackgroundColor: "#fafafa"
+    property color hoverBackgroundColor: "#FFFAD6"
 
-    property color titleColor: "#358C91"
+
+    property color titleColor: "#2E797D"
     property color descriptionColor: "#888"
+
+    property int  borderWidth: 1;
 
     /*Margins */
     property int topMargin: 10
     property int rightMargin: 10
     property int leftMargin: 10
 
-    signal recipeClicked()
+    signal clicked()
 
     height: itemHeight
     width: itemWidth
 
-    Rectangle {width: itemWidth; height: itemHeight; color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor}
+    Rectangle {id: background; width: itemWidth; height: itemHeight; color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor}
 
-    Row {
-        height: itemHeight
-        spacing: 10
+    //Borders
+    Rectangle { height: 1; width: itemWidth; color: "#bbb"; anchors.bottom: parent.bottom; }
 
-        MouseArea {
-            id: mousearea
-            onClicked: {
-                recipeDelegate.ListView.view.currentIndex = index
-                recipeClicked()
-            }
+    MouseArea {
+        id: mousearea
+        anchors.fill: parent
+        hoverEnabled: true
+        onEntered: {
+            background.color = hoverBackgroundColor;
+        } onExited: { background.color = backgroundColor; } } Component.onCompleted: { mousearea.clicked.connect(clicked) } //Image Rectangle { id: imageContainer height: 85 - topMargin width: 85 color: "#BFBFBF" anchors {top: parent.top; topMargin: topMargin; left: parent.left; leftMargin: leftMargin;} //Image { //    id: img //    width: imageSize; height: imageSize //} } //Title Text { id: titleText width: itemWidth - imageContainer.width - leftMargin*2 text: title color: titleColor wrapMode: Text.WordWrap font { bold: true; pointSize: 12 } elide: Text.ElideRight maximumLineCount: 1 anchors {top: parent.top; topMargin: topMargin; left: imageContainer.right; leftMargin: leftMargin;} } //Description Text { id: descriptionText height:20 width: 180 text: description color: descriptionColor wrapMode: Text.WordWrap maximumLineCount : 1 elide: Text.ElideRight font { pointSize: 11 } anchors {top: titleText.bottom; topMargin: 7; left: imageContainer.right; leftMargin: leftMargin;} } //Difficulty Text { id: difficultyAndDurationText width: 200 text: "Difficulty: " + difficulty + " Duration: " + duration color: "#aaa" wrapMode: Text.WordWrap; font.pointSize: 8 anchors {top: descriptionText.bottom; topMargin: 10; left: imageContainer.right; leftMargin: leftMargin} } /*Rectangle { id:ratingWidget height:40 width: itemWidth - 300 - 85 - borderWidth
+        visible:true
+        color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor
+
+        Rating{
+            anchors.fill: parent
+            fillColor: "gold"
+
+            x: 0
+            y: 0
+            size:11
         }
-
-
-        Component.onCompleted: {
-            mousearea.clicked.connect(recipeClicked)
-            console.log(recipeData.title)
-        }
-
-        Rectangle {
-            height:parent.height
-            color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor
-            width: 1;
-
-        }
-
-        Rectangle {
-            height: 85 - topMargin
-            width: 85
-            color: "#BFBFBF"
-            anchors {top: parent.top; topMargin: topMargin}
-            //Image {
-            //    id: img
-            //    width: imageSize; height: imageSize
-            //}
-        }
-
-        Rectangle {
-            width: 300;
-            height: itemHeight-topMargin;
-            color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor
-
-            Text {
-                id: titleText
-                width: itemWidth
-                text: title
-                color: titleColor
-                wrapMode: Text.WordWrap
-                font { bold: true; pointSize: 12 }
-                anchors {top: parent.top}
-
-            }
-
-            Text {
-                id: descriptionText
-                height:20
-                width: itemWidth
-                text: description
-                color: descriptionColor
-                wrapMode: Text.WordWrap
-                font { pointSize: 11 }
-                anchors {top: titleText.bottom; topMargin: 7}
-            }
-
-            //Difficulty
-            Text {
-                 id: difficultyText
-                 width: 200
-                 text: "Difficulty: " + difficulty
-                 color: "#aaa"
-                 wrapMode: Text.WordWrap; font.pointSize: 8
-                 anchors {top: descriptionText.bottom; topMargin: 10}
-            }
-            Text {
-                 id: durationText
-                 width: 200
-                 text: "Durection: : " + duration
-                 color: "#aaa"
-                 wrapMode: Text.WordWrap; font.pointSize: 8
-                 anchors {top:difficultyText.top;}
-            }
-         }
-
-        Rectangle {
-            id:ratingWidget
-            height:40
-            width: itemWidth - 300 - 85
-            visible:true
-            color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor
-
-            Rating{
-                anchors.fill: parent
-                fillColor: "gold"
-
-                x: 0
-                y: 0
-                size:11
-            }
-            anchors{top: parent.top; topMargin: topMargin}
-        }
-
-
-
-                //rating
-
-                /*Item {
-                    width: parent.width
-                    height: 30
-
-                    anchors.top: ratingWidget.bottom
-                    anchors.topMargin: 4
-
-
-
-                     //Duration
-                     Text {
-                         id: durationText
-                         width:  50
-                         text: duration
-                         color: "#787878"
-                         wrapMode: Text.WordWrap; font.family: "Helvetica"; font.pointSize: 10
-                         anchors.left: difficultyText.right
-                     }
-                }
-            } */
-      }
-
-    Rectangle { height: 1; width: parent.width; color: "#ddd"; }
+        anchors{top: parent.top; topMargin: topMargin}
+        } */
  }

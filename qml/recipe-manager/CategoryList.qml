@@ -5,8 +5,8 @@ import "../../js/fontawesome.js" as FontAwesome
 import Widgets 1.0
 Rectangle {
     id: categoryList
-    property color backgroundColor: "#333333"
-    property color labelColor: "#777"
+    property color backgroundColor: "#F2F2F2"
+    property color labelColor: "#A39494"
     property int textSize: 12
     property int labelSize: 10
     property bool enableEdit: false
@@ -90,7 +90,7 @@ Rectangle {
                 id: separator
                 height: 1
                 width: parent.width
-                color: "#292929"
+                color: "#E0E0E0"
                 anchors.top: mainItems.bottom
                 anchors.topMargin: 5
             }
@@ -132,7 +132,7 @@ Rectangle {
     }
 
     //right border
-    Rectangle {height: parent.height; width:1; color: "#303030"; anchors.right:parent.right; }
+    Rectangle {height: parent.height; width:2; color: "#E0E0E0"; anchors.right:parent.right; }
     //left border
-    Rectangle {height: parent.height; width:1; color: "#222"; anchors.left:parent.left; }
+    Rectangle {height: parent.height; width:2; color: "#E0E0E0"; anchors.left:parent.left; }
 }
