@@ -3,7 +3,7 @@ import QtQuick 2.0
 BorderImage {
         property variant target
 
-        //source: "../../images/scrollbar.png"
+        source: "../../images/scrollbar.png"
         border {left: 0; top: 0; right: 0; bottom: 0}
         width: 8
 
@@ -15,6 +15,21 @@ BorderImage {
         //scroll container
         Item {
                 anchors {fill: parent; margins: 1; rightMargin: 2; bottomMargin: 2}
+                Image {
+                    id: upArrow
+                    source: "../../images/up-arrow.png"
+                    anchors.top: parent.top
+                    MouseArea {
+                        anchors.fill: parent
+                        onPressed: {
+                            timer.scrollAmount = -10
+                            timer.running = true;
+                        }
+                        onReleased: {
+                            timer.running = false;
+                        }
+                    }
+                }
 
 
                 //timer to keep scrolling when clicking arrows
@@ -53,6 +68,8 @@ BorderImage {
                                }
                         }
 
+
+
                         //slider for scroll bar
                         BorderImage {
                                 id:slider
@@ -79,6 +96,21 @@ BorderImage {
                                         }
                                 }
                         }
+                }
+                Image {
+                    id: dnArrow
+                    source: "../../images/dn-arrow.png"
+                    anchors.bottom: parent.bottom
+                    MouseArea {
+                        anchors.fill: parent
+                        onPressed: {
+                            timer.scrollAmount = 10
+                            timer.running = true;
+                        }
+                        onReleased: {
+                            timer.running = false;
+                        }
+                    }
                 }
         }
 }
