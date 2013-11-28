@@ -8,6 +8,7 @@ Item{
    id: browseView
    height: parent ? parent.height : 500
    width: parent ? parent.width : 500
+   objectName: "Browse"
    state: "HIDE"
 
    signal chosenCategory();
