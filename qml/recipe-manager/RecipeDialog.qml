@@ -9,8 +9,7 @@ Dialog {
     anchors.fill: parent
     contentHeight: 450
     contentWidth: 550
-
-
+    objectName: "RecipeDialog"
 
     titleText: "Add a Recipe"
 
