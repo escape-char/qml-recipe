@@ -4,8 +4,8 @@ Item {
     id: dialog
 
     z: parent ? parent.z + 3 : 20
-    property int contentWidth: 200
-    property int contentHeight: 200
+    property int contentWidth: 500
+    property int contentHeight: 450
     property int contentX: 100;
     property int contentY: 100;
     default property alias children: scrollArea.children
@@ -85,7 +85,7 @@ Item {
                 rightMargin: 5;
                 topMargin: 5;
             }
-            onButtonClick: {
+            onClicked: {
                 dialog.state  = "HIDE";
                 cancelClick();
 
@@ -126,7 +126,7 @@ Item {
              anchors.bottomMargin: 10
              anchors.rightMargin: 4
              height: 30
-             onButtonClick: {
+             onClicked: {
 
                  submitClick();
 
@@ -141,7 +141,7 @@ Item {
              anchors.bottomMargin: 10
              anchors.rightMargin: 4
              height: 30
-             onButtonClick:{
+             onClicked:{
                  cancelClick()
                  dialog.state = "HIDE"
              }
