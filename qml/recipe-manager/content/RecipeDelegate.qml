@@ -15,7 +15,7 @@ import Widgets 1.0
     property int imageHorizMargin: 10
     property color borderColor: "#B8B8B8"
     property color backgroundColor: "#fafafa"
-    property color activeBackgroundColor: "#fafafa"
+    property color activeBackgroundColor: "#F2F2F2"
 
     property color titleColor: "#358C91"
     property color descriptionColor: "#888"
