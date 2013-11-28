@@ -4,6 +4,7 @@ import QtQuick.XmlListModel 2.0
 import "content"
 import "../CustomWidgets"
 import "../../js/fontawesome.js" as FontAwesome
+import Widgets 1.0
 
 Item {
     id:container
@@ -20,6 +21,13 @@ Item {
     signal loaded()
     signal backButtonClicked()
 
+    SqlQueryModel{
+        id:recipeModel
+        query: "SELECT * FROM recipes"
+        Component.onCompleted:{
+        }
+    }
+
 
    //background
     Rectangle {id: background; color: "#555555"; anchors.fill:parent}
@@ -33,6 +41,7 @@ Item {
             id: backButton
             icon: FontAwesome.Icon.ArrowLeft
             anchors {left: parent.left; leftMargin: 10}
+
             onClicked: {
                 backButtonClicked()
             }
