@@ -8,10 +8,10 @@ MainMenu{
    height: parent.height
    color: "#91353B"
    z: 1
-   signal addRecipeButtonClicked()
-   signal groceriesButtonClicked()
-   signal browseButtonClicked()
-   signal settingsButtonClicked()
+   signal addRecipeButtonClick()
+   signal groceriesButtonClick()
+   signal browseButtonClick()
+   signal settingsButtonClick()
 
    property string dividerColor: "#732A2F"
 
@@ -22,10 +22,7 @@ MainMenu{
         anchors.top: parent.top
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
-
-        Component.onCompleted: {
-            addRecipeButton.clicked.connect(mainMenu.addRecipeButtonClicked)
-        }
+        onClicked:addRecipeButtonClick()
     }
 
    //middle container holding add recipes, groceries
@@ -44,8 +41,12 @@ MainMenu{
             icon: FontAwesome.Icon.Book
             isActive: true;
             anchors.top: parent.top
-            Component.onCompleted: {
-                browseButton.clicked.connect(mainMenu.browseButtonClicked)
+            onClicked: {
+                browseButton.color = browseButton.activeBackgroundColor;
+                browseButton.isActive = true;
+                groceriesButton.color = browseButton.backgroundColor;
+                groceriesButton.isActive = false;
+                browseButtonClick()
             }
         }
 
@@ -61,10 +62,13 @@ MainMenu{
             id:groceriesButton
             icon: FontAwesome.Icon.ShoppingCart
             anchors.top:  browseButton.bottom
-            Component.onCompleted: {
-                groceriesButton.clicked.connect(mainMenu.groceriesButtonClicked)
+            onClicked:{
+                browseButton.color = browseButton.backgroundColor;
+                browseButton.isActive = false;
+                groceriesButton.color = groceriesButton.activeBackgroundColor;
+                groceriesButton.isActive = true;
+                groceriesButtonClick()
             }
-
         }
 
         Rectangle {
@@ -89,8 +93,6 @@ MainMenu{
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
-        Component.onCompleted: {
-            settingsButton.clicked.connect(mainMenu.settingsButtonClicked)
-        }
+        onClicked:settingsButtonClick()
     }
 }
