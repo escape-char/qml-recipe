@@ -1,10 +1,22 @@
 import QtQuick 2.0
 
-Rectangle {
+Item {
     id: groceries
-    width: parent.width
-    height: parent.height
+    width: parent ? parent.width : 0
+    height: parent ? parent.height : 0
+    objectName: "Groceries"
     state: "HIDE"
+
+    Rectangle{
+        id: background
+        anchors.fill: parent
+    }
+    Text{
+        id:title
+        anchors{top:background.top; left: background.left}
+        font{pointSize:14; bold:true}
+        text: "Groceries"
+    }
 
     states: [
         State {
