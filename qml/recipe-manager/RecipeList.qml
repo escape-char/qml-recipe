@@ -34,7 +34,7 @@ Item {
     }
 
    //background
-    Rectangle {id: background; color: "#444"; anchors.fill:parent}
+    Rectangle {id: background; color: "#F2F2F2"; anchors.fill:parent}
 
     //Action bar for List view
     ActionBar {
