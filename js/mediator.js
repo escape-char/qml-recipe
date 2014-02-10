@@ -122,7 +122,6 @@ var Mediator = function Mediator(window) {
 
             }break;
             case "GROCERY":{
-                t.unloadDialog();
                 t.loadGrocery();
 
             }break;
