@@ -1,4 +1,23 @@
 //add format method to String object
+
+var QUERY_ALL_RECIPES = "SELECT * FROM recipes";
+var QUERY_ALL_CATEGORIES = "SELECT * FROM CATEGORIES";
+var QUERY_FILTER_CATEGORIES =
+    "SELECT recipes.id as recipes_id, recipes.title as title,\
+        recipes.description, recipes.rating, recipes.difficulty, \
+        recipes.image, recipes.created, recipes.updated, recipes.duration, \
+        cr.category_id, \
+        c.name, \
+        i.id as ingredient_id, \
+        GROUP_CONCAT(i.ingredient), \
+        d.id as directions_id, \
+        GROUP_CONCAT(d.step) \
+       FROM recipes \
+    INNER JOIN categories_recipes as cr ON recipes_id=cr.recipe_id \
+    INNER JOIN categories as c ON cr.category_id={0} \
+    LEFT OUTER JOIN ingredients as i ON recipes.id = i.recipe_id \
+    LEFT OUTER JOIN directions as d ON recipes.id = d.recipe_id \
+    GROUP BY recipes.id";
 String.prototype.format = function (args) {
     var str = this;
     return str.replace(String.prototype.format.regex, function(item) {
@@ -115,7 +134,7 @@ function addRecipeToTableModel(tableModel, recipe){
 //queryModel = SqlQueryModel to interact with database
 //id = category id to filter by
 function filterByCategory(queryModel, id){
-    console.log("DatabaseHandler.updateRecipeModelByCategory()")
+    console.log("DatabaseHandler.filterByCategory()")
 
     var query = null; //query to filter database
 
@@ -133,23 +152,7 @@ function filterByCategory(queryModel, id){
         placeHolder = id.toString()
     }
 
-    query =
-        "SELECT recipes.id as recipes_id, recipes.title as title,\
-            recipes.description, recipes.rating, recipes.difficulty, \
-            recipes.image, recipes.created, recipes.updated, recipes.duration, \
-            cr.category_id, \
-            c.name, \
-            i.id as ingredient_id, \
-            GROUP_CONCAT(i.ingredient), \
-            d.id as directions_id, \
-            GROUP_CONCAT(d.step) \
-           FROM recipes \
-        INNER JOIN categories_recipes as cr ON recipes_id=cr.recipe_id \
-        INNER JOIN categories as c ON cr.category_id={0} \
-        LEFT OUTER JOIN ingredients as i ON recipes.id = i.recipe_id \
-        LEFT OUTER JOIN directions as d ON recipes.id = d.recipe_id \
-        GROUP BY recipes.id;".format([placeHolder])
-
+    query = QUERY_FILTER_CATEGORIES.format([placeHolder])
     console.log("DatabaseHandler.filterByCategory(): " + query);
 
    queryModel.updateQuery(query)
