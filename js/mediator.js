@@ -92,9 +92,9 @@ var Mediator = function Mediator(window) {
                 t.unloadDialog();
            });
             if(dialogLoader.item.objectName === "RecipeDialog"){
-                dialogLoader.item.saveRecipe.connect(function(){
+                dialogLoader.item.saveRecipe.connect(function(recipe){
                     console.log("Mediator.dialogLoader.saveRecipe()");
-                    t.saveRecipe();
+                    t.saveRecipe(recipe);
                  });
             }
         }
