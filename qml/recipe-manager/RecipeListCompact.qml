@@ -122,11 +122,11 @@ Item {
     }
 
     //left border
-    Rectangle {
+    /*Rectangle {
         height: parent.height
         width: 1
-        color: "#333"
+        color: "#cfcfcf"
 
         anchors.left: parent.left
-    }
+    } */
 }
