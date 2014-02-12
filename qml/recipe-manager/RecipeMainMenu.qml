@@ -6,7 +6,7 @@ MainMenu{
    id: mainMenu
    width: 65
    height: parent.height
-   color: "#91353B"
+   color: "#A9444A"
    z: 1
    signal addRecipeButtonClick()
    signal groceriesButtonClick()
