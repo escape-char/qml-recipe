@@ -42,6 +42,11 @@ OTHER_FILES += \
     100x100.gif \
     recipe_manager.xml \
     README.md \
+    js/MainController.js \
+    qml/recipe-manager/RecipeListDetailed.qml \
+    qml/recipe-manager/CategoriesPage.qml \
+    qml/recipe-manager/RecipesPage.qml \
+    qml/recipe-manager/MainMenu.qml
 
 QT += sql widgets
 
