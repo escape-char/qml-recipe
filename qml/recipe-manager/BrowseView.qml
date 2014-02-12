@@ -11,26 +11,32 @@ Item{
    objectName: "Browse"
    state: "HIDE"
 
-   signal chosenCategory();
+   signal chosenCategory(variant category);
 
    function goToView(){
        //pageStack.push(viewPage);
 
    }
+   function getQueryModel(){
+       return listPage.getQueryModel();
+   }
+
+   function update(){
+       console.log("BrowseView.update()");
+       listPage.update();
+
+    }
     PageStack {
         id: pageStack
         height: parent.height
         width: parent.width
     }
 
-    RecipeListPage {
+    CategoriesPage {
         id: listPage
        onCategoryChosen: {
            console.log("BrowseView.onCategorySelect()");
-
-
            /*
-
            //create table Model dynamically
            var tableModel = Qt.createQmlObject(
                        "import QtQuick 2.0; import Widgets 1.0; SqlQueryModel{}",
@@ -45,7 +51,7 @@ Item{
        }
     }
 
-    RecipeViewPage {
+    RecipesPage {
         id: viewPage
     }
 
