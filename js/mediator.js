@@ -1,6 +1,7 @@
 Qt.include(DatabaseHandler.js);
 
 var Mediator = function Mediator(window) {
+
     console.log("Mediator.Mediator()")
 
     //components to interact with
@@ -22,6 +23,7 @@ var Mediator = function Mediator(window) {
 
     //handle menu menu actions
     _mainMenu.addRecipeButtonClick.connect(function(){
+        console.log("inside add recipe click")
         t.loadDialog("recipe");
     });
     _mainMenu.groceriesButtonClick.connect(function(){
@@ -36,7 +38,7 @@ var Mediator = function Mediator(window) {
 
 
     //handle browse loader status changes
-    _browseLoader.statusChanged.connect(function(){
+    browseLoader.statusChanged.connect(function(){
         if(_browseLoader.status === Loader.Null)
             console.log("Mediator.browseLoader.onStatusChanged(): state is currently null")
         else if (browseLoader.status ===- Loader.Error)
@@ -44,7 +46,7 @@ var Mediator = function Mediator(window) {
         else if (browseLoader.status === Loader.Loading)
             console.log("Mediator.browseLoader.onStatusChanged(): loading componenet... " +
                         _browseLoader.progress*100 + "%.")
-        else{
+        else {
             console.log("Mediator.browseLoader.onStatusChanged(): successfully loaded component")
             console.log("Mediator.browseLoader.onStatusChanged(): loaded " + _browseLoader.item.objectName)
             _browseLoader.item.state = "SHOW"
@@ -61,8 +63,11 @@ var Mediator = function Mediator(window) {
 
          }
     });
+
+
     //handle status changes for dialog loader
     _dialogLoader.statusChanged.connect(function(){
+
         if(_dialogLoader.status === Loader.Null){
             console.log("Mediator.dialogLoader.onStatusChanged(): state is currently null")
          }
@@ -82,7 +87,7 @@ var Mediator = function Mediator(window) {
             dialogLoader.item.state = "SHOW"
 
             //handle cancel event
-            dialogLoader.item.cancelClick.connect(function(){
+            /*dialogLoader.item.cancelClick.connect(function(){
                 console.log("Mediator.dialogLoader.cancelClick()");
                 t.unloadDialog();
            });
@@ -91,7 +96,7 @@ var Mediator = function Mediator(window) {
                     console.log("Mediator.dialogLoader.saveRecipe()");
                     t.saveRecipe();
                  });
-            }
+            } */
         }
      });
     //save a recipe to database
@@ -145,8 +150,10 @@ var Mediator = function Mediator(window) {
         }
         _dialogLoader.asynchronous = true;
 
-        if(type === "recipe")
-            _dialogLoader.source = "../qml/recipe-manager/RecipeDialog.qml"
+        if(type === "recipe") {
+             console.log("Type equals recipe");
+            _dialogLoader.source = "../qml/recipe-manager/RecipeDialog.qml";
+        }
         else if (type === "setting")
             _dialogLoader.source = "../qml/recipe-manager/SettingsView.qml"
         else{
@@ -167,16 +174,12 @@ var Mediator = function Mediator(window) {
         if(_browseLoader){
             _browseLoader.source = "";
         }
-
     }
+
     this.unloadDialog = function(){
         if(_dialogLoader){
             _dialogLoader.source = "";
         }
-
-    }
-
-    this.loadRecipeDialog = function(){
 
     }
 }
