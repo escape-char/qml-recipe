@@ -87,7 +87,7 @@ var Mediator = function Mediator(window) {
             dialogLoader.item.state = "SHOW"
 
             //handle cancel event
-            /*dialogLoader.item.cancelClick.connect(function(){
+            dialogLoader.item.cancelClick.connect(function(){
                 console.log("Mediator.dialogLoader.cancelClick()");
                 t.unloadDialog();
            });
@@ -96,7 +96,7 @@ var Mediator = function Mediator(window) {
                     console.log("Mediator.dialogLoader.saveRecipe()");
                     t.saveRecipe();
                  });
-            } */
+            }
         }
      });
     //save a recipe to database
