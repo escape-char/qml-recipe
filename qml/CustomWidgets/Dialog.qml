@@ -4,8 +4,8 @@ Item {
     id: dialog
 
     z: parent ? parent.z + 3 : 20
-    property int contentWidth: 500
-    property int contentHeight: 450
+    property int contentWidth: 750
+    property int contentHeight: 750
     property int contentX: 100;
     property int contentY: 100;
     default property alias children: scrollArea.children

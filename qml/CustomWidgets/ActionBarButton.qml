@@ -5,8 +5,8 @@ Rectangle {
     id: button
     property string icon:                   FontAwesome.Icon.Ok
     property bool   disabled:               false
-    property color disabledTextColor:      "#aaa"
-    property color enabledTextColor:       "#6d6d6d"
+    property color disabledTextColor:      "#ccc"
+    property color enabledTextColor:       "#888"
 
     width: 30
     height: 30
