@@ -2,6 +2,7 @@ import QtQuick 2.0
 import "content"
 import "../CustomWidgets"
 import "../../js/fontawesome.js" as FontAwesome
+import "../../js/DatabaseHandler.js" as DatabaseHandler
 import Widgets 1.0
 Rectangle {
     id: categoryList
@@ -34,9 +35,10 @@ Rectangle {
         //deselect();
     }
 
-    function refresh(){
-        console.log("CATEGORYLIST.refresh()");
-        categoryModel.updateQuery("SELECT * FROM categories");
+    function update(){
+    }
+    function updateQuery(query){
+        categoryModel.updateQuery(query)  ;
     }
 
     function deselect(){
