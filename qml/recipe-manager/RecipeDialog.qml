@@ -7,7 +7,7 @@ Dialog {
     id: recipeDialog
     clip: true
     anchors.fill: parent
-    contentHeight: 750
+    contentHeight: 700
     contentWidth: 550
     objectName: "RecipeDialog"
 
@@ -20,7 +20,7 @@ Dialog {
     property int inputWidth: 350
     property int labelWidth: 40
     property int inputHeight: 20
-    property color labelColor: "#5a5a5a"
+    property color labelColor: "#888"
 
     signal saveRecipe(variant r)
 
@@ -159,11 +159,11 @@ Dialog {
     }
     Rectangle{
         id:divider1
-        height: 2
+        height: 1
         width: contentWidth
         visible:true
         anchors{top:imageSection.bottom; left:imageSection.left}
-        color:"lightgray"
+        color: "#ccc"
     }
 
 
@@ -181,9 +181,9 @@ Dialog {
             width: labelWidth
             height: 30
             text: "Difficulty"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{pointSize: 12}
         }
         //Duration Label
         Text{
@@ -191,9 +191,9 @@ Dialog {
             width: labelWidth
             height: 30
             text: "Duration"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{pointSize: 12}
         }
 
         //difficulty combobox
@@ -252,9 +252,9 @@ Dialog {
             width: labelWidth
             height: 30
             text: "Ingredients"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{pointSize: 12}
         }
 
         //Directions Label
@@ -263,25 +263,24 @@ Dialog {
             width: labelWidth
             height: 30
             text: "Directions"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font {pointSize: 12}
         }
         AddItemView{
             id: ingredList
-            height:100
+            height: 200
             items: recipe.ingredients
 
         }
         AddItemView{
             id: dirlist
-            height: 100
+            height: 200
             items: recipe.directions
         }
     }
 
     onSubmitClick: {
-        console.log("RecipeDialog.onSubmitClick()")
         recipe.title = titleText
         recipe.rating = rating.selected
         recipe.categories=categoryField.text.split(",")
