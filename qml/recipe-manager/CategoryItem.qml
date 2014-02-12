@@ -6,7 +6,7 @@ Rectangle {
 
     property color backgroundColor: "transparent"
     property color textColor: "#ccc"
-    property color  hoverBackgroundColor: "#E3E3E3"
+    property color  hoverBackgroundColor: "#404040"
     property string label: "Example"
     property string icon: FontAwesome.Icon.Star
     property int textSize: 12
