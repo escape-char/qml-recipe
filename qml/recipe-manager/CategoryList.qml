@@ -7,7 +7,7 @@ import Widgets 1.0
 Rectangle {
     id: categoryList
     property color backgroundColor: "#505050"
-    property color borderColor: "#444"
+    property color borderColor: "#3d3d3d"
     property color labelColor: "#A39494"
     property int textSize: 12
     property int labelSize: 10
