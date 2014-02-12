@@ -14,7 +14,7 @@ Rectangle {
 
 
     property variant selectedCategory
-    color: categoryDelegate.ListView.isCurrentItem ? Qt.lighter("#F2F2F2", 1.3) : "#F2F2F2"
+    color: categoryDelegate.ListView.isCurrentItem ? Qt.lighter("#444", 1.3) : "transparent"
 
 
     Component.onCompleted: {
@@ -23,11 +23,13 @@ Rectangle {
 
     CategoryItem {
         label: name
+        textColor: "#aaa"
+        textSize: 14
         hasIcon: false
         onCategoryItemClicked: {
             categoryDelegate.ListView.view.currentIndex = index
         }
-        backgroundColor: "transparent"
+        backgroundColor: parent.color
 
     }
 }
