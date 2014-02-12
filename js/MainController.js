@@ -1,7 +1,7 @@
 Qt.include(DatabaseHandler.js);
 
 var MainController = function MainController(window) {
-    console.log("Mediator.Mediator()")
+    console.log("MainController.MainController()")
 
     //components to interact with
     var _window = window;
@@ -17,7 +17,7 @@ var MainController = function MainController(window) {
     //recipes currently being displayed
     var _recipes;
 
-    var t = this; //save this refering to mediator
+    var t = this; //save this refering to MainController
 
     //handle menu menu actions
     _mainMenu.addRecipeButtonClick.connect(function(){
@@ -37,28 +37,28 @@ var MainController = function MainController(window) {
     //handle browse loader status changes
     _browseLoader.statusChanged.connect(function(){
         if(_browseLoader.status === Loader.Null)
-            console.log("Mediator.browseLoader.onStatusChanged(): state is currently null")
+            console.log("MainController.browseLoader.onStatusChanged(): state is currently null")
         else if (browseLoader.status ===- Loader.Error)
-            console.log("Mediator.browseLoader.onStatusChanged(): error occurred during load")
+            console.log("MainController.browseLoader.onStatusChanged(): error occurred during load")
         else if (browseLoader.status === Loader.Loading)
-            console.log("Mediator.browseLoader.onStatusChanged(): loading componenet... " +
+            console.log("MainController.browseLoader.onStatusChanged(): loading componenet... " +
                         _browseLoader.progress*100 + "%.")
         else{
-            console.log("Mediator.browseLoader.onStatusChanged(): successfully loaded component")
-            console.log("Mediator.browseLoader.onStatusChanged(): loaded " + _browseLoader.item.objectName)
+            console.log("MainController.browseLoader.onStatusChanged(): successfully loaded component")
+            console.log("MainController.browseLoader.onStatusChanged(): loaded " + _browseLoader.item.objectName)
             _browseLoader.item.state = "SHOW"
 
             //handle if its browse view
             if(_browseLoader.item.objectName === "Browse"){
                 _browseLoader.item.chosenCategory.connect(function(category){
-                    console.log("Mediator.browseLoader.onChosenCategory()");
+                    console.log("MainController.browseLoader.onChosenCategory()");
                     //create table Model dynamically
                     var tableModel = Qt.createQmlObject(
                                 "import QtQuick 2.0; import Widgets 1.0; SqlQueryModel{}",
                                  _browseLoader.item,
                                 "../");
 
-                    console.log("Mediator.onCategorySelect(): filter by category id: " + category.id);
+                    console.log("MainController.onCategorySelect(): filter by category id: " + category.id);
 
                     //Data
                     DatabaseHandler.filterByCategory(tableModel, category.id);
@@ -75,18 +75,18 @@ var MainController = function MainController(window) {
     //handle status changes for dialog loader
     _dialogLoader.statusChanged.connect(function(){
         if(_dialogLoader.status === Loader.Null){
-            console.log("Mediator.dialogLoader.onStatusChanged(): state is currently null")
+            console.log("MainController.dialogLoader.onStatusChanged(): state is currently null")
          }
         else if (dialogLoader.status ===- Loader.Error)
-            console.log("Mediator.dialogLoader.onStatusChanged(): error occurred during load")
+            console.log("MainController.dialogLoader.onStatusChanged(): error occurred during load")
         else if (dialogLoader.status === Loader.Loading){
-            console.log("Mediator.dialogLoader.onStatusChanged(): loading componenet... " +
+            console.log("MainController.dialogLoader.onStatusChanged(): loading componenet... " +
                         dialogLoader.progress*100 + "%.")
          }
         else{
-            console.log("Mediator.dialogLoader.onStatusChanged():"
+            console.log("MainController.dialogLoader.onStatusChanged():"
                         + "successfully loaded component");
-            console.log("Mediator.dialogLoader.onStatusChanged():"
+            console.log("MainController.dialogLoader.onStatusChanged():"
                         + " component objectName is "
                         + dialogLoader.item.objectName);
 
@@ -94,12 +94,12 @@ var MainController = function MainController(window) {
 
             //handle cancel event
             dialogLoader.item.cancelClick.connect(function(){
-                console.log("Mediator.dialogLoader.cancelClick()");
+                console.log("MainController.dialogLoader.cancelClick()");
                 t.unloadDialog();
            });
             if(dialogLoader.item.objectName === "RecipeDialog"){
                 dialogLoader.item.saveRecipe.connect(function(r){
-                    console.log("Mediator.dialogLoader.saveRecipe()");
+                    console.log("MainController.dialogLoader.saveRecipe()");
                     t.saveRecipe(r);
                  });
             }
@@ -107,7 +107,7 @@ var MainController = function MainController(window) {
      });
     //save a recipe to database
     this.saveRecipe = function (recipe){
-        console.log("Mediator.saveRecipe()");
+        console.log("MainController.saveRecipe()");
         console.log("\ttitle: " + recipe.title)
          console.log("\trating: " + recipe.rating)
          console.log("\tcategories: " + recipe.categories.toString())
@@ -131,7 +131,7 @@ var MainController = function MainController(window) {
 
     //handle state changes for app window
     _window.stateChanged.connect(function(){
-        console.log("Mediator.appWindow.onStateChanged(): " + _window.state);
+        console.log("MainController.appWindow.onStateChanged(): " + _window.state);
 
         switch(_window.state){
             case "BROWSE":{
@@ -146,7 +146,7 @@ var MainController = function MainController(window) {
         }
       });
     this.loadBrowse = function(){
-        console.log("Mediator.loadBrowse()");
+        console.log("MainController.loadBrowse()");
         if(_browseLoader){
             _browseLoader.asynchronous = true;
             _browseLoader.source = "../qml/recipe-manager/BrowseView.qml"
@@ -154,10 +154,10 @@ var MainController = function MainController(window) {
     }
 
     this.loadDialog = function(type){
-        console.log("Mediator.loadDialog()");
+        console.log("MainController.loadDialog()");
 
         if(!_dialogLoader){
-            console.log("Mediator.loadDialog(): dialogLoader is null");
+            console.log("MainController.loadDialog(): dialogLoader is null");
             return;
         }
         _dialogLoader.asynchronous = true;
@@ -167,13 +167,13 @@ var MainController = function MainController(window) {
         else if (type === "setting")
             _dialogLoader.source = "../qml/recipe-manager/SettingsView.qml"
         else{
-            console.log("Mediator.loadDialog(): unknown dialog type  " + type);
+            console.log("MainController.loadDialog(): unknown dialog type  " + type);
             return
         }
-        console.log("Mediator.loadDialog(): Chosen to load Dialog of type " + type)
+        console.log("MainController.loadDialog(): Chosen to load Dialog of type " + type)
     }
     this.loadGrocery=function(){
-        console.log("Mediator.loadGrocery()")
+        console.log("MainController.loadGrocery()")
         if(_browseLoader){
             _browseLoader.source = "../qml/recipe-manager/GroceriesView.qml"
         }
