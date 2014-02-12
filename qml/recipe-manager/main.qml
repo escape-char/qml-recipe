@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 import "../../js/DatabaseHandler.js" as DatabaseHandler
-import "../../js/mediator.js" as RecipeMediator
+import "../../js/MainController.js" as MainController
 import "../CustomWidgets"
 import Widgets 1.0
 
@@ -18,7 +18,7 @@ Item{
     property var dialog: dialogLoader
 
     Component.onCompleted: {
-        mediator = new RecipeMediator.Mediator(appWindow);
+        mediator = new MainController.MainController(appWindow);
         appWindow.state  = "BROWSE"
 
     }
