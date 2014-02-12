@@ -5,7 +5,7 @@ import "../CustomWidgets"
 
 Dialog {
     id: recipeDialog
-    clip:true
+    clip: true
     anchors.fill: parent
     contentHeight: 450
     contentWidth: 550
@@ -37,6 +37,7 @@ Dialog {
         "difficulty": 0,
         "rating": 0
     }
+
     Grid {
         id:mainGrid
         columns: 2
@@ -64,6 +65,7 @@ Dialog {
             text: recipe.title
             maximumLength: 100
         }
+
         //Rating label
         Text{
             width: labelWidth
@@ -163,8 +165,10 @@ Dialog {
         anchors{top:imageSection.bottom; left:imageSection.left}
         color:"lightgray"
     }
+
+
     Grid{
-        id: grid2
+       id: grid2
         columns: 2
         columnSpacing: contentWidth /4
         anchors.top: divider1.bottom
@@ -195,10 +199,11 @@ Dialog {
         //difficulty combobox
         ComboBox{
             id:diffCombo
-            model:["", "Easy", "Medium", "Hard"]
+            //model:["None", "Easy", "Medium", "Hard"]
             width:100
-            currentIndex: recipe.rating
+            //currentIndex: recipe.rating
         }
+
         Item{
             height: 30
             width: contentWidth
@@ -221,6 +226,7 @@ Dialog {
             }
         }
     }
+
     Rectangle{
         id:divider2
         height: 2
@@ -231,6 +237,7 @@ Dialog {
 
         color:"lightgray"
     }
+
     Grid{
         id: grid3
         columns: 2
@@ -249,6 +256,7 @@ Dialog {
 
             font{bold: true;pointSize: 14}
         }
+
         //Directions Label
         Text{
             id:directionsLabel
@@ -270,8 +278,8 @@ Dialog {
             height: 100
             items: recipe.directions
         }
-
     }
+
     onSubmitClick: {
         console.log("RecipeDialog.onSubmitClick()")
         recipe.title = titleText
