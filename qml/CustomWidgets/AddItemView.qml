@@ -14,8 +14,8 @@ Item{
         height: parent.height - textField.height - textField.anchors.topMargin
         width: parent.width
         color: "white"
-        border.width: 2
-        border.color: "gray"
+        border.width: 1
+        border.color: "#ccc"
     }
     Component.onCompleted: {
        items.forEach(function(i){model.append({"name": i});})
