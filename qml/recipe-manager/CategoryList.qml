@@ -4,12 +4,14 @@ import "../CustomWidgets"
 import "../../js/fontawesome.js" as FontAwesome
 import "../../js/DatabaseHandler.js" as DatabaseHandler
 import Widgets 1.0
+
 Rectangle {
     id: categoryList
-    property color backgroundColor: "#F2F2F2"
-    property color labelColor: "#A39494"
+    property color backgroundColor: "#505050"
+    property color borderColor: "#3d3d3d"
+    property color labelColor: "#aaa"
     property int textSize: 12
-    property int labelSize: 10
+    property int labelSize: 12
     property bool enableEdit: false
     property int leftMargin: 15
     property int topMargin: 10
@@ -49,7 +51,7 @@ Rectangle {
     Rectangle {
         id: categoriesContent
         height: parent.height - 41; width: parent.width
-        color: "transparent"
+        color: parent.color
 
         Rectangle {
             id: listItems
@@ -95,7 +97,7 @@ Rectangle {
                 id: separator
                 height: 1
                 width: parent.width
-                color: "#E0E0E0"
+                color:  borderColor
                 anchors.top: mainItems.bottom
                 anchors.topMargin: 5
             }
@@ -105,21 +107,17 @@ Rectangle {
                 width: parent.width - 20
                 color: parent.color
 
-                Text {
-                    id: categoriesLabel
-                    color: labelColor
-                    text: "Categories"
-                    font { pointSize: labelSize; bold: true; family: "Helvetica" }
-                    anchors.top: parent.top
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                }
+
                 ListView {
                     id: categoriesListView
-                    height: parent.height - categoriesLabel.height - 15
-                   width: parent.width
+                    height: parent.height
+                    width: parent.width
                     model: categoryModel
                     delegate: CategoryDelegate {id: categoryDelegate}
+
+                    anchors.top:  parent.top
+                    anchors.topMargin: 5
+                    anchors.left: parent.left
 
                     onCurrentItemChanged: {
                         //have item changed
@@ -148,7 +146,7 @@ Rectangle {
     }
 
     //right border
-    Rectangle {height: parent.height; width:2; color: "#E0E0E0"; anchors.right:parent.right; }
+    Rectangle {height: parent.height; width:1; color: borderColor; anchors.right:parent.right; }
     //left border
-    Rectangle {height: parent.height; width:2; color: "#E0E0E0"; anchors.left:parent.left; }
+    Rectangle {height: parent.height; width:1; color: borderColor; anchors.left:parent.left; }
 }

@@ -39,7 +39,7 @@ Item {
     }
 
    //background
-    Rectangle {id: background; color: "#F2F2F2"; anchors.fill:parent}
+    Rectangle {id: background; color: "#fff"; anchors.fill:parent}
 
     //Action bar for List view
     ActionBar {
@@ -89,13 +89,13 @@ Item {
              }
         }
     }
-    Rectangle {
+    /*Rectangle {
         height: parent.height
         width: 1
         color: "#c8c8c8"
         anchors.right: scrollList.right
         anchors.top: scrollList.top
-    }
+    }*/
     //Pagination bar
     ActionBar {
         id: pagination
@@ -136,14 +136,5 @@ Item {
            anchors.right: parent.right
            anchors.rightMargin: 10
         }
-    }
-
-    //left border
-    Rectangle {
-        height: parent.height
-        width: 1
-        color: "#333"
-
-        anchors.left: parent.left
     }
 }

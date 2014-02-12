@@ -5,13 +5,12 @@ import "../CustomWidgets"
 
 Dialog {
     id: recipeDialog
-    clip:true
+    clip: true
     anchors.fill: parent
-    contentHeight: 450
+    contentHeight: 700
     contentWidth: 550
     objectName: "RecipeDialog"
 
-    titleText: "Add a Recipe"
 
     property int labelPadding: 5
     property int leftMargin: 20
@@ -20,7 +19,7 @@ Dialog {
     property int inputWidth: 350
     property int labelWidth: 40
     property int inputHeight: 20
-    property color labelColor: "#5a5a5a"
+    property color labelColor: "#888"
 
     signal saveRecipe(variant r)
 
@@ -37,6 +36,7 @@ Dialog {
         "difficulty": 0,
         "rating": 0
     }
+
     Grid {
         id:mainGrid
         columns: 2
@@ -64,6 +64,7 @@ Dialog {
             text: recipe.title
             maximumLength: 100
         }
+
         //Rating label
         Text{
             width: labelWidth
@@ -157,14 +158,16 @@ Dialog {
     }
     Rectangle{
         id:divider1
-        height: 2
+        height: 1
         width: contentWidth
         visible:true
         anchors{top:imageSection.bottom; left:imageSection.left}
-        color:"lightgray"
+        color: "#ccc"
     }
+
+
     Grid{
-        id: grid2
+       id: grid2
         columns: 2
         columnSpacing: contentWidth /4
         anchors.top: divider1.bottom
@@ -177,9 +180,9 @@ Dialog {
             width: labelWidth
             height: 30
             text: "Difficulty"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{pointSize: 12}
         }
         //Duration Label
         Text{
@@ -187,18 +190,19 @@ Dialog {
             width: labelWidth
             height: 30
             text: "Duration"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{pointSize: 12}
         }
 
         //difficulty combobox
         ComboBox{
             id:diffCombo
-            model:["", "Easy", "Medium", "Hard"]
+            //model:["None", "Easy", "Medium", "Hard"]
             width:100
-            currentIndex: recipe.rating
+            //currentIndex: recipe.rating
         }
+
         Item{
             height: 30
             width: contentWidth
@@ -221,6 +225,7 @@ Dialog {
             }
         }
     }
+
     Rectangle{
         id:divider2
         height: 2
@@ -231,6 +236,7 @@ Dialog {
 
         color:"lightgray"
     }
+
     Grid{
         id: grid3
         columns: 2
@@ -245,36 +251,36 @@ Dialog {
             width: labelWidth
             height: 30
             text: "Ingredients"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font{pointSize: 12}
         }
+
         //Directions Label
         Text{
             id:directionsLabel
             width: labelWidth
             height: 30
             text: "Directions"
-            color: "#1C1C1C"
+            color: labelColor
 
-            font{bold: true;pointSize: 14}
+            font {pointSize: 12}
         }
         AddItemView{
             id: ingredList
-            height:100
+            height: 200
             items: recipe.ingredients
 
         }
         AddItemView{
             id: dirlist
-            height: 100
+            height: 200
             items: recipe.directions
         }
-
     }
+
     onSubmitClick: {
-        console.log("RecipeDialog.onSubmitClick()")
-        recipe.title = titleText
+        recipe.title = titletField.text
         recipe.rating = rating.selected
         recipe.categories=categoryField.text.split(",")
         recipe.description = descrField.text
@@ -283,8 +289,6 @@ Dialog {
         recipe.ingredients = ingredList.items
         recipe.duration =  hourSpin.value + ":" + minuteSpin.value
         recipe.difficulty= diffCombo.currentIndex
-
-
 
         saveRecipe(recipe)
     }

@@ -4,18 +4,18 @@ Item {
     id: dialog
 
     z: parent ? parent.z + 3 : 20
-    property int contentWidth: 500
-    property int contentHeight: 450
+    property int contentWidth: 750
+    property int contentHeight: 700
     property int contentX: 100;
     property int contentY: 100;
     default property alias children: scrollArea.children
-    property color topColor: "#2A3126"
-    property color bottomColor: "#313131"
-    property color borderColor: "#575757"
+    property color topColor: "transparent"
+    property color bottomColor: "transparent"
+    property color borderColor: "#aaa"
     property color submitColor: topColor
     property color cancelColor: "#636363"
     property string titleText: "Title"
-    property color titleColor:  "black"
+    property color titleColor:  "#888"
 
     property bool scrollBarVisible: scrollArea.scrollBarVisible
 
@@ -41,17 +41,15 @@ Item {
         width: contentWidth
         height: contentHeight
         border.color: borderColor
-        border.width: 2
+        border.width: 1
         anchors.centerIn: parent
         z: dialog.z
-        color: "white"
+        color: "#f2f2f2"
     }
 
     Rectangle{
         id: top
         z: dialog.z
-        border.color: borderColor
-        border.width: 2
         width: contentWidth
         height: 44
         color: topColor
@@ -62,7 +60,7 @@ Item {
         Text{
             id: tText
             height: parent.height
-            color: "white"
+            color: titleColor
             anchors{
                 top: top.top;
                 left: top.left;
@@ -70,7 +68,7 @@ Item {
                 topMargin: 10;
             }
             text: titleText
-            font{pointSize: 16; bold: true}
+            font{pointSize: 12; bold: true}
         }
         //exit button
         CustomButton{
@@ -91,7 +89,8 @@ Item {
 
             }
         }
-    }    //scrollable area
+    }
+
     ScrollArea{
         id:scrollArea
         anchors{top:top.bottom; left:top.left}
@@ -106,17 +105,16 @@ Item {
 
         }
     }
+
     Rectangle{
         id: bottom
         z: dialog.z
         width: contentWidth
         color: bottomColor
-        height: 50
+        height: 40
         anchors.left: container.left
         anchors.bottom: container.bottom
 
-        border.color: borderColor
-        border.width: 2
 
         CustomButton{
              id: submit
@@ -127,12 +125,12 @@ Item {
              anchors.rightMargin: 4
              height: 30
              onClicked: {
-
                  submitClick();
 
              }
             label: "Submit"
         }
+
         CustomButton{
              id: cancel
              defaultColor: cancelColor
@@ -142,8 +140,9 @@ Item {
              anchors.rightMargin: 4
              height: 30
              onClicked:{
-                 cancelClick()
                  dialog.state = "HIDE"
+                 cancelClick()
+
              }
             label: "Cancel"
         }
@@ -157,10 +156,11 @@ Item {
             if(!isMouseInDialog()){
                 console.log("Dialog.onClick(): clicked outside of dialog");
                 dialog.state = "HIDE";
-                cancelClick();
+                //cancelClick();
             }
         }
     }
+
     function isMouseInDialog(){
         return((mouseArea.mouseX >= container.x) &&
                 (mouseArea.mouseX <= (container.X + container.width)) &&
@@ -171,7 +171,7 @@ Item {
     states: [
         State {
             name: "SHOW"
-            PropertyChanges{target: overlay;opacity: 0.50}
+            PropertyChanges{target: overlay;opacity: 0.0}
             PropertyChanges{target: dialog;opacity: 1.00}
 
         },
@@ -184,21 +184,10 @@ Item {
     transitions: [
         Transition{
             id: hideToShow
-            from: "HIDE"; to: "SHOW"
-            SequentialAnimation{
-                NumberAnimation{
-                    target:overlay; property:"opacity";  duration:1000
-                }
-            }
         },
         Transition{
             id: showToHide
             from: "SHOW"; to: "HIDE"
-           SequentialAnimation{
-               NumberAnimation{
-                   target:overlay; property:"opacity";  duration:100
-               }
-          }
         }
     ]
 }

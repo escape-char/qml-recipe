@@ -52,7 +52,6 @@ var MainController = function MainController(window) {
             if(_browseLoader.item.objectName === "Browse"){
                 _browseLoader.item.chosenCategory.connect(function(category){
                     console.log("Mediator.browseLoader.onChosenCategory()");
-
                     //create table Model dynamically
                     var tableModel = Qt.createQmlObject(
                                 "import QtQuick 2.0; import Widgets 1.0; SqlQueryModel{}",

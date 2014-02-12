@@ -3,9 +3,9 @@ import QtQuick 2.0
 BorderImage {
         property variant target
 
-        source: "../../images/scrollbar.png"
+        //source: "../../images/scrollbar.png"
         border {left: 0; top: 0; right: 0; bottom: 0}
-        width: 8
+        width: 15
 
         anchors {top: target.top; bottom: target.bottom; right: target.right }
         visible: (track.height == slider.height) ? false : true //TODO: !visible -> width: 0 (but creates a binding loop)
@@ -14,10 +14,10 @@ BorderImage {
 
         //scroll container
         Item {
-                anchors {fill: parent; margins: 1; rightMargin: 2; bottomMargin: 2}
+                anchors {fill: parent; margins: 1; rightMargin: 5; bottomMargin: 3}
                 Image {
                     id: upArrow
-                    source: "../../images/up-arrow.png"
+                    //source: "../../images/up-arrow.png"
                     anchors.top: parent.top
                     MouseArea {
                         anchors.fill: parent
@@ -71,11 +71,12 @@ BorderImage {
 
 
                         //slider for scroll bar
-                        BorderImage {
+                        Rectangle {
                                 id:slider
-
-                                source: "../../images/slider.png"
-                                border {left: 0; top: 3; right: 0; bottom: 3}
+                                color: Qt.rgba(0, 0, 0, 0.20)
+                                border.color: Qt.rgba(0,0, 0, 0.25)
+                                border.width: 1
+                                radius: 5
                                 width: parent.width
 
                                 height: Math.min(target.height / target.contentHeight * track.height, track.height)
@@ -99,7 +100,7 @@ BorderImage {
                 }
                 Image {
                     id: dnArrow
-                    source: "../../images/dn-arrow.png"
+                    //source: "../../images/dn-arrow.png"
                     anchors.bottom: parent.bottom
                     MouseArea {
                         anchors.fill: parent
