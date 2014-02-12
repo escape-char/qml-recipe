@@ -10,7 +10,7 @@ Rectangle {
     Rectangle {
         height: 1
         width: parent.width
-        color: "#d2d2d2"
+        color: "#cdcdcd"
         anchors.top: parent.bottom
     }
 
@@ -18,7 +18,7 @@ Rectangle {
     Rectangle {
         height: 1
         width: parent.width
-        color: "#d2d2d2"
+        color: "#cdcdcd"
         anchors.bottom: parent.top
     }
 }

@@ -3,8 +3,8 @@ import "../../js/fontawesome.js" as FontAwesome
 
 Rectangle {
     property color  backgroundColor: parent.color
-    property color  hoverBackgroundColor: "#9C3E44"
-    property color  activeBackgroundColor: "#85474A"
+    property color  hoverBackgroundColor: "#AA4C51"
+    property color  activeBackgroundColor: "#67363A"
     property color  iconColor: "#EEDBDB"
     property string icon: FontAwesome.Icon.Ok
     property int    fontSize: 32

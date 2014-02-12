@@ -13,7 +13,7 @@ MainMenu{
    signal browseButtonClick()
    signal settingsButtonClick()
 
-   property string dividerColor: "#732A2F"
+   property string dividerColor: "#8C4448"
 
    //add recipe button
     MainMenuButton{
