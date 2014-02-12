@@ -11,7 +11,6 @@ Dialog {
     contentWidth: 550
     objectName: "RecipeDialog"
 
-    titleText: "Add a Recipe"
 
     property int labelPadding: 5
     property int leftMargin: 20
@@ -281,7 +280,7 @@ Dialog {
     }
 
     onSubmitClick: {
-        recipe.title = titleText
+        recipe.title = titletField.text
         recipe.rating = rating.selected
         recipe.categories=categoryField.text.split(",")
         recipe.description = descrField.text
@@ -290,8 +289,6 @@ Dialog {
         recipe.ingredients = ingredList.items
         recipe.duration =  hourSpin.value + ":" + minuteSpin.value
         recipe.difficulty= diffCombo.currentIndex
-
-
 
         saveRecipe(recipe)
     }
