@@ -5,7 +5,7 @@ Rectangle {
     id: categoryItemContainer
 
     property color backgroundColor: "transparent"
-    property color textColor: "#ccc"
+    property color textColor: "#bbb"
     property color  hoverBackgroundColor: "#404040"
     property string label: "Example"
     property string icon: FontAwesome.Icon.Star

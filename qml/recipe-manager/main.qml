@@ -3,7 +3,6 @@ import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 import "../../js/DatabaseHandler.js" as DatabaseHandler
 import "../../js/MainController.js" as MainController
-import "../CustomWidgets"
 import Widgets 1.0
 
 Item{
@@ -24,7 +23,7 @@ Item{
     }
 
 
-    RecipeMainMenu{
+    MainMenu{
        id: mainMenu
     }
 
