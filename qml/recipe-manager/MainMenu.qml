@@ -2,7 +2,7 @@ import QtQuick 2.0
 import "../../js/fontawesome.js" as FontAwesome
 import "../CustomWidgets"
 
-MainMenu{
+Rectangle{
    id: mainMenu
    width: 65
    height: parent.height
