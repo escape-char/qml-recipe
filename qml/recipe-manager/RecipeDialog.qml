@@ -7,7 +7,7 @@ Dialog {
     id: recipeDialog
     clip: true
     anchors.fill: parent
-    contentHeight: 700
+    contentHeight: parent.height * .80
     contentWidth: 550
     objectName: "RecipeDialog"
 
