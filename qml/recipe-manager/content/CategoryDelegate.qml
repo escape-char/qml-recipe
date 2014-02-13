@@ -14,7 +14,7 @@ Rectangle {
 
 
     property variant selectedCategory
-    color: categoryDelegate.ListView.isCurrentItem ? Qt.lighter("#444", 1.3) : "transparent"
+    color: categoryDelegate.ListView.isCurrentItem ? Qt.lighter("#444") : "#444"
 
 
     Component.onCompleted: {
@@ -29,7 +29,6 @@ Rectangle {
         onCategoryItemClicked: {
             categoryDelegate.ListView.view.currentIndex = index
         }
-        backgroundColor: parent.color
 
     }
 }
