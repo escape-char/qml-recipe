@@ -7,7 +7,7 @@ import "../CustomWidgets"
 Item{
    id: browseView
    height: parent ? parent.height : 500
-   width: parent ? parent.width : 500
+   width: 300
    objectName: "Browse"
    state: "HIDE"
 

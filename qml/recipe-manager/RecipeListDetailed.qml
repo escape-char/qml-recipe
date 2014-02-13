@@ -12,14 +12,13 @@ Item {
     property int currentPage: 1
     property int lastPage: 2
     property variant currentRecipe
-    property int curWidth: parent.width
+    property int curWidth:parent.width
     height: parent.height
     width: curWidth
     property variant queryModel:recipeModel
 
     signal itemClicked()
     signal loaded()
-
 
     onItemClicked: {}
     onLoaded: {}
@@ -62,11 +61,11 @@ Item {
     }
     ScrollArea{
         id: scrollList
-        width: curWidth
-        height: background.height
+        width: background.width - 7
+        height: background.height - pagination.height - listViewActionBar.height
         anchors {top: listViewActionBar.bottom; left: parent.left; topMargin: 0;}
 
-        ListView {
+      ListView {
              id: recipeListView
              width: curWidth
              height: childrenRect.height
@@ -87,15 +86,8 @@ Item {
                  container.currentRecipe = recipeListView.currentItem ? recipeListView.currentItem.recipeData : null
                  loaded()
              }
-        }
+      }
     }
-    /*Rectangle {
-        height: parent.height
-        width: 1
-        color: "#c8c8c8"
-        anchors.right: scrollList.right
-        anchors.top: scrollList.top
-    }*/
     //Pagination bar
     ActionBar {
         id: pagination
