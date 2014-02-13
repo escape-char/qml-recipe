@@ -30,24 +30,32 @@ import Widgets 1.0
     height: itemHeight
     width: itemWidth
 
-    Rectangle {width: itemWidth; height: itemHeight; color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor}
+    Rectangle {
+        id:background
+        width: itemWidth;
+        height: itemHeight;
+        color: recipeDelegate.ListView.isCurrentItem ? activeBackgroundColor : backgroundColor;
+
+        MouseArea{
+            id: mouseArea
+            anchors.fill: parent
+            //RecipeDelegate.ListView.
+            onClicked: {
+                console.log("Clicked");
+                console.log(recipeDelegate.ListView.isCurrentItem);
+                recipeDelegate.ListView.view.currentIndex =  index;
+                console.log("ListView index: " + recipeDelegate.ListView.count);
+                //background.color = activeBackgroundColor
+
+            }
+        }
+
+    }
 
     Row {
         height: itemHeight
         spacing: 10
 
-        MouseArea {
-            id: mousearea
-            onClicked: {
-                recipeDelegate.ListView.view.currentIndex = index
-                recipeClicked()
-            }
-        }
-
-
-        Component.onCompleted: {
-            mousearea.clicked.connect(recipeClicked)
-        }
 
         Rectangle {
             height:parent.height
