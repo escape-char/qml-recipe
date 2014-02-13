@@ -171,7 +171,7 @@ Item {
     states: [
         State {
             name: "SHOW"
-            PropertyChanges{target: overlay;opacity: 0.0}
+            PropertyChanges{target: overlay;opacity: 0.80}
             PropertyChanges{target: dialog;opacity: 1.00}
 
         },
@@ -184,10 +184,16 @@ Item {
     transitions: [
         Transition{
             id: hideToShow
+            from: "HIDE"; to: "SHOW"
+            PropertyAnimation { target: overlay
+                           properties: "opacity"; duration: 600 }
+
         },
         Transition{
             id: showToHide
             from: "SHOW"; to: "HIDE"
+            PropertyAnimation { target: dialog
+                           properties: "opacity"; duration: 600}
         }
     ]
 }
