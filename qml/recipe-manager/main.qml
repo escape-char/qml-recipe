@@ -7,7 +7,7 @@ import Widgets 1.0
 
 Item{
     id:appWindow
-    height: 750
+    height: 600
     width:1024
     visible:true
     property var mediator;
