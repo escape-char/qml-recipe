@@ -5,7 +5,6 @@ Page {
     width: parent.width
     height: parent.height
 
-    signal categoryChosen(variant category)
     property variant recipeListView: recipeList
     property variant categoryList: categoryListView;
 
@@ -29,18 +28,6 @@ Page {
 
     CategoryList{
         id: categoryListView
-
-        onCategorySelect:{
-            console.log("RecipeListPage.onCategorySelect()");
-            console.log("RecipeListPage.onCategorySelect(): filter by category id: " + category.id);
-
-           categoryChosen(category);
-        }
-       // onAllClick: {
-            //update recipe model to select all categories
-        //    DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
-        //    categoryListView.deselect()
-        //}
 
         anchors {top: container.top; left: container.left}
     }
