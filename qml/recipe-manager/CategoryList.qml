@@ -28,7 +28,6 @@ Rectangle {
     signal allClick()
 
     Component.onCompleted: {
-        //deselect();
     }
 
     function update(){
@@ -38,8 +37,7 @@ Rectangle {
     }
 
     function deselect(){
-        console.log("CATEGORYLIST.deselect()");
-        //categoriesListView.currentIndex = -1;
+        categoriesListView.currentIndex = -1;
     }
 
     Rectangle {

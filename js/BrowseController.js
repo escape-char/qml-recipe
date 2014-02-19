@@ -38,5 +38,11 @@ var BrowseController = function func(browseView) {
         console.log("BrowseController.onCategorySelect: category id=" + c.id);
         filterRecipesByCategory(c.id);
     });
+    _categoryList.allClick.connect(function(){
+        console.log("BrowseController.onAllClick()");
+        _categoryList.deselect();
+        DatabaseHandler.filterByCategory(_recQueryModel, -1); //no filter
+
+    });
 
 }
