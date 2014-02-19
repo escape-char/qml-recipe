@@ -4,7 +4,7 @@
 
 class Rating : public QQuickPaintedItem{
     Q_OBJECT
-    Q_PROPERTY(Type selected READ selected WRITE setSelected NOTIFY selectedChanged)
+    Q_PROPERTY(int selected READ selected WRITE setSelected NOTIFY selectedChanged)
     Q_PROPERTY(float size READ size WRITE setSize NOTIFY sizeChanged)
     Q_PROPERTY(int spacing READ spacing WRITE setSpacing)
     Q_PROPERTY(QColor fillColor READ fillColor WRITE setFillColor)
@@ -21,9 +21,11 @@ public:
     void hoverLeaveEvent(QHoverEvent *event);
     void mousePressEvent(QMouseEvent *event);
 
-    void setSelected(Type selected){
-        _selected = selected;
-        emit selectedChanged(_selected);
+    void setSelected(int s){
+        if(s >= NONE && s <= EXCELLENT){
+            _selected = (Type) s;
+            emit selectedChanged(_selected);
+         }
     }
     Type selected() const {return _selected;}
     void setSize(float size){

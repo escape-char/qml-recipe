@@ -131,6 +131,7 @@ import Widgets 1.0
             Rating{
                 anchors.fill: parent
                 fillColor: "gold"
+                selected: rating
 
                 x: 0
                 y: 0
@@ -138,31 +139,6 @@ import Widgets 1.0
             }
             anchors{top: parent.top; topMargin: topMargin}
         }
-
-
-
-                //rating
-
-                /*Item {
-                    width: parent.width
-                    height: 30
-
-                    anchors.top: ratingWidget.bottom
-                    anchors.topMargin: 4
-
-
-
-                     //Duration
-                     Text {
-                         id: durationText
-                         width:  50
-                         text: duration
-                         color: "#787878"
-                         wrapMode: Text.WordWrap; font.family: "Helvetica"; font.pointSize: 10
-                         anchors.left: difficultyText.right
-                     }
-                }
-            } */
       }
 
     Rectangle { height: 1; width: parent.width; color: "#ddd"; }
