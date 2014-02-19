@@ -2,7 +2,7 @@
 
 var QUERY_ALL_RECIPES = "SELECT * FROM recipes";
 var QUERY_ALL_CATEGORIES = "SELECT * FROM CATEGORIES";
-var QUERY_FILTER_CATEGORIES =
+var QUERY_FILTER_BY_CATEGORIES =
     "SELECT recipes.id as recipes_id, recipes.title as title,\
         recipes.description, recipes.rating, recipes.difficulty, \
         recipes.image, recipes.created, recipes.updated, recipes.duration, \
@@ -152,7 +152,7 @@ function filterByCategory(queryModel, id){
         placeHolder = id.toString()
     }
 
-    query = QUERY_FILTER_CATEGORIES.format([placeHolder])
+    query = QUERY_FILTER_BY_CATEGORIES.format([placeHolder])
     console.log("DatabaseHandler.filterByCategory(): " + query);
 
    queryModel.updateQuery(query)

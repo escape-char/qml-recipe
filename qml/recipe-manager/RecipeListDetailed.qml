@@ -15,8 +15,7 @@ Item {
     property int curWidth:parent.width
     height: parent.height
     width: curWidth
-    property variant queryModel:recipeModel
-
+    property variant model
     signal itemClicked()
     signal loaded()
 
@@ -28,13 +27,6 @@ Item {
     }
     function filterByCategories(){
 
-    }
-
-    SqlQueryModel{
-        id:recipeModel
-        query: "SELECT * FROM recipes"
-        Component.onCompleted:{
-        }
     }
 
    //background
@@ -71,13 +63,19 @@ Item {
              height: childrenRect.height
              interactive: true
 
-             model: recipeModel
+             model: container.model
 
              delegate: RecipeDelegate {
                  onRecipeClicked: {
                      container.currentRecipe = recipeListView.currentItem.recipeData
                      console.log("RECIPELIST: clicked " + currentRecipe.id +  " " + currentRecipe.title)
                  }
+             }
+             onCurrentIndexChanged: {
+                 console.log("current index changed")
+             }
+             onCurrentItemChanged: {
+                 console.log("onCurrentItemChanged")
              }
 
              //highlight: Rectangle { color: "#DCE0B8"; }

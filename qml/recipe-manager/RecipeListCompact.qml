@@ -13,6 +13,7 @@ Item {
     property int lastPage: 2
     property variant currentRecipe
     property int curWidth: 350
+    property variant model
 
     height: parent.height
     width: curWidth
@@ -20,13 +21,6 @@ Item {
     signal itemClicked()
     signal loaded()
     signal backButtonClicked()
-
-    SqlQueryModel{
-        id:recipeModel
-        query: "SELECT * FROM recipes"
-        Component.onCompleted:{
-        }
-    }
 
 
    //background
@@ -60,7 +54,7 @@ Item {
              height: childrenRect.height
              interactive: true
 
-             model: recipeModel
+             model: container.model
 
              delegate: RecipeCompactDelegate {
                  onClicked: {

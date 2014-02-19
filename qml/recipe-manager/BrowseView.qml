@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.0
 import "../../js/DatabaseHandler.js" as DatabaseHandler
+import "../../js/BrowseController.js" as BrowseController
+
 import "../CustomWidgets"
 
 Item{
@@ -13,6 +15,13 @@ Item{
 
    signal chosenCategory(variant category);
 
+   property var categoriesPage: catPage
+   property var recipesPage: recPage
+
+   Component.onCompleted: {
+       var browseController = new BrowseController.BrowseController(browseView);
+       pageStack.push(catPage)
+   }
    function goToView(){
        //pageStack.push(viewPage);
 
@@ -26,39 +35,18 @@ Item{
        listPage.update();
 
     }
-    PageStack {
-        id: pageStack
-        height: parent.height
-        width: parent.width
-    }
+    PageStack {id: pageStack; height: parent.height;width: parent.width}
 
     CategoriesPage {
-        id: listPage
-       onCategoryChosen: {
-           console.log("BrowseView.onCategorySelect()");
-           /*
-           //create table Model dynamically
-           var tableModel = Qt.createQmlObject(
-                       "import QtQuick 2.0; import Widgets 1.0; SqlQueryModel{}",
-                        browseView,
-                       "./");
-           console.log("BrowseView.onCategorySelect(): filter by category id: " + category.id);
-           //Data
-           DatabaseHandler.filterByCategory(tableModel, category.id);
-           listPage.update()
-           //goToView()
-           */
-       }
+        id: catPage
+        anchors.fill:parent
     }
 
     RecipesPage {
-        id: viewPage
+        id: recPage
+        anchors.fill:parent
     }
 
-    Component.onCompleted: {
-        pageStack.push(listPage)
-        listPage.categoryChosen.connect(chosenCategory);
-    }
     states: [
         State {
             name: "LIST"

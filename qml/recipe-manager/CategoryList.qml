@@ -16,6 +16,7 @@ Rectangle {
     property int leftMargin: 15
     property int topMargin: 10
     property int rowHeight: 30
+    property variant model
 
     height: parent.height
     width: 200
@@ -26,13 +27,6 @@ Rectangle {
     signal favoritesClick()
     signal allClick()
 
-    SqlQueryModel{
-        id:categoryModel
-        query: "SELECT * FROM categories"
-        Component.onCompleted: {
-            categoryModel.updateQuery("SELECT * FROM categories")
-        }
-    }
     Component.onCompleted: {
         //deselect();
     }
@@ -112,7 +106,7 @@ Rectangle {
                     id: categoriesListView
                     height: parent.height
                     width: parent.width
-                    model: categoryModel
+                    model: categoryList.model
                     delegate: CategoryDelegate {id: categoryDelegate}
 
                     anchors.top:  parent.top

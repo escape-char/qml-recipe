@@ -64,8 +64,11 @@ Rectangle {
             onExited: {
                categoryItemContainer.color = backgroundColor;
             }
-            onClicked: categoryItemClicked()
-        }
+            onClicked:{
+                console.log("clicked category")
+                categoryItemClicked()
+           }
     }
+  }
 
 }

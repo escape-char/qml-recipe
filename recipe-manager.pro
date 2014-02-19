@@ -46,7 +46,8 @@ OTHER_FILES += \
     qml/recipe-manager/RecipeListDetailed.qml \
     qml/recipe-manager/CategoriesPage.qml \
     qml/recipe-manager/RecipesPage.qml \
-    qml/recipe-manager/MainMenu.qml
+    qml/recipe-manager/MainMenu.qml \
+    js/BrowseController.js
 
 QT += sql widgets
 

@@ -8,7 +8,8 @@ Page {
 
     width: curWidth
     height: curHeight
-
+    property variant recipeListView: recipeList
+    property variant recipeView: recipeItem
     signal backButtonClicked
 
     RecipeListCompact{
