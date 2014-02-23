@@ -150,7 +150,5 @@ function filterByCategory(queryModel, id){
     }
 
     query = QUERY_FILTER_BY_CATEGORIES.format([placeHolder])
-    console.log("DatabaseHandler.filterByCategory(): " + query);
-
    queryModel.updateQuery(query)
 }
