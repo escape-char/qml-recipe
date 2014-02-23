@@ -21,8 +21,6 @@ Rating::Rating(QQuickItem* parent):
     this->setKeepMouseGrab(false);
 }
 void Rating::paint(QPainter *painter){
-    //qDebug() << Q_FUNC_INFO;
-
     const int totalStars = 5;
 
     float angle = (2*M_PI) / 10;
@@ -96,8 +94,6 @@ Rating::Type Rating::getBoundedStar(QPoint point){
     return NONE;
 }
 void Rating::mousePressEvent(QMouseEvent *event){
-    qDebug() << Q_FUNC_INFO;
-
     Type type = getBoundedStar(event->pos());
     this->_hover = NONE;
     this->_selected = type;
@@ -105,16 +101,12 @@ void Rating::mousePressEvent(QMouseEvent *event){
 
 }
 void Rating::hoverMoveEvent(QHoverEvent *event){
-    qDebug() << Q_FUNC_INFO;
-
-
     Type type = getBoundedStar(event->pos());
     this->_hover = type;
     this->update();
 
 }
 void Rating::hoverLeaveEvent(QHoverEvent *event){
-   qDebug() << Q_FUNC_INFO;
    this->_hover = NONE;
    this->update();
 }
