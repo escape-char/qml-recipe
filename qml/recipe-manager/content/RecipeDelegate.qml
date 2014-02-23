@@ -57,15 +57,18 @@ import Widgets 1.0
 
         }
 
+        //image
         Rectangle {
             height: 85 - topMargin
             width: 85
-            color: "#BFBFBF"
             anchors {top: parent.top; topMargin: topMargin}
-            //Image {
-            //    id: img
-            //    width: imageSize; height: imageSize
-            //}
+            Image {
+               id: img
+               source: image
+               sourceSize.height: imageSize
+               sourceSize.width: imageSize
+            }
+
         }
 
         Rectangle {

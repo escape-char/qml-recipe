@@ -15,11 +15,12 @@ Item{
 
    signal chosenCategory(variant category);
 
+   property var browseController
    property var categoriesPage: catPage
    property var recipesPage: recPage
 
    Component.onCompleted: {
-       var browseController = new BrowseController.BrowseController(browseView);
+       browseController = new BrowseController.BrowseController(browseView);
        pageStack.push(catPage)
    }
    function push(p){
@@ -31,15 +32,13 @@ Item{
        pageStack.pop();
    }
 
-   function getQueryModel(){
-       return listPage.getQueryModel();
+   function getRecipeQueryModel(){
+       return browseController.recipeQueryModel();
+   }
+   function getCategoryQueryModel(){
+       return browseController.categoryQueryModel();
    }
 
-   function update(){
-       console.log("BrowseView.update()");
-       listPage.update();
-
-    }
     PageStack {id: pageStack; height: parent.height;width: parent.width}
 
     CategoriesPage {

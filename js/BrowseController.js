@@ -24,8 +24,6 @@ var BrowseController = function func(browseView) {
     var that = this
 
     _categoryList.model = _catQueryModel
-
-    console.log("recipeconciselist: " + _recPage)
     _recipeConciseList.sqlModel = _recQueryModel
     _recipeDetailedList.sqlModel = _recQueryModel
 
@@ -54,11 +52,13 @@ var BrowseController = function func(browseView) {
         _browseView.push(_recPage);
     });
     _recipeConciseList.backClicked.connect(function(){
-        console.log("BrowseController.onBackClicked");
+        console.log("BrowseController.recipeConciseList.onBackClicked");
         _browseView.pop();
         _recipeDetailedList.reset();
 
 
       })
+    this.recipeQueryModel = function(){return _recQueryModel;}
+    this.categoryQueryModel = function(){return _catQueryModel;}
 
 }

@@ -123,9 +123,10 @@ var MainController = function MainController(window) {
         t.unloadDialog();
 
         if(browseLoader && browseLoader.status === Loader.Ready){
-            var qModel = browseLoader.item.getQueryModel();
-            qModel.updateQuery("SELECT * FROM recipes");
-            browseLoader.item.update();
+            var rModel = browseLoader.item.getRecipeQueryModel();
+            var cModel = browseLoader.item.getCategoryQueryModel();
+            rModel.updateQuery("SELECT * FROM recipes");
+            cModel.updateQuery("SELECT * FROM categories");
         }
     }
 

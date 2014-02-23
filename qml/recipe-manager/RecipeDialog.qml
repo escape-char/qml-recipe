@@ -21,7 +21,31 @@ Dialog {
     property int inputHeight: 20
     property color labelColor: "#888"
 
+    property variant imageDialog
+
     signal saveRecipe(variant r)
+
+    Component.onCompleted: {
+        var c = Qt.createComponent("../CustomWidgets/ImageFileDialog.qml");
+
+        if(!c){
+            console.log("RecipeDialog.onImageButtonClicked(): failed to load ImageDialog");
+            return;
+        }
+        imageDialog = c.createObject(recipeDialog);
+        imageDialog.visible = false;
+
+        imageDialog.rejected.connect(function(){
+            console.log("RecipeDialog.imageDialog.onRejected()");
+
+        })
+        imageDialog.accepted.connect(function(){
+            console.log("RecipeDialog.imageDialog.onAccepted(): " + imageDialog.fileUrl);
+            imageField.text = imageDialog.fileUrl;
+
+        })
+
+    }
 
 
     //holds recipe data
@@ -151,8 +175,11 @@ Dialog {
             anchors.left:imageField.right
             anchors.top: imageField.top
             height: imageField.height - 2
-            label: "Browse..."
+            label: ". . ."
             width: 70
+            onClicked: {
+                imageDialog.open();
+            }
         }
 
     }
