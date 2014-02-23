@@ -156,7 +156,7 @@ Item {
             if(!isMouseInDialog()){
                 console.log("Dialog.onClick(): clicked outside of dialog");
                 dialog.state = "HIDE";
-                //cancelClick();
+                cancelClick();
             }
         }
     }
