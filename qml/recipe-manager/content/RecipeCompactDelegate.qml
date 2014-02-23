@@ -56,10 +56,17 @@ import Widgets 1.0
         width: 85
         color: "#BFBFBF"
         anchors {top: parent.top; topMargin: topMargin; left: parent.left; leftMargin: leftMargin;}
-        //Image {
-        //    id: img
-        //    width: imageSize; height: imageSize
-        //}
+        Image {
+           id: img
+           source: image
+           sourceSize.height: imageSize
+           sourceSize.width: imageSize
+           Component.onCompleted: {
+               console.log("image: " + image)
+               console.log("Image src: " + img.source)
+
+           }
+        }
     }
 
     //Title
@@ -99,8 +106,7 @@ import Widgets 1.0
          font.pointSize: 8
          anchors {top: descriptionText.bottom; topMargin: 10; left: imageContainer.right; leftMargin: leftMargin}
     }
-
-    /*Rectangle {
+    Rectangle {
         id:ratingWidget
         height:40
         width: itemWidth - 300 - 85 - borderWidth
@@ -116,5 +122,5 @@ import Widgets 1.0
             size:11
         }
         anchors{top: parent.top; topMargin: topMargin}
-        } */
+        }
  }

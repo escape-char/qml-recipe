@@ -125,8 +125,8 @@ var MainController = function MainController(window) {
         if(browseLoader && browseLoader.status === Loader.Ready){
             var rModel = browseLoader.item.getRecipeQueryModel();
             var cModel = browseLoader.item.getCategoryQueryModel();
-            rModel.updateQuery("SELECT * FROM recipes");
-            cModel.updateQuery("SELECT * FROM categories");
+            DatabaseHandler.queryRecipes(rModel, -1)
+            cModel.updateQuery(DatabaseHandler.QUERY_CATEGORIES);
         }
     }
 

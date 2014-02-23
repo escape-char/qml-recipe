@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <QSqlRecord>
+#include <QSqlQuery>
 #include <QSqlError>
 #include <QVariant>
 #include <iostream>
@@ -22,7 +23,7 @@ QVariant SqlQueryModel::data(const QModelIndex &index, int role) const{
    QModelIndex modelIndex = this->index(index.row(),columnIndex);
 
    //get data using display role, which means the data will be rendered as text
-   return QSqlQueryModel::data(modelIndex, Qt::DisplayRole);
+   return QSqlQueryModel::data(modelIndex, Qt::DisplayRole);;
 }
 void SqlQueryModel::generateRoleNames(){
 

@@ -1,23 +1,23 @@
 //add format method to String object
 
-var QUERY_ALL_RECIPES = "SELECT * FROM recipes";
-var QUERY_ALL_CATEGORIES = "SELECT * FROM CATEGORIES";
-var QUERY_FILTER_BY_CATEGORIES =
-    "SELECT recipes.id as recipes_id, recipes.title as title,\
-        recipes.description, recipes.rating, recipes.difficulty, \
-        recipes.image, recipes.created, recipes.updated, recipes.duration, \
+var QUERY_RECIPES =  "SELECT recipes.id as recipes_id, recipes.title,\
+        recipes.description, recipes.difficulty, recipes.rating, recipes.created, \
+        recipes.updated, recipes.duration, recipes.image, \
         cr.category_id, \
-        c.name, \
+        c.name,\
         i.id as ingredient_id, \
         GROUP_CONCAT(i.ingredient), \
         d.id as directions_id, \
-        GROUP_CONCAT(d.step) \
-       FROM recipes \
-    INNER JOIN categories_recipes as cr ON recipes_id=cr.recipe_id \
-    INNER JOIN categories as c ON cr.category_id={0} \
-    LEFT OUTER JOIN ingredients as i ON recipes.id = i.recipe_id \
-    LEFT OUTER JOIN directions as d ON recipes.id = d.recipe_id \
-    GROUP BY recipes.id";
+        GROUP_CONCAT(d.step)\
+       FROM recipes\
+    INNER JOIN categories_recipes as cr ON recipes_id=cr.recipe_id\
+    INNER JOIN categories as c ON cr.category_id={0}\
+    LEFT OUTER JOIN ingredients as i ON recipes.id = i.recipe_id\
+    LEFT OUTER JOIN directions as d ON recipes.id = d.recipe_id\
+    GROUP BY recipes.id;";
+
+var QUERY_CATEGORIES = "SELECT * FROM categories";
+
 String.prototype.format = function (args) {
     var str = this;
     return str.replace(String.prototype.format.regex, function(item) {
@@ -130,7 +130,7 @@ function addRecipeToTableModel(tableModel, recipe){
 //filters recipes by a category
 //queryModel = SqlQueryModel to interact with database
 //id = category id to filter by
-function filterByCategory(queryModel, id){
+function queryRecipes(queryModel, id){
     console.log("DatabaseHandler.filterByCategory()")
 
     var query = null; //query to filter database
@@ -149,6 +149,6 @@ function filterByCategory(queryModel, id){
         placeHolder = id.toString()
     }
 
-    query = QUERY_FILTER_BY_CATEGORIES.format([placeHolder])
-   queryModel.updateQuery(query)
+    query = QUERY_RECIPES.format([placeHolder])
+   queryModel.updateQuery(query);
 }

@@ -37,14 +37,12 @@ import Widgets 1.0
         MouseArea{
             id: mouseArea
             anchors.fill: parent
-            //RecipeDelegate.ListView.
             onClicked: {
                 recipeDelegate.ListView.view.currentIndex =  index;
             }
         }
 
     }
-
     Row {
         height: itemHeight
         spacing: 10
@@ -67,6 +65,8 @@ import Widgets 1.0
                source: image
                sourceSize.height: imageSize
                sourceSize.width: imageSize
+               Component.onCompleted: {
+               }
             }
 
         }
@@ -110,7 +110,7 @@ import Widgets 1.0
             Text {
                  id: durationText
                  width: 200
-                 text: "Durection: : " + duration
+                 text: "Duration: : " + duration
                  color: "#aaa"
                  wrapMode: Text.WordWrap; font.pointSize: 8
                  anchors {top:difficultyText.top;}

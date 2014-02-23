@@ -13,13 +13,9 @@ var BrowseController = function func(browseView) {
 
 
     var _catQueryModel = Qt.createQmlObject("import QtQuick 2.0; import Widgets 1.0; SqlQueryModel{}", _browseView, "../");
-    _catQueryModel.query = DatabaseHandler.QUERY_ALL_CATEGORIES;
-    _catQueryModel.updateQuery(DatabaseHandler.QUERY_ALL_CATEGORIES)
-
+    _catQueryModel.query = DatabaseHandler.QUERY_CATEGORIES;
     var _recQueryModel = Qt.createQmlObject("import QtQuick 2.0; import Widgets 1.0; SqlQueryModel{}", _browseView, "../");
-    _recQueryModel.query = DatabaseHandler.QUERY_ALL_RECIPES
-    _recQueryModel.updateQuery(DatabaseHandler.QUERY_ALL_RECIPES)
-
+    DatabaseHandler.queryRecipes(_recQueryModel, -1);
 
     var that = this
 
@@ -29,7 +25,7 @@ var BrowseController = function func(browseView) {
 
     var filterRecipesByCategory = function(catId){
         console.log("BrowseController.filterRecipes()")
-        DatabaseHandler.filterByCategory(_recQueryModel, catId);
+        DatabaseHandler.queryRecipes(_recQueryModel, catId);
     }
 
     //category events
@@ -41,7 +37,8 @@ var BrowseController = function func(browseView) {
     _categoryList.allClick.connect(function(){
         console.log("BrowseController.categoryList.onAllClick()");
         _categoryList.deselect();
-        DatabaseHandler.filterByCategory(_recQueryModel, -1); //no filter
+       // _recQueryModel.updateQuery("SELECT * FROM RECIPES");
+        DatabaseHandler.queryRecipes(_recQueryModel, -1); //no filter
 
     });
 
