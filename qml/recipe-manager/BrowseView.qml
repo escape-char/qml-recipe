@@ -22,10 +22,15 @@ Item{
        var browseController = new BrowseController.BrowseController(browseView);
        pageStack.push(catPage)
    }
-   function goToView(){
-       //pageStack.push(viewPage);
+   function push(p){
+       console.log("go to recipe page")
+       pageStack.push(p);
 
    }
+   function pop(){
+       pageStack.pop();
+   }
+
    function getQueryModel(){
        return listPage.getQueryModel();
    }

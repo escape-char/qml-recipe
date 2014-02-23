@@ -25,8 +25,6 @@ import Widgets 1.0
     property int rightMargin: 10
     property int leftMargin: 10
 
-    signal recipeClicked()
-
     height: itemHeight
     width: itemWidth
 
@@ -41,12 +39,7 @@ import Widgets 1.0
             anchors.fill: parent
             //RecipeDelegate.ListView.
             onClicked: {
-                console.log("Clicked");
-                console.log(recipeDelegate.ListView.isCurrentItem);
                 recipeDelegate.ListView.view.currentIndex =  index;
-                console.log("ListView index: " + recipeDelegate.ListView.count);
-                //background.color = activeBackgroundColor
-
             }
         }
 
@@ -142,4 +135,7 @@ import Widgets 1.0
       }
 
     Rectangle { height: 1; width: parent.width; color: "#ddd"; }
+    Component.onCompleted: {
+        recipeDelegate.ListView.view.currentIndex = -1;
+    }
  }

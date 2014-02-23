@@ -13,14 +13,14 @@ Item {
     property int lastPage: 2
     property variant currentRecipe
     property int curWidth: 350
-    property variant model
+    property variant sqlModel;
 
     height: parent.height
     width: curWidth
 
     signal itemClicked()
     signal loaded()
-    signal backButtonClicked()
+    signal backClicked()
 
 
    //background
@@ -37,7 +37,7 @@ Item {
             anchors {left: parent.left; leftMargin: 10}
 
             onClicked: {
-                backButtonClicked()
+                backClicked()
             }
         }
 
@@ -54,7 +54,7 @@ Item {
              height: childrenRect.height
              interactive: true
 
-             model: container.model
+             model: container.sqlModel
 
              delegate: RecipeCompactDelegate {
                  onClicked: {
@@ -99,6 +99,7 @@ Item {
 
         //Previous Page Button
         ActionBarButton {
+           id: paginationBack
            icon: FontAwesome.Icon.ArrowLeft
            disabled: true
            anchors.left: parent.left
@@ -108,6 +109,7 @@ Item {
 
         //Next Page Button
         ActionBarButton {
+           id: paginationNext
            icon: FontAwesome.Icon.ArrowRight
            disabled: true
            anchors.right: parent.right

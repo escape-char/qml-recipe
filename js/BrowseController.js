@@ -26,23 +26,39 @@ var BrowseController = function func(browseView) {
     _categoryList.model = _catQueryModel
 
     console.log("recipeconciselist: " + _recPage)
-    _recipeConciseList.model = _recQueryModel
-    _recipeDetailedList.model = _recQueryModel
+    _recipeConciseList.sqlModel = _recQueryModel
+    _recipeDetailedList.sqlModel = _recQueryModel
 
     var filterRecipesByCategory = function(catId){
         console.log("BrowseController.filterRecipes()")
         DatabaseHandler.filterByCategory(_recQueryModel, catId);
     }
+
+    //category events
     _categoryList.categorySelect.connect(function(c){
-        console.log("BrowseController.onCategorySelect()")
-        console.log("BrowseController.onCategorySelect: category id=" + c.id);
+        console.log("BrowseController.categoryList.onCategorySelect()")
+        console.log("BrowseController.categoryList.onCategorySelect: category id=" + c.id);
         filterRecipesByCategory(c.id);
     });
     _categoryList.allClick.connect(function(){
-        console.log("BrowseController.onAllClick()");
+        console.log("BrowseController.categoryList.onAllClick()");
         _categoryList.deselect();
         DatabaseHandler.filterByCategory(_recQueryModel, -1); //no filter
 
     });
+
+    //recipe list events
+    _recipeDetailedList.itemClicked.connect(function(d){
+        console.log("BrowseController.recipeDetailedList.onItemClicked()");
+        console.log(d.id);
+        _browseView.push(_recPage);
+    });
+    _recipeConciseList.backClicked.connect(function(){
+        console.log("BrowseController.onBackClicked");
+        _browseView.pop();
+        _recipeDetailedList.reset();
+
+
+      })
 
 }

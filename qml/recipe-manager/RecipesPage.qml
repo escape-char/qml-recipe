@@ -10,28 +10,16 @@ Page {
     height: curHeight
     property variant recipeListView: recipeList
     property variant recipeView: recipeItem
-    signal backButtonClicked
 
     RecipeListCompact{
         id:recipeList
         anchors{top:parent.top; left:parent.left}
-
-        onBackButtonClicked: itemList.backButtonClicked()
     }
 
     RecipeItem{
         id: recipeItem
         width: curWidth - recipeList.width
         height: curHeight
-
-        /*onCategorySelected:{
-            DatabaseHandler.updateRecipeModelByCategory(recipeModel, category.id)
-        }
-        onAllClick: {
-            //update recipe model to select all categories
-            DatabaseHandler.updateRecipeModelByCategory(recipeModel, -1)
-            categoryListView.deselect()
-        } */
         anchors {top: parent.top; left: recipeList.right}
 
     }

@@ -15,8 +15,8 @@ Item {
     property int curWidth:parent.width
     height: parent.height
     width: curWidth
-    property variant model
-    signal itemClicked()
+    property variant sqlModel
+    signal itemClicked(variant i)
     signal loaded()
 
     onItemClicked: {}
@@ -25,6 +25,10 @@ Item {
     function update(){
         recipeListView.update()
     }
+    function reset(){
+        recipeListView.currentIndex = -1;
+    }
+
     function filterByCategories(){
 
     }
@@ -63,26 +67,27 @@ Item {
              height: childrenRect.height
              interactive: true
 
-             model: container.model
+             model: container.sqlModel
 
              delegate: RecipeDelegate {
-                 onRecipeClicked: {
-                     container.currentRecipe = recipeListView.currentItem.recipeData
-                     console.log("RECIPELIST: clicked " + currentRecipe.id +  " " + currentRecipe.title)
-                 }
-             }
-             onCurrentIndexChanged: {
-                 console.log("current index changed")
+                 id:recipeDelegate
              }
              onCurrentItemChanged: {
-                 console.log("onCurrentItemChanged")
+                 //nothing selected
+                 if(recipeListView.currentIndex !== -1 || recipeListView.currentItem){
+                     console.log("onCurrentItemChanged: " +
+                                 recipeListView.currentItem.recipeData.id);
+                    var d = recipeListView.currentItem.recipeData
+                     console.log("index: " + recipeListView.currentIndex);
+                     itemClicked(d);
+                }
              }
 
              //highlight: Rectangle { color: "#DCE0B8"; }
 
              Component.onCompleted: {
-                 container.currentRecipe = recipeListView.currentItem ? recipeListView.currentItem.recipeData : null
-                 loaded()
+                 recipeListView.currentIndex = -1;
+                 //loaded()
              }
       }
     }
